@@ -10,7 +10,7 @@ namespace PerfectBuild.Model
         [Key]
         public int Id { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; } // заменил с int на string, т.к. User:IdentityUser,   IdentityUser: IdentityUser<string>
 
         [ForeignKey("UserId")]
         public User User { get; set; }

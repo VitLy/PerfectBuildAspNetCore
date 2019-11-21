@@ -9,9 +9,15 @@ namespace PerfectBuild.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationContext context;
+        public HomeController(ApplicationContext context)
+        {
+            this.context = context;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            return View(context.Exercises.ToList());
         }
     }
 }

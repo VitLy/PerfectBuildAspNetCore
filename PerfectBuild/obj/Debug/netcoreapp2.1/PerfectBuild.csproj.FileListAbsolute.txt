@@ -2,7 +2,6 @@ D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\bin\Debug\netcoreapp2.1\Per
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\bin\Debug\netcoreapp2.1\PerfectBuild.runtimeconfig.json
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\bin\Debug\netcoreapp2.1\PerfectBuild.runtimeconfig.dev.json
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\bin\Debug\netcoreapp2.1\PerfectBuild.dll
-D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.csprojAssemblyReference.cache
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.RazorAssemblyInfo.cache
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.RazorAssemblyInfo.cs
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.AssemblyInfoInputs.cache

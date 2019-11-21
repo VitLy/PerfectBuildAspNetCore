@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PerfectBuild.Data;
+using PerfectBuild.Infrastructure;
+using PerfectBuild.Model;
 
 namespace PerfectBuild
 {
@@ -19,10 +21,15 @@ namespace PerfectBuild
         public void ConfigureServices(IServiceCollection services)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<Context>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
+            services.AddIdentity<User, IdentityRole>(opt =>
+            {
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequireUppercase = false;
+            })
+                .AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
             services.AddMvc();
         }
-
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -30,6 +37,7 @@ namespace PerfectBuild
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
+            app.UseAuthentication();
 
             app.UseMvc(routers =>
             {
@@ -37,7 +45,7 @@ namespace PerfectBuild
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-            DbInitializer.CreateDb(app);
+            IdentitySeedData.EnsurePopulation(app, Configuration);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<Exercise>
 @{
     ViewData["Title"] = "Index";
 }
@@ -15,10 +15,25 @@
         </div>
         <div class="col-4">
             Это Строка №2 Колонка Номер№5-8
-        </div>            
+        </div>
         <div class="col-4">
             Это Строка №2 Колонка Номер№9-12
         </div>
     </div>
+    @foreach (var item in Model)
+    {
+        <div class="row">
+            <div class="col-4">
+                @item.Id
+            </div>
+            <div class="col-4">
+                @item.Name
+            </div>
+            <div class="col-4">
+                @item.Description
+            </div>
+        </div>
+    }
+
 </div>
 

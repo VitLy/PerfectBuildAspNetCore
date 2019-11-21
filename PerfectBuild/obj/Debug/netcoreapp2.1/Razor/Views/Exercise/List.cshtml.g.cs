@@ -13,8 +13,13 @@ namespace AspNetCore
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
+#line 2 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\_ViewImports.cshtml"
+using PerfectBuild.Model;
+
+#line default
+#line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"df9096b2b2fc1671f373039f8d3e5a35931a24c1", @"/Views/Exercise/List.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"a9af4978b9c2bfca24ef48e96efe5f8573634464", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"a1bef57ea0d104a9cf3ff7016c1e22dbe42f0a67", @"/Views/_ViewImports.cshtml")]
     public class Views_Exercise_List : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<string>
     {
         #pragma warning disable 1998
