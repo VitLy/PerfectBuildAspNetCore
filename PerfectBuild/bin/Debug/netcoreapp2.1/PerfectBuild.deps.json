@@ -33,6 +33,14 @@
         "runtime": {
           "PerfectBuild.dll": {}
         },
+        "resources": {
+          "en/PerfectBuild.resources.dll": {
+            "locale": "en"
+          },
+          "ru/PerfectBuild.resources.dll": {
+            "locale": "ru"
+          }
+        },
         "compile": {
           "PerfectBuild.dll": {}
         }

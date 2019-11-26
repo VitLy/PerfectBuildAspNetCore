@@ -29,7 +29,7 @@ namespace PerfectBuild.Infrastructure
             }
             else
             {
-                if (userManager.Users.ToList().Count == 0)
+                if (userManager.Users.ToList().Count == 0) //ToDo Non Optimal SqlSelect. Will change
                 {
                     bool roleIsExists = await roleManager.RoleExistsAsync(adminRole);
                     if (!roleIsExists)

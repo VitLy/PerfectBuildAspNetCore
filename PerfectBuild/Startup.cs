@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using PerfectBuild.Data;
 using PerfectBuild.Infrastructure;
 using PerfectBuild.Model;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace PerfectBuild
 {
@@ -28,7 +30,10 @@ namespace PerfectBuild
                 opt.Password.RequireUppercase = false;
             })
                 .AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
-            services.AddMvc();
+            services.AddLocalization(option => option.ResourcesPath = "Resources");
+            services.AddMvc()
+                .AddViewLocalization()
+                .AddDataAnnotationsLocalization();
         }
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
@@ -38,6 +43,18 @@ namespace PerfectBuild
                 app.UseDatabaseErrorPage();
             }
             app.UseAuthentication();
+
+            var supportedCultures = new[]
+            {
+                new CultureInfo("en"),
+                new CultureInfo("ru")
+            };
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("ru"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
 
             app.UseMvc(routers =>
             {

@@ -2,7 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>3780de6a-0c6d-45a4-adf0-64d09528ed17</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Controllers\Resources\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
