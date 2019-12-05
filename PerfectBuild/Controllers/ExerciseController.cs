@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PerfectBuild.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,9 @@ namespace PerfectBuild.Controllers
 {
     public class ExerciseController:Controller
     {
-        public IActionResult List()
+        public IActionResult List(ApplicationContext context)
         {
-            return View("test" as object);
+            return View(context.Exercises);
         }
     }
 }

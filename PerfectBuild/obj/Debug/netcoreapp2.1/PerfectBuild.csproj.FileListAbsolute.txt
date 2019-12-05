@@ -37,6 +37,16 @@ D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\en\
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\ru\PerfectBuild.resources.dll
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Controllers.AccountController.en.resources
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Controllers.AccountController.ru.resources
-D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.csprojAssemblyReference.cache
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Models.ViewModels.LoginViewModel.en.resources
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Models.ViewModels.LoginViewModel.ru.resources
+D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Models.ViewModels.CreateAccountModel.en.resources
+D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Models.ViewModels.CreateAccountModel.ru.resources
+D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\Razor\Views\Account\Create.cshtml.g.cs
+D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Views.Account.Create.en.resources
+D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Views.Account.Create.ru.resources
+D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Components\LoginPanel\Default.cshtml.g.cs
+D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Views.Admin.GetUserList.en.resources
+D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Views.Admin.GetUserList.ru.resources
+D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\Razor\Views\Admin\UserList.cshtml.g.cs
+D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\Razor\Views\Admin\ModifyUserRoles.cshtml.g.cs
+D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.csprojAssemblyReference.cache

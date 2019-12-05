@@ -117,16 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>Delete User</value>
+  </data>
   <data name="IncorrectLoginPasswordLong" xml:space="preserve">
     <value>Enter the correct Login and Password</value>
   </data>
   <data name="IncorrectLoginPasswordShort" xml:space="preserve">
     <value>Incorrect Login/Password</value>
   </data>
+  <data name="ModifyUser" xml:space="preserve">
+    <value>Modify User Account</value>
+  </data>
   <data name="NullLoginPasswordLong" xml:space="preserve">
     <value>Enter the not null Login and Password</value>
   </data>
   <data name="NullLoginPasswordShort" xml:space="preserve">
-    <value>Incorrect Login/Password</value>
+    <value>Items must be not null</value>
+  </data>
+  <data name="UserIsInDatabase" xml:space="preserve">
+    <value>User with this name is in Databases</value>
   </data>
 </root>

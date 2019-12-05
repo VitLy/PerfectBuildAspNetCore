@@ -1,5 +1,16 @@
-﻿@model  string
+﻿@model  IEnumerable<Exercise>
 
 <div>
     <h1>@Model</h1>
+
+    <div>
+        @foreach (var item in Model)
+        {
+            <div class="row">
+                <div col>@item.Id</div>
+                <div col>@item.Name</div>
+                <div col>@item.Description</div>
+            </div>
+        }
+    </div>
 </div>

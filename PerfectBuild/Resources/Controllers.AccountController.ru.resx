@@ -117,16 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Delete User" xml:space="preserve">
+    <value>Удалить пользователя</value>
+  </data>
   <data name="IncorrectLoginPasswordLong" xml:space="preserve">
     <value>Неверный логин или пароль</value>
   </data>
   <data name="IncorrectLoginPasswordShort" xml:space="preserve">
     <value>Неверный логин или пароль</value>
   </data>
+  <data name="ModifyUser" xml:space="preserve">
+    <value>Изменить профиль юзера</value>
+  </data>
   <data name="NullLoginPasswordLong" xml:space="preserve">
     <value>Объект юзер равен null</value>
   </data>
   <data name="NullLoginPasswordShort" xml:space="preserve">
     <value>Объект юзер равен null</value>
+  </data>
+  <data name="UserIsInDatabase" xml:space="preserve">
+    <value>Пользователь с таким именем есть в базе данных</value>
   </data>
 </root>

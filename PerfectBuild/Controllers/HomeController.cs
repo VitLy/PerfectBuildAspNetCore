@@ -5,8 +5,7 @@ using System.Linq;
 
 namespace PerfectBuild.Controllers
 {
-    [Authorize(Roles = "User")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,User")]
 
     public class HomeController : Controller
     {

@@ -6,9 +6,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PerfectBuild.Data;
 using PerfectBuild.Infrastructure;
-using PerfectBuild.Model;
+using PerfectBuild.Models;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Localization;
+using System;
 
 namespace PerfectBuild
 {
@@ -43,6 +45,7 @@ namespace PerfectBuild
                 app.UseDatabaseErrorPage();
             }
             app.UseAuthentication();
+            app.UseStaticFiles();
 
             var supportedCultures = new[]
             {

@@ -1,23 +1,24 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
-@model PerfectBuild.Models.ViewModels.LoginViewModel
-
+﻿@model PerfectBuild.Models.ViewModels.LoginViewModel
 @inject IViewLocalizer Localizer
-<div class="bg-primary"><h1>@Localizer["TittleAuthorizationWindow"]</h1></div>
+<div class="bg-primary text-white"><h3>@Localizer["TittleAuthorizationWindow"]</h3></div>
 
 <form method="post" asp-controller="Account" asp-action="Login">
-    <div class="validation" asp-validation-summary="None"> </div>
+    <div class="validation" asp-validation-summary="All"> </div>
 
-        <div class="form-group">
-            <span asp-validation-for="Login"></span>
-            <label for="Login">@Localizer["FormLoginName"]</label>
-            <input class="form-control" asp-for="Login" />
-        </div>
-        <div class="form-group">
-            <span asp-validation-for="Password"></span>
-            <label for="Password">@Localizer["FormLoginPassword"]</label>
-            <input class="form-control" asp-for="Password" />
-        </div>
-        <button type="submit" class="btn btn-primary">@Localizer["FormLoginOk"]</button>
+    <div class="form-group">
+        <span asp-validation-for="Login"></span>
+        <label for="Login">@Localizer["FormLoginName"]</label>
+        <input class="form-control" asp-for="Login" />
+    </div>
+    <div class="form-group">
+        <span asp-validation-for="Password"></span>
+        <label for="Password">@Localizer["FormLoginPassword"]</label>
+        <input class="form-control" asp-for="Password" />
+    </div>
+    <button type="submit" class="btn btn-primary">@Localizer["FormLoginOk"]</button>
+    <div>
+        <a asp-action="Create">@Localizer["CreateAccount"]</a>
+    </div>
 </form>
 
 

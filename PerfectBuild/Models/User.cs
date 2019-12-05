@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
-namespace PerfectBuild.Model
+namespace PerfectBuild.Models
 {
     public partial class User:IdentityUser
     {

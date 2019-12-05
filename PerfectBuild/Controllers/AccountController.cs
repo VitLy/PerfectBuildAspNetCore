@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
-using PerfectBuild.Model;
+using PerfectBuild.Models;
 using PerfectBuild.Models.ViewModels;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PerfectBuild.Controllers
@@ -13,13 +15,16 @@ namespace PerfectBuild.Controllers
     {
         private UserManager<User> userManager;
         private SignInManager<User> signInManager;
+        private RoleManager<IdentityRole> roleManager;
         private IStringLocalizer<AccountController> localizer;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager,IStringLocalizer<AccountController> localizer )
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager,
+            IStringLocalizer<AccountController> localizer, RoleManager<IdentityRole> roleManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.localizer = localizer;
+            this.roleManager = roleManager;
         }
 
         public IActionResult Login(string returnUrl)
@@ -54,6 +59,70 @@ namespace PerfectBuild.Controllers
                 }
             }
             return View(loginModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> LogOut()
+        {
+            await signInManager.SignOutAsync();
+            return RedirectToAction("Login","Account");
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateAccountModel accountCreateModel, string password)
+        {
+            if (accountCreateModel != null)
+            {
+                string userLogin = accountCreateModel.Login;
+                if (!string.IsNullOrWhiteSpace(userLogin))
+                {
+                    User user = await userManager.FindByNameAsync(userLogin);
+                    if (user == null)
+                    {
+                        User createduser = new User { UserName = accountCreateModel.Login, Email = accountCreateModel.Email };
+                        IdentityResult addUserResult = await userManager.CreateAsync(createduser, accountCreateModel.Password);
+                        if (addUserResult.Succeeded)
+                        {
+                            string role = "User";
+                            if (!await roleManager.RoleExistsAsync(role))
+                            {
+                                await roleManager.CreateAsync(new IdentityRole { Name = role });
+                            }
+                                await userManager.AddToRoleAsync(createduser,role);
+                            
+                            
+                            await signInManager.SignOutAsync();
+                            await signInManager.SignInAsync(createduser, false);
+                            return RedirectToAction("Index", "Home");
+
+                        }
+                        else AddErrors(addUserResult.Errors);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(localizer["UserIsInDatabase"], localizer["UserIsInDatabase"]);
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(localizer["NullLoginPasswordShort"], localizer["NullLoginPasswordLong"]);
+                }
+            }
+            return RedirectToAction("Create", accountCreateModel);
+        }
+
+        private void AddErrors(IEnumerable<IdentityError> errors)
+        {
+            foreach (var item in errors)
+            {
+                ModelState.AddModelError(item.Code, item.Description);
+            }
         }
     }
 }
