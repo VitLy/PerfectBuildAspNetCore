@@ -129,7 +129,7 @@ namespace PerfectBuild.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("PerfectBuild.Model.Category", b =>
+            modelBuilder.Entity("PerfectBuild.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -144,7 +144,7 @@ namespace PerfectBuild.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("PerfectBuild.Model.Exercise", b =>
+            modelBuilder.Entity("PerfectBuild.Models.Exercise", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -162,7 +162,7 @@ namespace PerfectBuild.Migrations
                     b.ToTable("Exercises");
                 });
 
-            modelBuilder.Entity("PerfectBuild.Model.Param", b =>
+            modelBuilder.Entity("PerfectBuild.Models.Param", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -190,7 +190,7 @@ namespace PerfectBuild.Migrations
                     b.ToTable("UserParam");
                 });
 
-            modelBuilder.Entity("PerfectBuild.Model.Profile", b =>
+            modelBuilder.Entity("PerfectBuild.Models.Profile", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -208,7 +208,7 @@ namespace PerfectBuild.Migrations
                         .IsRequired()
                         .HasMaxLength(15);
 
-                    b.Property<bool>("Sex");
+                    b.Property<int>("Sex");
 
                     b.Property<string>("UserId");
 
@@ -221,7 +221,7 @@ namespace PerfectBuild.Migrations
                     b.ToTable("Profiles");
                 });
 
-            modelBuilder.Entity("PerfectBuild.Model.Set", b =>
+            modelBuilder.Entity("PerfectBuild.Models.Set", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -242,7 +242,7 @@ namespace PerfectBuild.Migrations
                     b.ToTable("Sets");
                 });
 
-            modelBuilder.Entity("PerfectBuild.Model.TrainingHead", b =>
+            modelBuilder.Entity("PerfectBuild.Models.TrainingHead", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -257,7 +257,7 @@ namespace PerfectBuild.Migrations
                     b.ToTable("TrainingHeads");
                 });
 
-            modelBuilder.Entity("PerfectBuild.Model.TrainingProgramHead", b =>
+            modelBuilder.Entity("PerfectBuild.Models.TrainingProgramHead", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -279,7 +279,7 @@ namespace PerfectBuild.Migrations
                     b.ToTable("TrainingProgramHeads");
                 });
 
-            modelBuilder.Entity("PerfectBuild.Model.TrainingProgramSpec", b =>
+            modelBuilder.Entity("PerfectBuild.Models.TrainingProgramSpec", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -298,7 +298,7 @@ namespace PerfectBuild.Migrations
                     b.ToTable("TrainingProgramSpecs");
                 });
 
-            modelBuilder.Entity("PerfectBuild.Model.TrainingScheduler", b =>
+            modelBuilder.Entity("PerfectBuild.Models.TrainingScheduler", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -319,7 +319,7 @@ namespace PerfectBuild.Migrations
                     b.ToTable("TrainingSchedulers");
                 });
 
-            modelBuilder.Entity("PerfectBuild.Model.TrainingSpec", b =>
+            modelBuilder.Entity("PerfectBuild.Models.TrainingSpec", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -346,7 +346,7 @@ namespace PerfectBuild.Migrations
                     b.ToTable("TrainingSpec");
                 });
 
-            modelBuilder.Entity("PerfectBuild.Model.User", b =>
+            modelBuilder.Entity("PerfectBuild.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -407,7 +407,7 @@ namespace PerfectBuild.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("PerfectBuild.Model.User")
+                    b.HasOne("PerfectBuild.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -415,7 +415,7 @@ namespace PerfectBuild.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("PerfectBuild.Model.User")
+                    b.HasOne("PerfectBuild.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -428,7 +428,7 @@ namespace PerfectBuild.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("PerfectBuild.Model.User")
+                    b.HasOne("PerfectBuild.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -436,69 +436,69 @@ namespace PerfectBuild.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("PerfectBuild.Model.User")
+                    b.HasOne("PerfectBuild.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("PerfectBuild.Model.Param", b =>
+            modelBuilder.Entity("PerfectBuild.Models.Param", b =>
                 {
-                    b.HasOne("PerfectBuild.Model.Profile", "Profile")
+                    b.HasOne("PerfectBuild.Models.Profile", "Profile")
                         .WithMany()
                         .HasForeignKey("ProfileId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("PerfectBuild.Model.Profile", b =>
+            modelBuilder.Entity("PerfectBuild.Models.Profile", b =>
                 {
-                    b.HasOne("PerfectBuild.Model.User", "User")
+                    b.HasOne("PerfectBuild.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("PerfectBuild.Model.Set", b =>
+            modelBuilder.Entity("PerfectBuild.Models.Set", b =>
                 {
-                    b.HasOne("PerfectBuild.Model.TrainingProgramSpec", "TrainingProgramSpec")
+                    b.HasOne("PerfectBuild.Models.TrainingProgramSpec", "TrainingProgramSpec")
                         .WithMany("Sets")
                         .HasForeignKey("TrPrSpecId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("PerfectBuild.Model.TrainingProgramSpec", b =>
+            modelBuilder.Entity("PerfectBuild.Models.TrainingProgramSpec", b =>
                 {
-                    b.HasOne("PerfectBuild.Model.Exercise", "Exercise")
+                    b.HasOne("PerfectBuild.Models.Exercise", "Exercise")
                         .WithMany()
                         .HasForeignKey("ExId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("PerfectBuild.Model.TrainingProgramHead", "TrainingProgramHead")
+                    b.HasOne("PerfectBuild.Models.TrainingProgramHead", "TrainingProgramHead")
                         .WithMany("TrainingProgramSpec")
                         .HasForeignKey("ProgramHeadId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("PerfectBuild.Model.TrainingScheduler", b =>
+            modelBuilder.Entity("PerfectBuild.Models.TrainingScheduler", b =>
                 {
-                    b.HasOne("PerfectBuild.Model.Profile", "Profile")
+                    b.HasOne("PerfectBuild.Models.Profile", "Profile")
                         .WithMany()
                         .HasForeignKey("ProfileId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("PerfectBuild.Model.Exercise", "Exercise")
+                    b.HasOne("PerfectBuild.Models.Exercise", "Exercise")
                         .WithMany()
                         .HasForeignKey("TrProgramId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("PerfectBuild.Model.TrainingSpec", b =>
+            modelBuilder.Entity("PerfectBuild.Models.TrainingSpec", b =>
                 {
-                    b.HasOne("PerfectBuild.Model.Exercise", "Exercise")
+                    b.HasOne("PerfectBuild.Models.Exercise", "Exercise")
                         .WithMany()
                         .HasForeignKey("ExId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("PerfectBuild.Model.TrainingHead", "TrainingHead")
+                    b.HasOne("PerfectBuild.Models.TrainingHead", "TrainingHead")
                         .WithMany("TrainingSpec")
                         .HasForeignKey("HeadId")
                         .OnDelete(DeleteBehavior.Cascade);

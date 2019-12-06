@@ -19,17 +19,22 @@ using PerfectBuild.Models;
 #line default
 #line hidden
 #line 3 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\_ViewImports.cshtml"
-using PerfectBuild.Models.ViewModels;
+using PerfectBuild.Infrastructure;
 
 #line default
 #line hidden
 #line 4 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\_ViewImports.cshtml"
+using PerfectBuild.Models.ViewModels;
+
+#line default
+#line hidden
+#line 5 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\_ViewImports.cshtml"
 using Microsoft.AspNetCore.Mvc.Localization;
 
 #line default
 #line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"476ebf4aeeb54b562df4fa16969bb21665e06437", @"/Views/Exercise/List.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"408db30bdadb852ae257276c54e618b75bc4ede6", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"a5406697e68548f8f61dab49083073ca68599ed1", @"/Views/_ViewImports.cshtml")]
     public class Views_Exercise_List : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<IEnumerable<Exercise>>
     {
         #pragma warning disable 1998

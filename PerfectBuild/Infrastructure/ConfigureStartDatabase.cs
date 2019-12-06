@@ -56,7 +56,7 @@ namespace PerfectBuild.Infrastructure
                     FName = "Admin",
                     LName = "Admin",
                     DayBirth = new DateTime(1991, 08, 23),
-                    Sex = true,
+                    Sex = Sex.Man,
                     Height = 190,
                     Weight = 90
                 };

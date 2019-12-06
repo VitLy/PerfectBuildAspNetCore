@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-
+@inject IHtmlLocalizer<SharedResource> localizer
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -7,18 +7,69 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"
           asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
           asp-fallback-test-class="hidden" asp-fallback-test-property="visibility" asp-fallback-test-value="hidden" />
-    <link rel="stylesheet" href="~/css/BaseStyle.css" />
-   
+    @*<link rel="stylesheet" href="~/css/basestyle.css" />*@
+
 </head>
 <body>
-    <div>
+    <header>
         <div class="container-fluid">
-                <div class="row">
-                    <div class="col-11 bg-primary p-1 text-light"><h2>PerfectBuild</h2></div>
-                    <div class="col-1 bg-primary p-1 text-light">@await Component.InvokeAsync("LoginPanel")</div>
+            <div class="row">
+                <div class="col-11 p-0">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+                        <a style="color:#ffffffff" class="navbar-brand" asp-controller="Home" asp-action="Index"><h2> PerfectBuild</h2></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarMenu">
+                            <ul class="navbar-nav">
+                                <li class="nav-item dropdown">
+                                    <a style="color:#ffffffff" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuActivity" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        @localizer["Activity"]
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuActivity">
+                                        <a class="dropdown-item" href="#">@localizer["AddBodyParams"]</a>
+                                        <a class="dropdown-item" href="#">@localizer["AddWorkout"]</a>
+                                        <a class="dropdown-item" href="#">@localizer["StartTraining"]</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a style="color:#ffffffff" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuDiary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        @localizer["Diary"]
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuDiary">
+                                        <a class="dropdown-item" href="#">@localizer["TrainingDiary"]</a>
+                                        <a class="dropdown-item" href="#">@localizer["BodyStatistics"]</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a style="color:#ffffffff" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuSettings" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        @localizer["Settings"]
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuSettings">
+                                        <a class="dropdown-item" href="#">@localizer["Categories"]</a>
+                                        <a class="dropdown-item" href="#">@localizer["Exercises"]</a>
+                                        <a class="dropdown-item" href="#">@localizer["TrainingProgram"]</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a style="color:#ffffffff" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        @localizer["Profile"]
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuProfile">
+                                        <a class="dropdown-item" href="#">@localizer["UserData"]</a>
+                                        <a class="dropdown-item" href="#">@localizer["TrainingSchedule"]</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
                 </div>
+                <div class="col-1 bg-primary p-1 text-light">@await Component.InvokeAsync("LoginPanel")</div>
             </div>
-       
+        </div>
+    </header>
+    <div>
         @RenderBody()
     </div>
 

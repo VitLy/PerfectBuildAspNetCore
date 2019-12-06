@@ -4,6 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PerfectBuild.Models
 {
+    public enum Sex
+    {
+        Man,Woman
+    }
+
     //[Table("UserProfile")]
     public partial class Profile
     {
@@ -22,7 +27,7 @@ namespace PerfectBuild.Models
         public string LName { get; set; }
 
         [Required]
-        public bool Sex { get; set; }
+        public Sex Sex { get; set; }
 
         [Required]
         public DateTime DayBirth { get; set; }
@@ -32,10 +37,5 @@ namespace PerfectBuild.Models
 
         [Required]
         public float Weight { get; set; }
-
-
-
-
-
     }
 }

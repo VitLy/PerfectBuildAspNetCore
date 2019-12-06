@@ -49,4 +49,7 @@ D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\Per
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Views.Admin.GetUserList.ru.resources
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\Razor\Views\Admin\UserList.cshtml.g.cs
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\Razor\Views\Admin\ModifyUserRoles.cshtml.g.cs
+D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\Razor\Views\Profile\Modify.cshtml.g.cs
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.csprojAssemblyReference.cache
+D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Infrastructure.SharedResource.en.resources
+D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Infrastructure.SharedResource.ru.resources
