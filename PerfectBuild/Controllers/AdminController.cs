@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PerfectBuild.Data;
 using PerfectBuild.Infrastructure;
 using PerfectBuild.Models;
@@ -95,7 +96,14 @@ namespace PerfectBuild.Controllers
                 User user = await userManager.FindByIdAsync(id);
                 if (user != null)
                 {
-                    await userManager.DeleteAsync(user);
+                    try
+                    {
+                        await userManager.DeleteAsync(user);
+                    }
+                    catch (DbUpdateException e)
+                    {
+                        ModelState.AddModelError(e.Message, "Cannot Delete User");
+                    }
                 }
             }
             return RedirectToAction("UserList");
@@ -107,7 +115,7 @@ namespace PerfectBuild.Controllers
 
             ConfigureStartDatabase dbHandler = new ConfigureStartDatabase(HttpContext);
             dbHandler.Seed();
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

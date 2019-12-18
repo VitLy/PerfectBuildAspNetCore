@@ -9,7 +9,7 @@ namespace PerfectBuild.Models
         [Key]
         public int Id { get; set; }
 
-        public int  ProgramHeadId {get;set;}
+        public int ProgramHeadId { get; set; }
 
         [ForeignKey("ProgramHeadId")]
         public TrainingProgramHead TrainingProgramHead { get; set; }
@@ -19,6 +19,13 @@ namespace PerfectBuild.Models
         [ForeignKey("ExId")]
         public Exercise Exercise { get; set; }
 
-        public virtual ICollection< Set> Sets { get; set; }
+        [Required]
+        public float Weight { get; set; }
+
+        [Required]
+        public byte Set { get; set; }
+
+        [Required]
+        public byte Amount { get; set; }
     }
 }

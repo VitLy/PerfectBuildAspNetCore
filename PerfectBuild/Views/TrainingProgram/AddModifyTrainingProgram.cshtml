@@ -1,0 +1,52 @@
+﻿@model TrainigProgramHeadViewModel
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+<div class="bg-primary text-white"><h3>
+    @if (Model.Id == 0)
+    {
+        @Localizer["TittleAddTrainigProgram"]
+    }
+    else
+    {
+        @Localizer["TittleModifyTrainigProgram"]
+    }
+</h3></div>
+<form method="post" asp-action="AddModifyTrainingProgram">
+    <div class="validation" asp-validation-summary="All"> </div>
+    <div class="form-group">
+        <label asp-for="Date">@Localizer["Date"]</label>
+        <span asp-validation-for="Date"></span>
+        <input class="form-control" asp-for="@Model.Date" type="date" />
+    </div>
+    <div>
+        <label asp-for="Name">@Localizer["Name"]</label>
+        <span asp-validation-for="Name"></span>
+        <input class="form-control" asp-for="Name" type="text" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Description">@Localizer["Description"]</label>
+        <textarea maxlength="250" asp-for="@Model.Description" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label>@Localizer["Category"]</label>
+        <div asp-validation-for="@Model.CategoryId"></div>
+        <select required="required" name="CategoryId" size="1">
+            @if (Model.CategoryId == 0)
+            {
+                <option selected disabled>@Localizer["ChooseCategory"]</option>
+            }
+            else
+            {
+                <option value="@Model.CategoryId" selected>@Model.Categories.Where(x => x.Id == Model.CategoryId).FirstOrDefault().Name</option>
+            }
+            @foreach (Category item in @Model.Categories)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+    </div>
+    <button class="btn btn-primary">@Localizer["ToExercise"]</button>
+    <a class="btn btn-danger" asp-action="List">@SharedLocalizer["CancelButton"]</a>
+</form>
+
+

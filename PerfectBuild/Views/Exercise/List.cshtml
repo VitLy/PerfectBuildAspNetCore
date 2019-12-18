@@ -1,16 +1,29 @@
-﻿@model  IEnumerable<Exercise>
+﻿@model ListItemViewModel<Exercise>
+@inject IViewLocalizer Localizer
 
-<div>
-    <h1>@Model</h1>
+<div class="container m-0 p-3">
+    <div class="row p-1">
+        <div class="col-4"><a asp-action="List" asp-route-sortBy="name"><strong>Name</strong> </a></div>
+        <div class="col-4"><a asp-action="List" asp-route-sortBy="description"><strong>Description</strong> </a></div>
+        <div class="col-2">
+            <a class="btn btn-primary" style="width:inherit" asp-action="Add">@Localizer["Add"]</a>
+        </div>
+        <div class="col-2"></div>
 
-    <div>
-        @foreach (var item in Model)
-        {
-            <div class="row">
-                <div col>@item.Id</div>
-                <div col>@item.Name</div>
-                <div col>@item.Description</div>
-            </div>
-        }
     </div>
+    @foreach (var item in Model.Items)
+    {
+        <div class="row p-1">
+            <div class="col-4">@item.Name</div>
+            <div class="col-4">@item.Description</div>
+            <div class="col-1"><a class="btn btn-primary" asp-route-id="@item.Id" asp-action="Modify">@Localizer["Modify"]</a></div>
+            <div class="col-1"></div>
+            <div class="col-1"><a class="btn btn-warning" asp-route-id="@item.Id" asp-action="Delete">@Localizer["Delete"]</a></div>
+        </div>
+    }
+
+    <paginator page-action="List" total-page="@Model.TotalPage" current-page="@Model.CurrentPage"></paginator>
+
 </div>
+
+

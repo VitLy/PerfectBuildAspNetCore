@@ -1,0 +1,39 @@
+﻿@model AddModifyTrainingSpecViewModel<TrainingProgramSpec>
+@inject IHtmlLocalizer<SharedResource> LocalizerShared
+@inject IViewLocalizer Localizer
+
+@{
+    int i = 1;
+}
+
+<div class="bg-primary text-white">
+    <h3>@Localizer["TittleTrainigProgramSpec"]:</h3>
+    <h4>@Model.TrainingHeadName, @Model.TrainingHeadDate (@Model.TrainingHeadCategory)</h4>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-1">#</div>
+        <div class="col-4">@LocalizerShared["Exercise"]</div>
+        <div class="col-1">@LocalizerShared["Set"]</div>
+        <div class="col-2">@LocalizerShared["Weight"]</div>
+        <div class="col-2">@LocalizerShared["Amount"]</div>
+        <div class="col-1"><a asp-action="AddModifyTrainingSpecLine" asp-route-headId="@Model.TrainingHeadId" asp-route-specId="0" class="btn btn-primary">@LocalizerShared["Add"]</a></div>
+        <div class="col-1"></div>
+    </div>
+
+    <div class="row">
+        @foreach (TrainingProgramSpec spec in Model.TrainingSpecs)
+        {
+            <div class="col-1">@(i++)</div>
+            <div class="col-4">@spec.Exercise.Name</div>
+            <div class="col-1">@spec.Set</div>
+            <div class="col-2">@spec.Weight</div>
+            <div class="col-2">@spec.Amount</div>
+            <div class="col-1"><a class="btn btn-primary" asp-action="AddModifyTrainingSpecLine" asp-route-headId="@Model.TrainingHeadId" asp-route-specId="@spec.Id">@LocalizerShared["Modify"]</a></div>
+            <div class="col-1"><a class="btn btn-danger" asp-action="DeleteTrainingSpecLine" asp-route-headId="@Model.TrainingHeadId" asp-route-specId="@spec.Id">@LocalizerShared["Delete"]</a></div>
+        }
+    </div>
+    <a  class="btn btn-warning" asp-action="AddModifyTrainingSpecLine">@LocalizerShared["CloseButton"]</a>
+</div>
+

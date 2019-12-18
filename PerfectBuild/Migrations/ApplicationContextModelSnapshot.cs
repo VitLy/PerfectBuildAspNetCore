@@ -15,7 +15,7 @@ namespace PerfectBuild.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
+                .HasAnnotation("ProductVersion", "2.1.14-servicing-32113")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -221,27 +221,6 @@ namespace PerfectBuild.Migrations
                     b.ToTable("Profiles");
                 });
 
-            modelBuilder.Entity("PerfectBuild.Models.Set", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<byte>("SetAmount");
-
-                    b.Property<byte>("SetNum");
-
-                    b.Property<int>("TrPrSpecId");
-
-                    b.Property<float>("Weight");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TrPrSpecId");
-
-                    b.ToTable("Sets");
-                });
-
             modelBuilder.Entity("PerfectBuild.Models.TrainingHead", b =>
                 {
                     b.Property<int>("Id")
@@ -250,11 +229,74 @@ namespace PerfectBuild.Migrations
 
                     b.Property<DateTime>("Date");
 
-                    b.Property<int>("UserProfileId");
+                    b.Property<int>("TrainigPlanHeadId");
+
+                    b.Property<int?>("TrainingPlanHeadId");
+
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("TrainingPlanHeadId");
+
+                    b.HasIndex("UserId");
+
                     b.ToTable("TrainingHeads");
+                });
+
+            modelBuilder.Entity("PerfectBuild.Models.TrainingPlanHead", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId");
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(250);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(40);
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TrainingPlanHeads");
+                });
+
+            modelBuilder.Entity("PerfectBuild.Models.TrainingPlanSpec", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<byte>("Amount");
+
+                    b.Property<int>("ExId");
+
+                    b.Property<int>("ProgramHeadId");
+
+                    b.Property<byte>("Set");
+
+                    b.Property<int?>("TrainingPlanHeadId");
+
+                    b.Property<float>("Weight");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExId");
+
+                    b.HasIndex("TrainingPlanHeadId");
+
+                    b.ToTable("TrainingPlanSpecs");
                 });
 
             modelBuilder.Entity("PerfectBuild.Models.TrainingProgramHead", b =>
@@ -274,7 +316,13 @@ namespace PerfectBuild.Migrations
                         .IsRequired()
                         .HasMaxLength(40);
 
+                    b.Property<string>("UserId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("TrainingProgramHeads");
                 });
@@ -285,9 +333,15 @@ namespace PerfectBuild.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<byte>("Amount");
+
                     b.Property<int>("ExId");
 
                     b.Property<int>("ProgramHeadId");
+
+                    b.Property<byte>("Set");
+
+                    b.Property<float>("Weight");
 
                     b.HasKey("Id");
 
@@ -298,27 +352,6 @@ namespace PerfectBuild.Migrations
                     b.ToTable("TrainingProgramSpecs");
                 });
 
-            modelBuilder.Entity("PerfectBuild.Models.TrainingScheduler", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Day");
-
-                    b.Property<int>("ProfileId");
-
-                    b.Property<int>("TrProgramId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProfileId");
-
-                    b.HasIndex("TrProgramId");
-
-                    b.ToTable("TrainingSchedulers");
-                });
-
             modelBuilder.Entity("PerfectBuild.Models.TrainingSpec", b =>
                 {
                     b.Property<int>("Id")
@@ -327,13 +360,13 @@ namespace PerfectBuild.Migrations
 
                     b.Property<byte>("Amount");
 
-                    b.Property<byte>("AmountPlan");
-
                     b.Property<int>("ExId");
 
                     b.Property<int>("HeadId");
 
                     b.Property<byte>("Set");
+
+                    b.Property<int>("TrainigPlanId");
 
                     b.Property<float>("Weight");
 
@@ -343,7 +376,9 @@ namespace PerfectBuild.Migrations
 
                     b.HasIndex("HeadId");
 
-                    b.ToTable("TrainingSpec");
+                    b.HasIndex("TrainigPlanId");
+
+                    b.ToTable("TrainingSpecs");
                 });
 
             modelBuilder.Entity("PerfectBuild.Models.User", b =>
@@ -457,12 +492,51 @@ namespace PerfectBuild.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("PerfectBuild.Models.Set", b =>
+            modelBuilder.Entity("PerfectBuild.Models.TrainingHead", b =>
                 {
-                    b.HasOne("PerfectBuild.Models.TrainingProgramSpec", "TrainingProgramSpec")
-                        .WithMany("Sets")
-                        .HasForeignKey("TrPrSpecId")
+                    b.HasOne("PerfectBuild.Models.TrainingPlanHead", "TrainingPlanHead")
+                        .WithMany()
+                        .HasForeignKey("TrainingPlanHeadId");
+
+                    b.HasOne("PerfectBuild.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("PerfectBuild.Models.TrainingPlanHead", b =>
+                {
+                    b.HasOne("PerfectBuild.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("PerfectBuild.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("PerfectBuild.Models.TrainingPlanSpec", b =>
+                {
+                    b.HasOne("PerfectBuild.Models.Exercise", "Exercise")
+                        .WithMany()
+                        .HasForeignKey("ExId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("PerfectBuild.Models.TrainingPlanHead")
+                        .WithMany("TrainingPlanSpec")
+                        .HasForeignKey("TrainingPlanHeadId");
+                });
+
+            modelBuilder.Entity("PerfectBuild.Models.TrainingProgramHead", b =>
+                {
+                    b.HasOne("PerfectBuild.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("PerfectBuild.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("PerfectBuild.Models.TrainingProgramSpec", b =>
@@ -478,19 +552,6 @@ namespace PerfectBuild.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("PerfectBuild.Models.TrainingScheduler", b =>
-                {
-                    b.HasOne("PerfectBuild.Models.Profile", "Profile")
-                        .WithMany()
-                        .HasForeignKey("ProfileId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("PerfectBuild.Models.Exercise", "Exercise")
-                        .WithMany()
-                        .HasForeignKey("TrProgramId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("PerfectBuild.Models.TrainingSpec", b =>
                 {
                     b.HasOne("PerfectBuild.Models.Exercise", "Exercise")
@@ -501,6 +562,11 @@ namespace PerfectBuild.Migrations
                     b.HasOne("PerfectBuild.Models.TrainingHead", "TrainingHead")
                         .WithMany("TrainingSpec")
                         .HasForeignKey("HeadId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("PerfectBuild.Models.TrainingPlanHead", "TrainingPlanHead")
+                        .WithMany()
+                        .HasForeignKey("TrainigPlanId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

@@ -22,7 +22,7 @@ namespace PerfectBuild.Infrastructure
         public ConfigureStartDatabase(HttpContext httpContext)
         {
             this.httpContext = httpContext;
-            this.appContext =httpContext.RequestServices.GetRequiredService<ApplicationContext>();
+            this.appContext = httpContext.RequestServices.GetRequiredService<ApplicationContext>();
         }
 
         internal void Seed()
@@ -33,11 +33,11 @@ namespace PerfectBuild.Infrastructure
             if (!string.IsNullOrWhiteSpace(currentUserId))
             {
                 if ((appContext.Exercises.Count() + appContext.Params.Count() + appContext.Profiles.Count() +
-                    appContext.Categories.Count() + appContext.TrainingProgramHeads.Count() +
-                    appContext.TrainingProgramSpecs.Count() + appContext.Sets.Count()) > 0)
+                    appContext.Categories.Count() + appContext.TrainingProgramHeads.Count() + appContext.TrainingProgramSpecs.Count() +
+                     appContext.TrainingHeads.Count() + appContext.TrainingSpecs.Count()) > 0)
+
                 {
                     DeleteData();
-
                 }
                 AddProfile(currentUserId);
                 AddExercises();
@@ -95,9 +95,10 @@ namespace PerfectBuild.Infrastructure
                 appContext.Params.RemoveRange(appContext.Params);
                 appContext.Profiles.RemoveRange(appContext.Profiles);
                 appContext.Categories.RemoveRange(appContext.Categories);
+                appContext.TrainingHeads.RemoveRange(appContext.TrainingHeads);
+                appContext.TrainingSpecs.RemoveRange(appContext.TrainingSpecs);
                 appContext.TrainingProgramHeads.RemoveRange(appContext.TrainingProgramHeads);
                 appContext.TrainingProgramSpecs.RemoveRange(appContext.TrainingProgramSpecs);
-                appContext.Sets.RemoveRange(appContext.Sets);
 
                 appContext.SaveChanges();
             }

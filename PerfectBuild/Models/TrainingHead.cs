@@ -13,11 +13,15 @@ namespace PerfectBuild.Models
         [Required]
         public DateTime Date { get; set; }
 
-        public int UserProfileId { get; set; }
+        public string UserId { get; set; }
 
-        [ForeignKey("UserProfileId")]
-        Profile Profile { get; set; }
+        [ForeignKey("UserId")]
+        public User User { get; set; }
 
+        public int TrainigPlanHeadId { get; set; }
+
+        public TrainingPlanHead TrainingPlanHead { get; set; }
+       
         public virtual ICollection<TrainingSpec> TrainingSpec { get; set; }
     }
 }

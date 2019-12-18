@@ -1,0 +1,13 @@
+﻿@model Exercise
+
+<form method="post" class="form-group" asp-action="Change">
+    <div class="form-group">
+        <input asp-for="@Model.Id" hidden="hidden" />
+        <label asp-for="@Model.Name"></label>
+        <input asp-for="@Model.Name" value="@Model.Name" />
+        <label asp-for="@Model.Description"></label>
+        <input asp-for="@Model.Description" value="@Model.Description" />
+    </div>
+    <button class="btn btn-primary">Ok</button>  @*Привязать к локализации*@
+    <button class="btn btn-secondary">Cancel</button>  @*Привязать к локализации*@
+</form>

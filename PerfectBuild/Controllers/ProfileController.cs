@@ -26,17 +26,22 @@ namespace PerfectBuild.Controllers
         }
 
         [HttpGet]
-        public IActionResult Modify()
+        public async Task<IActionResult> Modify()
         {
+            User user = await userManager.GetUserAsync(HttpContext.User);
             string userId = userManager.GetUserId(HttpContext.User);
-            profile= appContext.Profiles.Where(x => x.UserId == userId).FirstOrDefault();
+            profile = appContext.Profiles.Where(x => x.UserId == userId).FirstOrDefault();
             if (profile == null)
             {
                 userProfileModel = new UserProfileModel { Profile = new Profile { UserId = userId } };
             }
             else
             {
-                userProfileModel = new UserProfileModel { Profile = profile };
+                userProfileModel = new UserProfileModel
+                {
+                    Profile = profile,
+                    EMail = await userManager.GetEmailAsync(user)
+                };
             }
             return View(userProfileModel);
         }
@@ -44,17 +49,20 @@ namespace PerfectBuild.Controllers
         [HttpPost]
         public async Task<IActionResult> Modify(UserProfileModel model)
         {
-            if (model != null) 
+            if (model != null)
             {
-                if (ModelState.IsValid) 
+                if (ModelState.IsValid)
                 {
                     profile = appContext.Profiles.Where(x => x.UserId == model.Profile.UserId).FirstOrDefault();
-                    if (profile == null) 
+                    User user = await userManager.GetUserAsync(HttpContext.User);
+                    if (profile == null)
                     {
                         var result = await appContext.Profiles.AddAsync(model.Profile);
+                        user.NormalizedEmail = model.EMail;
+                        await userManager.UpdateAsync(user);
                         await appContext.SaveChangesAsync();
                     }
-                    else 
+                    else
                     {
                         profile.FName = model.Profile.FName;
                         profile.LName = model.Profile.LName;
@@ -64,12 +72,13 @@ namespace PerfectBuild.Controllers
                         profile.Height = model.Profile.Height;
                         appContext.Update(profile);
                         await appContext.SaveChangesAsync();
+                        user.NormalizedEmail = model.EMail;
+                        await userManager.UpdateAsync(user);
                         model.Profile = profile;
                     }
                 }
             }
             return View(model);
         }
-
     }
 }

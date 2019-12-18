@@ -4,7 +4,7 @@ using PerfectBuild.Models;
 
 namespace PerfectBuild.Data
 {
-    public class ApplicationContext:IdentityDbContext<User>
+    public class ApplicationContext : IdentityDbContext<User>
     {
         public ApplicationContext(DbContextOptions options) : base(options) { }
 
@@ -12,10 +12,11 @@ namespace PerfectBuild.Data
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Profile> Profiles { get; set; }
         public virtual DbSet<Param> Params { get; set; }
-        public virtual DbSet<Set> Sets { get; set; }
+        public virtual DbSet<TrainingPlanHead> TrainingPlanHeads { get; set; }
+        public virtual DbSet<TrainingPlanSpec> TrainingPlanSpecs { get; set; }
         public virtual DbSet<TrainingProgramHead> TrainingProgramHeads { get; set; }
         public virtual DbSet<TrainingProgramSpec> TrainingProgramSpecs { get; set; }
         public virtual DbSet<TrainingHead> TrainingHeads { get; set; }
-        public virtual DbSet<TrainingScheduler> TrainingSchedulers { get; set; }
+        public virtual DbSet<TrainingSpec> TrainingSpecs{ get; set; }
     }
 }

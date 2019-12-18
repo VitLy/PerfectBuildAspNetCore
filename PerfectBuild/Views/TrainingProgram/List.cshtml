@@ -1,0 +1,48 @@
+﻿@model IEnumerable<TrainingProgramHead>
+@inject IHtmlLocalizer<SharedResource> LocalizerShared
+@inject IViewLocalizer Localizer
+
+<div class="bg-primary text-white"><h3>@Localizer["TittleTrainigProgram"]</h3></div>
+<div class="container-fluid m-1 p-1">
+    <div class="row justify-content-sm-between">
+        <div class="col-sm-12 bg-warning ">
+            <div class="row">
+                <div class="col-6">@Localizer["TrainigProgramName"]</div>
+                <div class="col-2">@Localizer["Category"]</div>
+                <div class="col-2"></div>
+                <div class="col-2"></div>
+            </div>
+
+            <div class="row">
+                @foreach (var trPr in Model)
+                {
+                    <div class="col-6">@trPr.Name</div>
+                    <div class="col-2">@trPr.Category.Name</div>
+                    <div class="col-2"><a class="btn btn-primary" asp-action="AddModifyTrainingProgram" asp-route-id="@trPr.Id">@LocalizerShared["ModifyButton"]</a></div>
+                    <div class="col-2"><a class="btn btn-warning" asp-action="DeleteTrainingProgram" asp-route-id="@trPr.Id">@LocalizerShared["DeleteButton"]</a></div>
+                }
+            </div>
+            <div><a class="btn btn-primary" asp-action="AddModifyTrainingProgram">@LocalizerShared["AddButton"]</a></div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid m-1 p-1">
+    <div class="col-sm-12 bg-secondary">
+        <div class="row ">
+            <div class="col-6">@Localizer["Exercise"]</div>
+            <div class="col-2">@Localizer["Set"]</div>
+            <div class="col-2">@Localizer["Weight"]</div>
+            <div class="col-2">@Localizer["Amount"]</div>
+        </div>
+        <div class="row">
+            @foreach (var spec in Model.First().TrainingProgramSpec)
+            {
+                <div class="col-6">@spec.Exercise</div>
+                <div class="col-2">@spec.Set</div>
+                <div class="col-2">@spec.Weight</div>
+                <div class="col-2">@spec.Amount</div>
+            }
+        </div>
+    </div>
+</div>

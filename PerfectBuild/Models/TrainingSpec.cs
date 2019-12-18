@@ -22,8 +22,10 @@ namespace PerfectBuild.Models
         [Required]
         public byte Amount { get; set; }
 
-        [Required]
-        public byte AmountPlan { get; set; }
+        public int TrainigPlanId { get; set; }
+
+        [ForeignKey("TrainigPlanId")]
+        public TrainingPlanHead TrainingPlanHead {get;set;}
 
         public int ExId { get; set; }
 

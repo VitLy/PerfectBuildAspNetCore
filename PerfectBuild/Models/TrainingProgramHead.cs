@@ -10,10 +10,16 @@ namespace PerfectBuild.Models
         [Key]
         public int Id { get; set; }
 
+        public string UserId { get; set; }
+
+        [ForeignKey("UserId")]
+        public User User { get; set; }
+
         public int CategoryId { get; set; }
 
+        [Required]
         [ForeignKey("CategoryId")]
-        Category Category { get; set; }
+        public Category Category { get; set; }
 
         [Required]
         public DateTime Date { get; set; }
