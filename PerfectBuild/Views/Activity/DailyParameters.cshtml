@@ -1,0 +1,42 @@
+﻿@model FillParametersViewModel
+
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> LocalizerShared
+
+<div class="bg-primary text-white"><h3>@Localizer["DailyParameters"]</h3></div>
+<form method="post" asp-action="DailyParameters">
+    <div class="validation" asp-validation-summary="All"> </div>
+    <div class="form-group">
+        <label asp-for="Date">@LocalizerShared["Date"]</label>
+        <input type="date" class="form-control" asp-for="Date" />
+        <div asp-validation-for="Date"></div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Weight">@LocalizerShared["Weight"]</label>
+        <input class="form-control" asp-for="Weight" />
+        <div asp-validation-for="Weight"></div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Breast">@LocalizerShared["Breast"]</label>
+        <input class="form-control" asp-for="Breast" />
+        <div asp-validation-for="Breast"></div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Waist">@LocalizerShared["Waist"]</label>
+        <input class="form-control" asp-for="Waist" />
+        <div asp-validation-for="Waist"></div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Buttock">@LocalizerShared["Buttock"]</label>
+        <input class="form-control" asp-for="Buttock" />
+        <div asp-validation-for="Buttock"></div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Thigh">@LocalizerShared["Thigh"]</label>
+        <input class="form-control" asp-for="Thigh" />
+        <div asp-validation-for="Thigh"></div>
+    </div>
+
+    <button class="btn btn-primary">@LocalizerShared["SaveButton"]</button>
+    <a class="btn btn-danger" formmethod="get" asp-controller="Home" asp-action="Index">@LocalizerShared["ExitButton"]</a>
+</form>

@@ -11,10 +11,10 @@ namespace PerfectBuild.Models
         [Key]
         public int Id { get; set; }
 
-        public int ProfileId { get; set; }
+        public string UserId { get; set; }
 
-        [ForeignKey("ProfileId")]
-        public Profile Profile { get; set; }
+        [ForeignKey("UserId")]
+        public User User { get; set; }
 
         [Required]
         public DateTime Date { get; set; }   // пока не знаю как организовать одновременное ограничение Unique=Date+Profile

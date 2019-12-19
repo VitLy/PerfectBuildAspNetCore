@@ -119,12 +119,12 @@ using Microsoft.AspNetCore.Mvc.Localization;
             WriteLiteral("</h3></div>\r\n");
             EndContext();
             BeginContext(340, 1658, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1eb66695576e4929b806bf387249bda7", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "39b1987dd0684fe2b7bcdb6686bd382a", async() => {
                 BeginContext(398, 6, true);
                 WriteLiteral("\r\n    ");
                 EndContext();
                 BeginContext(404, 60, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("div", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d55522073d81405e8cec3c12a5f19b22", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("div", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "abdf452393ca41ff9431525692350e7a", async() => {
                     BeginContext(457, 1, true);
                     WriteLiteral(" ");
                     EndContext();
@@ -151,7 +151,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_ValidationSummaryTagHelper.ValidationSumma
                 WriteLiteral("\r\n    <div class=\"form-group\">\r\n        ");
                 EndContext();
                 BeginContext(504, 48, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("label", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8d7a2890f8d049b0b77c6bdcb25dae82", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("label", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "02201317ff5d429580bcea773729b043", async() => {
                     BeginContext(527, 17, false);
 #line 17 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\TrainingProgram\AddModifyTrainingProgram.cshtml"
                          Write(Localizer["Date"]);
@@ -181,7 +181,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_LabelTagHelper.For = ModelExpressionProvid
                 WriteLiteral("\r\n        ");
                 EndContext();
                 BeginContext(562, 39, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("span", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "db0172d737d7493492845f36453ed7cd", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("span", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f8970a8fc4fd431189ea400834874420", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_TagHelpers_ValidationMessageTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.ValidationMessageTagHelper>();
@@ -204,7 +204,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_ValidationMessageTagHelper.For = ModelExpr
                 WriteLiteral("\r\n        ");
                 EndContext();
                 BeginContext(611, 64, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("input", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "1048e3208ca347a7a3e05656c9dd126a", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("input", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "062ef945db2448c5aa8e39a2f475f1be", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_TagHelpers_InputTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.InputTagHelper>();
@@ -230,7 +230,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_InputTagHelper.For = ModelExpressionProvid
                 WriteLiteral("\r\n    </div>\r\n    <div>\r\n        ");
                 EndContext();
                 BeginContext(708, 48, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("label", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ed464d5b2c844d5b9a30647bcd8c7a62", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("label", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6fd17d658d6c494abaae01f1dc125f19", async() => {
                     BeginContext(731, 17, false);
 #line 22 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\TrainingProgram\AddModifyTrainingProgram.cshtml"
                          Write(Localizer["Name"]);
@@ -260,7 +260,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_LabelTagHelper.For = ModelExpressionProvid
                 WriteLiteral("\r\n        ");
                 EndContext();
                 BeginContext(766, 39, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("span", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "910d474da732497697ae30516ef1eb89", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("span", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "78bab9fd1c804497b477886acd293fea", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_TagHelpers_ValidationMessageTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.ValidationMessageTagHelper>();
@@ -283,7 +283,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_ValidationMessageTagHelper.For = ModelExpr
                 WriteLiteral("\r\n        ");
                 EndContext();
                 BeginContext(815, 57, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("input", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "123200e2e4c24b74ba9c4af34e7f4831", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("input", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "9d10a8198f7648f7af3948a0feaa3a25", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_TagHelpers_InputTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.InputTagHelper>();
@@ -309,7 +309,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_InputTagHelper.For = ModelExpressionProvid
                 WriteLiteral("\r\n    </div>\r\n    <div class=\"form-group\">\r\n        ");
                 EndContext();
                 BeginContext(924, 69, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("label", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "faf0c5a1e582400b9904e5ef3271274c", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("label", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8b7c478986d44feeaad405b490aeec75", async() => {
                     BeginContext(961, 24, false);
 #line 27 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\TrainingProgram\AddModifyTrainingProgram.cshtml"
                                        Write(Localizer["Description"]);
@@ -339,7 +339,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_LabelTagHelper.For = ModelExpressionProvid
                 WriteLiteral("\r\n        ");
                 EndContext();
                 BeginContext(1003, 87, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("textarea", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "00904ec653754667b3cbc0969b54af27", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("textarea", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3d051c2780044c2da783ff4244b0c3a6", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_TagHelpers_TextAreaTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.TextAreaTagHelper>();
@@ -393,7 +393,7 @@ WriteAttributeValue("", 1214, Model.CategoryId, 1214, 17, false);
                 WriteLiteral("                ");
                 EndContext();
                 BeginContext(1378, 63, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "06c70ec471074c99bf5e57aa3df6ddc0", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "69e2f96711b44de5a1f99e64b57ef5e4", async() => {
                     BeginContext(1405, 27, false);
 #line 36 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\TrainingProgram\AddModifyTrainingProgram.cshtml"
                                      Write(Localizer["ChooseCategory"]);
@@ -433,7 +433,7 @@ WriteAttributeValue("", 1214, Model.CategoryId, 1214, 17, false);
                 WriteLiteral("                ");
                 EndContext();
                 BeginContext(1507, 128, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "01a195b141004a5fa1596b1a9241b842", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "592fcc8a20744c9d905958c99f3b163e", async() => {
                     BeginContext(1551, 75, false);
 #line 40 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\TrainingProgram\AddModifyTrainingProgram.cshtml"
                                                       Write(Model.Categories.Where(x => x.Id == Model.CategoryId).FirstOrDefault().Name);
@@ -486,7 +486,7 @@ WriteAttributeValue("", 1214, Model.CategoryId, 1214, 17, false);
                 WriteLiteral("                ");
                 EndContext();
                 BeginContext(1742, 44, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "00698d9c3388476c81319896c504a708", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a483cf9f52c34822b0bbf467aacb1b10", async() => {
                     BeginContext(1768, 9, false);
 #line 44 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\TrainingProgram\AddModifyTrainingProgram.cshtml"
                                     Write(item.Name);
@@ -537,7 +537,7 @@ WriteAttributeValue("", 1214, Model.CategoryId, 1214, 17, false);
                 WriteLiteral("</button>\r\n    ");
                 EndContext();
                 BeginContext(1909, 80, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e692e82f9f834a0aa2190878221be8bd", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "699233ea4c2a4616a8efeaf1f3b6a942", async() => {
                     BeginContext(1954, 31, false);
 #line 49 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\TrainingProgram\AddModifyTrainingProgram.cshtml"
                                            Write(SharedLocalizer["CancelButton"]);

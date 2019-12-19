@@ -138,12 +138,12 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("</td>\r\n                            <td>\r\n                                ");
             EndContext();
             BeginContext(930, 363, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "94c5321105c347ed816a32850cd9adf9", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "595fba81c38046f487b76778f0b42ef5", async() => {
                 BeginContext(998, 38, true);
                 WriteLiteral("\r\n                                    ");
                 EndContext();
                 BeginContext(1036, 104, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8d5feb40a00f43b5ae4dc2a319d532ee", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5695524ecd0d4371a808efdd5fb1a051", async() => {
                     BeginContext(1117, 19, false);
 #line 31 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\Admin\UserList.cshtml"
                                                                                                                Write(Localizer["Modify"]);
@@ -235,7 +235,7 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("                </tbody>\r\n            </table>\r\n        </div>\r\n        <div class=\"col-2\">\r\n            ");
             EndContext();
             BeginContext(1489, 217, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "706b99587b5d4ee2a253d81bc1917dbe", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bae21b234dcd4c14ba29ed6b48335535", async() => {
                 BeginContext(1531, 118, true);
                 WriteLiteral("\r\n                <button type=\"submit\" class=\"btn btn-danger\">Наполнить базу данных первоначальными данными</button> ");
                 EndContext();

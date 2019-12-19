@@ -123,9 +123,6 @@
   <data name="EMail" xml:space="preserve">
     <value>Электронная почта</value>
   </data>
-  <data name="Exit" xml:space="preserve">
-    <value>Выход</value>
-  </data>
   <data name="FName" xml:space="preserve">
     <value>Имя:</value>
   </data>
@@ -134,9 +131,6 @@
   </data>
   <data name="Man" xml:space="preserve">
     <value>Мужчина</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>Сохранить</value>
   </data>
   <data name="Sex" xml:space="preserve">
     <value>Пол:</value>

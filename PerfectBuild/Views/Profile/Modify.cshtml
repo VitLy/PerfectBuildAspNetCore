@@ -1,6 +1,7 @@
 ﻿@model UserProfileModel
 @using PerfectBuild.Models
 @inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> LocalizerShared
 
 <div class="bg-primary text-white"><h3>@Localizer["UserProfile"]</h3></div>
 <form method="post" asp-action="Modify">
@@ -52,6 +53,6 @@
         <input asp-for="Profile.Weight" />
     </div>
 
-    <button class="btn btn-primary">@Localizer["Save"]</button>
-    <a class="btn btn-danger" formmethod="get" asp-controller="Home" asp-action="Index">@Localizer["Exit"]</a>
+    <button class="btn btn-primary">@LocalizerShared["SaveButton"]</button>
+    <a class="btn btn-danger" formmethod="get" asp-controller="Home" asp-action="Index">@LocalizerShared["ExitButton"]</a>
 </form>

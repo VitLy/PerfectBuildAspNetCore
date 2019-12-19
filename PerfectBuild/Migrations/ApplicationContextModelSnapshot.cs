@@ -174,9 +174,9 @@ namespace PerfectBuild.Migrations
 
                     b.Property<DateTime>("Date");
 
-                    b.Property<int>("ProfileId");
-
                     b.Property<int>("Thigh");
+
+                    b.Property<string>("UserId");
 
                     b.Property<int>("Waist");
 
@@ -185,7 +185,7 @@ namespace PerfectBuild.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProfileId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserParam");
                 });
@@ -479,10 +479,9 @@ namespace PerfectBuild.Migrations
 
             modelBuilder.Entity("PerfectBuild.Models.Param", b =>
                 {
-                    b.HasOne("PerfectBuild.Models.Profile", "Profile")
+                    b.HasOne("PerfectBuild.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("ProfileId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("PerfectBuild.Models.Profile", b =>

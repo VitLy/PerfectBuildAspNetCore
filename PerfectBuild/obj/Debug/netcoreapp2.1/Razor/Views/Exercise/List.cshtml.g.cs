@@ -74,7 +74,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
             WriteLiteral("\r\n<div class=\"container m-0 p-3\">\r\n    <div class=\"row p-1\">\r\n        <div class=\"col-4\">");
             EndContext();
             BeginContext(159, 71, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "495b58ecacf047319d782f438f3117cb", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef088def427d4ca89b3d839ec7766b9c", async() => {
                 BeginContext(204, 22, true);
                 WriteLiteral("<strong>Name</strong> ");
                 EndContext();
@@ -102,7 +102,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
             WriteLiteral("</div>\r\n        <div class=\"col-4\">");
             EndContext();
             BeginContext(265, 85, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "784d1a4b3b44498eb1f8900e06c45a7c", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "202d8d4d74434df5b1ab54240830042e", async() => {
                 BeginContext(317, 29, true);
                 WriteLiteral("<strong>Description</strong> ");
                 EndContext();
@@ -130,7 +130,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
             WriteLiteral("</div>\r\n        <div class=\"col-2\">\r\n            ");
             EndContext();
             BeginContext(399, 87, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7c15e56b9b3e41ac92a40740f8984389", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6d23ff231cb94fe89055effbc1ff88a4", async() => {
                 BeginContext(466, 16, false);
 #line 9 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\Exercise\List.cshtml"
                                                                          Write(Localizer["Add"]);
@@ -187,7 +187,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
             WriteLiteral("</div>\r\n            <div class=\"col-1\">");
             EndContext();
             BeginContext(767, 95, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3896cfa7f2cf4cb4adb607b3bb7a675a", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "71d22476c3e14ad3a4f79acbb1957a70", async() => {
                 BeginContext(839, 19, false);
 #line 19 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\Exercise\List.cshtml"
                                                                                                  Write(Localizer["Modify"]);
@@ -227,7 +227,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
             WriteLiteral("</div>\r\n            <div class=\"col-1\"></div>\r\n            <div class=\"col-1\">");
             EndContext();
             BeginContext(940, 95, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d1d20d543fcc43e39fe7f3e4ebec9231", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c7cdcdad251342369007b8a8e6b91a5b", async() => {
                 BeginContext(1012, 19, false);
 #line 21 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\Exercise\List.cshtml"
                                                                                                  Write(Localizer["Delete"]);
@@ -275,7 +275,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
             WriteLiteral("\r\n    ");
             EndContext();
             BeginContext(1072, 106, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("paginator", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "54b15f4b83ad46d587d0e635d5b01201", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("paginator", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a11fa6cf237d487681d2d2e901ac34fb", async() => {
             }
             );
             __PerfectBuild_Infrastructure_TagHelpers_PaginatorTagHelper = CreateTagHelper<global::PerfectBuild.Infrastructure.TagHelpers.PaginatorTagHelper>();
