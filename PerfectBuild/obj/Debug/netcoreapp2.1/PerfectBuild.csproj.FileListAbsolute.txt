@@ -67,7 +67,6 @@ D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\Raz
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\Razor\Views\TrainingProgram\TrainingSpecList.cshtml.g.cs
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Views.TrainingProgram.AddModifyTrainingProgram.en.resources
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Views.TrainingProgram.AddModifyTrainingProgram.ru.resources
-D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.csprojAssemblyReference.cache
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Views.TrainingProgram.AddModifyTrainingSpecLine.en.resources
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Views.TrainingProgram.AddModifyTrainingSpecLine.ru.resources
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Views.Profile.Modify.ru.resources
@@ -75,3 +74,4 @@ D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\Per
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Views.Activity.DailyParameters.en.resources
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Views.Activity.DailyParameters.ru.resources
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\Razor\Views\Activity\DailyParameters.cshtml.g.cs
+D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.csprojAssemblyReference.cache
