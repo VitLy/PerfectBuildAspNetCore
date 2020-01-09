@@ -17,8 +17,9 @@ namespace PerfectBuild.Models.ViewModels
         [Required]
         public DateTime Date { get; set; }
         [Required]
+        [MaxLength(40,ErrorMessage = "text must be less than 40 characters")]
         public string Name { get; set; }
-
+        [MaxLength(250, ErrorMessage = "text must be less than 250 characters")]
         public string Description { get; set; }
     }
 }

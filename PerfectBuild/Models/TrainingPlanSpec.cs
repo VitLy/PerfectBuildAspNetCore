@@ -17,12 +17,15 @@ namespace PerfectBuild.Models
         public Exercise Exercise { get; set; }
 
         [Required]
+        [Range(0.1f, 300f)]
         public float Weight { get; set; }
 
         [Required]
+        [Range(1, 255)]
         public byte Set { get; set; }
 
         [Required]
+        [Range(1, 255)]
         public byte Amount { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,9 +9,6 @@ using PerfectBuild.Data;
 using PerfectBuild.Infrastructure;
 using PerfectBuild.Models;
 using System.Globalization;
-using Microsoft.AspNetCore.Localization;
-using Microsoft.Extensions.Localization;
-using System;
 
 namespace PerfectBuild
 {
@@ -33,10 +31,26 @@ namespace PerfectBuild
             })
                 .AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
             services.AddLocalization(option => option.ResourcesPath = "Resources");
-            services.AddMvc()
-                .AddViewLocalization()
-                .AddDataAnnotationsLocalization();
+            services.AddMvc(options =>
+            {
+                options.ModelBinderProviders.Insert(0, new FloatModelBinderProvider());
+            })
+            .AddViewLocalization()
+            .AddDataAnnotationsLocalization();
+
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[]
+                {
+                new CultureInfo("en"),
+                new CultureInfo("ru")
+            };
+                options.DefaultRequestCulture = new RequestCulture("ru");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
         }
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -47,17 +61,7 @@ namespace PerfectBuild
             app.UseAuthentication();
             app.UseStaticFiles();
 
-            var supportedCultures = new[]
-            {
-                new CultureInfo("en"),
-                new CultureInfo("ru")
-            };
-            app.UseRequestLocalization(new RequestLocalizationOptions
-            {
-                DefaultRequestCulture = new RequestCulture("ru"),
-                SupportedCultures = supportedCultures,
-                SupportedUICultures = supportedCultures
-            });
+            app.UseRequestLocalization();
 
             app.UseMvc(routers =>
             {

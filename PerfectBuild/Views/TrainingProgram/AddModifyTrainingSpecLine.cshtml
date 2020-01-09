@@ -29,10 +29,10 @@
             <label asp-for="Set">@LocalizerShared["Set"]</label>
             <input asp-for="Set" class="form-control">
         </div>
-        <div class="form-group">
+        <div>
             <label asp-for="Weight">@LocalizerShared["Weight"]</label>
             <div asp-validation-for="@Model.Weight"></div>
-            <input asp-for="Weight" class="form-control">
+            <input asp-for="Weight" type="number" step="0.1" class="form-control">
         </div>
         <div class="form-group">
             <label asp-for="Amount">@LocalizerShared["Amount"]</label>

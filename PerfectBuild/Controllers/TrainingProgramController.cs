@@ -35,14 +35,12 @@ namespace PerfectBuild.Controllers
         [HttpGet]
         public IActionResult GetSpecLine(int headId)
         {
-            //var specCollection = appContext.TrainingProgramSpecs.Include(x=>x.Exercise).Where(x=>x.ProgramHeadId==headId).ToList();
             var specCollection = appContext.TrainingProgramSpecs.Include(x => x.Exercise).Where(x => x.ProgramHeadId == headId).Select(selector => new {
                 id=selector.Id, exercise=selector.Exercise.Name,set=selector.Set, weight=selector.Weight, amount=selector.Amount }).ToList();
 
             var spec = Json(specCollection);
             return spec;
         }
-
 
         private List<TrainingProgramHead> GetTrainigPrograms()
         {

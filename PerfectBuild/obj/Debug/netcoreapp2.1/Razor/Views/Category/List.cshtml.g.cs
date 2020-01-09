@@ -73,7 +73,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
             WriteLiteral("\r\n<div class=\"container m-0 p-3\">\r\n    <div class=\"row p-1\">\r\n        <div class=\"col-8\">");
             EndContext();
             BeginContext(159, 71, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0d4242b7a23647d38a96b1ccf933737e", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1a600a21c61d4691b08dc717db0c19aa", async() => {
                 BeginContext(204, 22, true);
                 WriteLiteral("<strong>Name</strong> ");
                 EndContext();
@@ -101,7 +101,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
             WriteLiteral("</div>\r\n        <div class=\"col-2\">\r\n            ");
             EndContext();
             BeginContext(279, 87, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a567a9d8345e4f4884a91436220b6b82", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "94dbb62756494affb06718ea6e1852ed", async() => {
                 BeginContext(346, 16, false);
 #line 8 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\Category\List.cshtml"
                                                                          Write(Localizer["Add"]);
@@ -148,7 +148,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
             WriteLiteral("</div>\r\n            <div class=\"col-1\">");
             EndContext();
             BeginContext(591, 95, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "560ea9a806ac40adb62b51c62cc789f6", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cc8894ab25604daf955ec12ec487c11e", async() => {
                 BeginContext(663, 19, false);
 #line 17 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\Category\List.cshtml"
                                                                                                  Write(Localizer["Modify"]);
@@ -188,7 +188,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
             WriteLiteral("</div>\r\n            <div class=\"col-1\"></div>\r\n            <div class=\"col-1\">");
             EndContext();
             BeginContext(764, 95, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "dc38bc5c2e064fa3b24bd4c879fdd6f5", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bf3b3622f3d1445ca29b85bba4251000", async() => {
                 BeginContext(836, 19, false);
 #line 19 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\Category\List.cshtml"
                                                                                                  Write(Localizer["Delete"]);
@@ -236,7 +236,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
             WriteLiteral("\r\n    ");
             EndContext();
             BeginContext(896, 106, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("paginator", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "04acfecb0f4040da81df2509be941caa", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("paginator", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d72ad806ed3040598f135f2564a891d5", async() => {
             }
             );
             __PerfectBuild_Infrastructure_TagHelpers_PaginatorTagHelper = CreateTagHelper<global::PerfectBuild.Infrastructure.TagHelpers.PaginatorTagHelper>();

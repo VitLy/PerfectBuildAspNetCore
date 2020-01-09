@@ -33,40 +33,40 @@
                             <ul class="navbar-nav">
                                 <li class="nav-item dropdown">
                                     <a style="color:#ffffffff" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuActivity" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        @Localizer["Activity"]
+                                        @LocalizerShared["Activity"]
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuActivity">
-                                        <a class="dropdown-item" asp-controller="Activity" asp-action="DailyParameters">@Localizer["AddBodyParams"]</a>
-                                        <a class="dropdown-item" href="#">@Localizer["AddWorkout"]</a>
-                                        <a class="dropdown-item" href="#">@Localizer["StartTraining"]</a>
+                                        <a class="dropdown-item" asp-controller="Activity" asp-action="DailyParameters">@LocalizerShared["AddBodyParams"]</a>
+                                        <a class="dropdown-item" href="#">@LocalizerShared["AddWorkout"]</a>
+                                        <a class="dropdown-item" href="#">@LocalizerShared["StartTraining"]</a>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a style="color:#ffffffff" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuDiary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        @Localizer["Diary"]
+                                        @LocalizerShared["Diary"]
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuDiary">
-                                        <a class="dropdown-item" href="#">@Localizer["TrainingDiary"]</a>
-                                        <a class="dropdown-item" href="#">@Localizer["BodyStatistics"]</a>
+                                        <a class="dropdown-item" href="#">@LocalizerShared["TrainingDiary"]</a>
+                                        <a class="dropdown-item" href="#">@LocalizerShared["BodyStatistics"]</a>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a style="color:#ffffffff" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuSettings" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        @Localizer["Settings"]
+                                        @LocalizerShared["Settings"]
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuSettings">
-                                        <a class="dropdown-item" asp-controller="Category" asp-action="List">@Localizer["Categories"]</a>
-                                        <a class="dropdown-item" asp-controller="Exercise" asp-action="List">@Localizer["Exercises"]</a>
-                                        <a class="dropdown-item" asp-controller="TrainingProgram" asp-action="List">@Localizer["TrainingProgram"]</a>
+                                        <a class="dropdown-item" asp-controller="Category" asp-action="List">@LocalizerShared["Categories"]</a>
+                                        <a class="dropdown-item" asp-controller="Exercise" asp-action="List">@LocalizerShared["Exercises"]</a>
+                                        <a class="dropdown-item" asp-controller="TrainingProgram" asp-action="List">@LocalizerShared["TrainingProgram"]</a>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a style="color:#ffffffff" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        @Localizer["Profile"]
+                                        @LocalizerShared["Profile"]
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuProfile">
-                                        <a class="dropdown-item" asp-controller="Profile" asp-action="Modify">@Localizer["UserData"]</a>
-                                        <a class="dropdown-item" href="#">@Localizer["PersonalTrainingPlan"]</a>
+                                        <a class="dropdown-item" asp-controller="Profile" asp-action="Modify">@LocalizerShared["UserData"]</a>
+                                        <a class="dropdown-item" href="#">@LocalizerShared["PersonalTrainingPlan"]</a>
                                     </div>
                                 </li>
                             </ul>
@@ -77,47 +77,48 @@
             </div>
         </div>
     </header>
-    <div>
         <div class="bg-primary text-white"><h3>@Localizer["TittleTrainigProgram"]</h3></div>
-        <div class="container-fluid m-1 p-1">
+        <div class="container m-1 p-1">
             <div class="row justify-content-sm-between">
-                <div class="col-sm-12 bg-warning ">
-                    <div class="row">
-                        <div class="col-6">@Localizer["TrainigProgramName"]</div>
-                        <div class="col-2">@Localizer["Category"]</div>
-                        <div class="col-2"></div>
-                        <div class="col-2"></div>
-                    </div>
-
-                    @foreach (var trPr in Model)
-                    {
-                        <div class="row">
-                            <div class="col-6 ">@trPr.Name</div>
-                            <div class="col-2">@trPr.Category.Name</div>
-                            <div class="col-2"><a class="btn btn-primary" asp-action="AddModifyTrainingProgram" asp-route-id="@trPr.Id">@LocalizerShared["ModifyButton"]</a></div>
-                            <div class="col-2"><a class="btn btn-danger" asp-action="DeleteTrainingProgram" asp-route-id="@trPr.Id">@LocalizerShared["DeleteButton"]</a></div>
-                        </div>
-                    }
-
+                <div class="col-sm-12">
+                    <table class="table table-primary">
+                        <tr>
+                            <th>@Localizer["TrainigProgramName"]</th>
+                            <th>@Localizer["Category"]</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        @foreach (var trPr in Model)
+                        {
+                            <tr>
+                                <td>@trPr.Name</td>
+                                <td>@trPr.Category.Name</td>
+                                <td><a class="btn btn-primary" asp-action="AddModifyTrainingProgram" asp-route-id="@trPr.Id">@LocalizerShared["ModifyButton"]</a></td>
+                                <td><a class="btn btn-danger" asp-action="DeleteTrainingProgram" asp-route-id="@trPr.Id">@LocalizerShared["DeleteButton"]</a></td>
+                                <td><input hidden="hidden" value="@trPr.Id" name="headId" /></td>
+                            </tr>
+                        }
+                    </table>
                     <div><a class="btn btn-primary" asp-action="AddModifyTrainingProgram">@LocalizerShared["AddButton"]</a></div>
                 </div>
             </div>
         </div>
-        <div class="container-fluid m-1 p-1">
-            <div class="col-sm-12 bg-secondary">
-                <table id="TableProgram">
-                    <tr>
-                        <th>#</th>
-                        <th>@Localizer["Exercise"]</th>
-                        <th>@Localizer["Set"]</th>
-                        <th>@Localizer["Weight"]</th>
-                        <th>@Localizer["Amount"]</th>
-                    </tr>
-                </table>
+        <div class="container m-1 p-1">
+            <div class="row justify-content-sm-between">
+                <div class="col-sm-12">
+                    <table id="TableProgram" class="table table-primary">
+                        <tr>
+                            <th>#</th>
+                            <th>@Localizer["Exercise"]</th>
+                            <th>@Localizer["Set"]</th>
+                            <th>@Localizer["Weight"]</th>
+                            <th>@Localizer["Amount"]</th>
+                        </tr>
+                    </table>
 
+                </div>
             </div>
         </div>
-    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
     </script>
@@ -132,10 +133,42 @@
             asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"
             asp-fallback-test="window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive">
     </script>
+
     <script type="text/javascript">
         $(document).ready(function () {
-            $.getJSON('/TrainingProgram/GetSpecLine', { headId:@Model.First().Id}, function (spec) {
-                $.each(spec, function (i, item) {
+            var cssData = {
+                "background-color":'#255180'
+            };
+            $('tr').has('td').first().css(cssData);
+            GetSpec(@Model.First().Id);
+
+            $('tr').has('td').bind("mouseenter mouseout",handleMouse);
+            function handleMouse(event) {
+
+                if (event.type == "mouseout") {
+
+                    cssData["background-color"] = "";
+                }
+                if (event.type == "mouseenter") {
+
+                    cssData["background-color"] = "#255180";
+                }
+                $(this).css(cssData);
+            };
+        });
+
+        $('tr').has('td').click(function (e) {
+            $('tr').has('td').css('font-size', '1em');
+            GetSpec($(this).find("input[name=headId]").val());
+            var elements = $(this);
+             $(elements).css('font-size', '1.2em');
+
+        });
+
+            function GetSpec(headId) {
+                $.getJSON('/TrainingProgram/GetSpecLine', { headId: headId }, function (spec) {
+                    $('#TableProgram').find('td').remove();
+                 $.each(spec, function (i, item) {
                     var row = $('<tr>').
                         append('<td>' + (++i) + '</td>').
                         append('<td>' + item.exercise + '</td>').
@@ -147,18 +180,7 @@
                     $('#TableProgram').append(row);
                 });
             });
-            $('.row').bind("mouseenter mouseout",handleMouse);
-            function handleMouse(event) {
-                var cssData = {
-                "background-color":'#6a737b'
-                };
-                if (event.type == "mouseout") {
-
-                    cssData["background-color"] = "";
-                };
-                $(this).css(cssData);
             };
-        });
     </script>
 
 </body>

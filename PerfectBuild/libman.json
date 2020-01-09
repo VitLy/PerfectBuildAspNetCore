@@ -25,6 +25,14 @@
     {
       "library": "jquery-validation-unobtrusive@3.2.11",
       "destination": "wwwroot/lib/jquery-validation-unobtrusive/"
+    },
+    {
+      "library": "cldrjs@0.5.1",
+      "destination": "wwwroot/lib/cldrjs"
+    },
+    {
+      "library": "globalize@1.4.2",
+      "destination": "wwwroot/lib/globalize/"
     }
   ]
 }

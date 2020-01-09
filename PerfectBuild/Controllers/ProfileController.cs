@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 using PerfectBuild.Data;
 using PerfectBuild.Models;
 using PerfectBuild.Models.ViewModels;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PerfectBuild.Controllers
 {
