@@ -75,4 +75,8 @@ D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\Per
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Views.Activity.DailyParameters.ru.resources
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\Razor\Views\Activity\DailyParameters.cshtml.g.cs
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_SelectLanguagePartial.cshtml.g.cs
-D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.csprojAssemblyReference.cache
+D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_MenuPanelPartial.cshtml.g.cs
+D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\Razor\Views\TrainingPlan\Show.cshtml.g.cs
+D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Views.TrainingPlan.Show.en.resources
+D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Views.TrainingPlan.Show.ru.resources
+D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\Razor\Views\TrainingPlan\AddModifyTrainingPlanLine.cshtml.g.cs

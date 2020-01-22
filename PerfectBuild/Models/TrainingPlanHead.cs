@@ -15,11 +15,6 @@ namespace PerfectBuild.Models
         [ForeignKey("UserId")]
         public User User { get; set; }
 
-        public int CategoryId { get; set; }
-
-        [ForeignKey("CategoryId")]
-        public Category Category { get; set; }
-
         [Required]
         public DateTime Date { get; set; }
 
@@ -28,6 +23,9 @@ namespace PerfectBuild.Models
 
         [MaxLength(250)]
         public string Description { get; set; }
+
+        [Required]
+        public byte TrainingDays { get; set; }
 
         public virtual ICollection<TrainingPlanSpec> TrainingPlanSpec { get; set; }
     }

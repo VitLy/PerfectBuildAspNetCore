@@ -168,8 +168,14 @@
   <data name="ExitButton" xml:space="preserve">
     <value>Exit</value>
   </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Friday</value>
+  </data>
   <data name="ModifyButton" xml:space="preserve">
     <value>Modify</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Monday</value>
   </data>
   <data name="OkButton" xml:space="preserve">
     <value>Ok</value>
@@ -179,6 +185,9 @@
   </data>
   <data name="Profile" xml:space="preserve">
     <value>Profile</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Saturday</value>
   </data>
   <data name="SaveButton" xml:space="preserve">
     <value>Save</value>
@@ -192,11 +201,14 @@
   <data name="StartTraining" xml:space="preserve">
     <value>Start workout</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
+  <data name="Sunday" xml:space="preserve">
+    <value>Sunday</value>
   </data>
   <data name="Thigh" xml:space="preserve">
     <value>Thigh</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Thursday</value>
   </data>
   <data name="TrainingDiary" xml:space="preserve">
     <value>Training diary</value>
@@ -204,11 +216,17 @@
   <data name="TrainingProgram" xml:space="preserve">
     <value>Training program</value>
   </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Tuesday</value>
+  </data>
   <data name="UserData" xml:space="preserve">
     <value>User data</value>
   </data>
   <data name="Waist" xml:space="preserve">
     <value>Waist</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Wednesday</value>
   </data>
   <data name="Weight" xml:space="preserve">
     <value>Weight</value>

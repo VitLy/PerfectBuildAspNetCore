@@ -250,8 +250,6 @@ namespace PerfectBuild.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoryId");
-
                     b.Property<DateTime>("Date");
 
                     b.Property<string>("Description")
@@ -261,11 +259,11 @@ namespace PerfectBuild.Migrations
                         .IsRequired()
                         .HasMaxLength(40);
 
+                    b.Property<byte>("TrainingDays");
+
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
 
                     b.HasIndex("UserId");
 
@@ -281,6 +279,8 @@ namespace PerfectBuild.Migrations
                     b.Property<byte>("Amount");
 
                     b.Property<int>("ExId");
+
+                    b.Property<int>("Order");
 
                     b.Property<int>("ProgramHeadId");
 
@@ -504,11 +504,6 @@ namespace PerfectBuild.Migrations
 
             modelBuilder.Entity("PerfectBuild.Models.TrainingPlanHead", b =>
                 {
-                    b.HasOne("PerfectBuild.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("PerfectBuild.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");

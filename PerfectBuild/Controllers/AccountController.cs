@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using PerfectBuild.Models;
 using PerfectBuild.Models.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -27,7 +26,7 @@ namespace PerfectBuild.Controllers
             this.roleManager = roleManager;
         }
 
-        public IActionResult Login(string returnUrl)
+        public IActionResult Login(string returnUrl)   //Оставил возможность переадресации на адрес страницы, которую изначально указал неавторизованный пользователь
         {
             ViewBag.returnUrl = returnUrl;
             return View();
@@ -35,7 +34,7 @@ namespace PerfectBuild.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(string returnUrl, LoginViewModel loginModel)
+        public async Task<IActionResult> Login(LoginViewModel loginModel) 
         {
             if (ModelState.IsValid)
             {
@@ -46,7 +45,7 @@ namespace PerfectBuild.Controllers
                     var signInResult = await signInManager.PasswordSignInAsync(user, loginModel.Password, false, false);
                     if (signInResult.Succeeded)
                     {
-                        Redirect(returnUrl ?? "/");
+                        return RedirectToAction("Index","Home");
                     }
                     else
                     {

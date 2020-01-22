@@ -68,7 +68,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
             WriteLiteral("\r\n    <div class=\"border-light bg-transparent\">\r\n        <h6>");
             EndContext();
             BeginContext(76, 77, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4050ab2c036e42d5b5b01c8503572314", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "44069a1a30fd4955a5fd1b02fda90073", async() => {
                 BeginContext(144, 5, false);
 #line 4 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\Shared\Components\LoginPanel\Default.cshtml"
                                                                           Write(Model);
@@ -97,7 +97,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
             WriteLiteral(" </h6>\r\n        <span>");
             EndContext();
             BeginContext(175, 77, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d7e6edecbd534d7eb3e89c7a019419a8", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "930c7819bde94eff938895587e8169d7", async() => {
                 BeginContext(242, 6, true);
                 WriteLiteral("LogOut");
                 EndContext();

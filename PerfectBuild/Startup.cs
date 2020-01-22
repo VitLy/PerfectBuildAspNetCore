@@ -8,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using PerfectBuild.Data;
 using PerfectBuild.Infrastructure;
 using PerfectBuild.Models;
+using PerfectBuild.Models.Document;
+using PerfectBuild.Services;
 using System.Globalization;
 
 namespace PerfectBuild
@@ -24,6 +26,8 @@ namespace PerfectBuild
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
+            services.AddTransient<TrainigDayConverter>();
+            services.AddScoped<FitDocument>();
             services.AddIdentity<User, IdentityRole>(opt =>
             {
                 opt.Password.RequireNonAlphanumeric = false;

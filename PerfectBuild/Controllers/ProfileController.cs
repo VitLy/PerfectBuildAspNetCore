@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PerfectBuild.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,User")]
     public class ProfileController : Controller
     {
         private readonly UserManager<User> userManager;
