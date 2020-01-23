@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using PerfectBuild.Models.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PerfectBuild.Models
 {
-    public class TrainingPlanSpec
+    public class TrainingPlanSpec : ITrainingDocumSpec
     {
         [Key]
         public int Id { get; set; }

@@ -34,7 +34,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
 #line default
 #line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"7ccd5bbf8ccbc000dece0eaeb3bb3af7acccb53f", @"/Views/TrainingProgram/List.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f1b3fd339342b04f6e87691148996dacff1f1e24", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"3c3cd369565bd17101628393d36b06cc3fe93e2b", @"/Views/_ViewImports.cshtml")]
     public class Views_TrainingProgram_List : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<IEnumerable<TrainingProgramHead>>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("rel", new global::Microsoft.AspNetCore.Html.HtmlString("stylesheet"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -96,7 +96,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
             WriteLiteral("\r\n<!DOCTYPE html>\r\n\r\n<html>\r\n");
             EndContext();
             BeginContext(189, 574, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2040e5806cb0447c9968e1fa990952a8", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "26c28cf94cbc419aa2019dd0f1927fdb", async() => {
                 BeginContext(195, 72, true);
                 WriteLiteral("\r\n    <meta name=\"viewport\" content=\"width=device-width\" />\r\n    <title>");
                 EndContext();
@@ -111,7 +111,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
                 WriteLiteral("</title>\r\n    ");
                 EndContext();
                 BeginContext(295, 399, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("link", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "78c536ea4cd84f949d718e1301a553dc", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("link", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "532c3788f84e47c6b32d751b7065cba8", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_TagHelpers_LinkTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.LinkTagHelper>();
@@ -141,7 +141,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
                 WriteLiteral("\r\n    ");
                 EndContext();
                 BeginContext(700, 52, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("link", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "8868f4385e064f2698a4ff4505e5ea4c", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("link", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "0d1f11174778449fa2bde686df3fe0bc", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -175,7 +175,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
             WriteLiteral("\r\n");
             EndContext();
             BeginContext(765, 5321, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "59369aefaa6d442ebce6a711363c02ec", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b3020dc05893402d8294027aeaa7a7e7", async() => {
                 BeginContext(771, 148, true);
                 WriteLiteral("\r\n    <header>\r\n        <div class=\"container-fluid\">\r\n            <div class=\"row\">\r\n                <div class=\"col-11 p-0\">\r\n                    ");
                 EndContext();
@@ -259,7 +259,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
                 WriteLiteral("</td>\r\n                            <td>");
                 EndContext();
                 BeginContext(1912, 125, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cacbc3d0843f4132b400eb20237c4a05", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b48e9ecf92b2447bbd9e9e89fb9cec80", async() => {
                     BeginContext(2002, 31, false);
 #line 48 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\TrainingProgram\List.cshtml"
                                                                                                                     Write(LocalizerShared["ModifyButton"]);
@@ -299,7 +299,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
                 WriteLiteral("</td>\r\n                            <td>");
                 EndContext();
                 BeginContext(2076, 121, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c44af97a506446ea8b9cedd3b4985f5e", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4f096280131c4ae3b3c5256d008952b5", async() => {
                     BeginContext(2162, 31, false);
 #line 49 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\TrainingProgram\List.cshtml"
                                                                                                                 Write(LocalizerShared["DeleteButton"]);
@@ -357,7 +357,7 @@ WriteAttributeValue("", 2266, trPr.Id, 2266, 8, false);
                 WriteLiteral("                </table>\r\n                <div>");
                 EndContext();
                 BeginContext(2400, 98, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "55e929ce10bd411cb0ad2107f79932e3", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ab5a490b64094ce092e768c7d6455414", async() => {
                     BeginContext(2466, 28, false);
 #line 54 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\TrainingProgram\List.cshtml"
                                                                                  Write(LocalizerShared["AddButton"]);
@@ -447,7 +447,7 @@ WriteAttributeValue("", 2266, trPr.Id, 2266, 8, false);
     ");
                 EndContext();
                 BeginContext(3664, 254, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "eb122d7b18e848a99a38f512cfd89507", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "426e3fac71314ed19c291e3681abe2cf", async() => {
                     BeginContext(3903, 6, true);
                     WriteLiteral("\r\n    ");
                     EndContext();
@@ -473,7 +473,7 @@ WriteAttributeValue("", 2266, trPr.Id, 2266, 8, false);
                 WriteLiteral("\r\n    ");
                 EndContext();
                 BeginContext(3924, 344, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "40bb1248a9744a76aa7d2e3e1f9ae98b", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "45a981b23f9141a2a1942ee1c6dd1a74", async() => {
                     BeginContext(4253, 6, true);
                     WriteLiteral("\r\n    ");
                     EndContext();

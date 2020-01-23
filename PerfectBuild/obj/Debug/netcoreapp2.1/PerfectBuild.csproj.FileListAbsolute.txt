@@ -80,3 +80,6 @@ D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\Raz
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Views.TrainingPlan.Show.en.resources
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Views.TrainingPlan.Show.ru.resources
 D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\Razor\Views\TrainingPlan\AddModifyTrainingPlanLine.cshtml.g.cs
+D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.csprojAssemblyReference.cache
+D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Infrastructure.TagHelpers.TrainingDayTagHelper.en.resources
+D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\obj\Debug\netcoreapp2.1\PerfectBuild.Resources.Infrastructure.TagHelpers.TrainingDayTagHelper.ru.resources

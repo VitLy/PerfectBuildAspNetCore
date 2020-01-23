@@ -39,7 +39,7 @@ using Microsoft.AspNetCore.Identity;
 #line default
 #line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"b6e75b5edb880fc17798e08d88e5c47a2c099fad", @"/Views/Admin/UserList.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f1b3fd339342b04f6e87691148996dacff1f1e24", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"3c3cd369565bd17101628393d36b06cc3fe93e2b", @"/Views/_ViewImports.cshtml")]
     public class Views_Admin_UserList : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<IList<User>>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("btn btn-primary"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -138,12 +138,12 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("</td>\r\n                            <td>\r\n                                ");
             EndContext();
             BeginContext(930, 363, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6f0c999a806442ba9b71cf99f0b0bd0a", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8e2dd648a3c444c5b9e6308e130b3ff8", async() => {
                 BeginContext(998, 38, true);
                 WriteLiteral("\r\n                                    ");
                 EndContext();
                 BeginContext(1036, 104, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c04cbdf421344cbd802c32120edea319", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cd330e2c907e4f5b984523900e8f3bae", async() => {
                     BeginContext(1117, 19, false);
 #line 31 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\Admin\UserList.cshtml"
                                                                                                                Write(Localizer["Modify"]);
@@ -235,7 +235,7 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("                </tbody>\r\n            </table>\r\n        </div>\r\n        <div class=\"col-2\">\r\n            ");
             EndContext();
             BeginContext(1489, 217, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "497fccf57a81402084173715a81ef04b", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d249bb3100524f4495787846cb3d8b4c", async() => {
                 BeginContext(1531, 118, true);
                 WriteLiteral("\r\n                <button type=\"submit\" class=\"btn btn-danger\">Наполнить базу данных первоначальными данными</button> ");
                 EndContext();

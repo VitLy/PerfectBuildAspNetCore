@@ -34,7 +34,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
 #line default
 #line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"c5a3deeb884b11e8ea79993b0d11277fdf23bb52", @"/Views/TrainingProgram/TrainingSpecList.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f1b3fd339342b04f6e87691148996dacff1f1e24", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"3c3cd369565bd17101628393d36b06cc3fe93e2b", @"/Views/_ViewImports.cshtml")]
     public class Views_TrainingProgram_TrainingSpecList : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<AddModifyTrainingSpecViewModel<TrainingProgramSpec>>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "AddModifyTrainingSpecLine", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -158,7 +158,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
             WriteLiteral("</div>\r\n        <div class=\"col-1\">");
             EndContext();
             BeginContext(731, 155, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "377e30dbf1b44ea89b609d2d1e43f6e2", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4ae179fa00134fcca1b97c4e0c62294a", async() => {
                 BeginContext(860, 22, false);
 #line 21 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\TrainingProgram\TrainingSpecList.cshtml"
                                                                                                                                                       Write(LocalizerShared["Add"]);
@@ -263,7 +263,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
             WriteLiteral("</div>\r\n            <div class=\"col-1\">");
             EndContext();
             BeginContext(1329, 165, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5a6bc0132b4848748f94f85f4fee5d2c", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4b08dad60a824511b99a957f01f3986b", async() => {
                 BeginContext(1465, 25, false);
 #line 33 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\TrainingProgram\TrainingSpecList.cshtml"
                                                                                                                                                                  Write(LocalizerShared["Modify"]);
@@ -312,7 +312,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
             WriteLiteral("</div>\r\n            <div class=\"col-1\">");
             EndContext();
             BeginContext(1533, 161, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a4918918f5374739baaf1743e2adbeb3", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3f536bd76e874c69b1746d8349e55ec3", async() => {
                 BeginContext(1665, 25, false);
 #line 34 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\TrainingProgram\TrainingSpecList.cshtml"
                                                                                                                                                              Write(LocalizerShared["Delete"]);
@@ -369,7 +369,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
             WriteLiteral("    </div>\r\n    ");
             EndContext();
             BeginContext(1729, 102, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "efb155df31a84c918427ecf10b965b08", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1ed558d687d4452e936d49f33792f352", async() => {
                 BeginContext(1797, 30, false);
 #line 37 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\TrainingProgram\TrainingSpecList.cshtml"
                                                                   Write(LocalizerShared["CloseButton"]);

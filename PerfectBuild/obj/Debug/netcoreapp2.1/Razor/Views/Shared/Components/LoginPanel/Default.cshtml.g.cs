@@ -34,7 +34,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
 #line default
 #line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"382015be8632d33c09f88b954c5218b95f66200a", @"/Views/Shared/Components/LoginPanel/Default.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f1b3fd339342b04f6e87691148996dacff1f1e24", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"3c3cd369565bd17101628393d36b06cc3fe93e2b", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared_Components_LoginPanel_Default : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<String>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("text-light"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -68,7 +68,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
             WriteLiteral("\r\n    <div class=\"border-light bg-transparent\">\r\n        <h6>");
             EndContext();
             BeginContext(76, 77, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "44069a1a30fd4955a5fd1b02fda90073", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4162579e26a34c4b891de9f2aef44fa7", async() => {
                 BeginContext(144, 5, false);
 #line 4 "D:\My\Programm\Projects\PerfectBuildWeb\PerfectBuild\Views\Shared\Components\LoginPanel\Default.cshtml"
                                                                           Write(Model);
@@ -97,7 +97,7 @@ using Microsoft.AspNetCore.Mvc.Localization;
             WriteLiteral(" </h6>\r\n        <span>");
             EndContext();
             BeginContext(175, 77, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "930c7819bde94eff938895587e8169d7", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fa034c61353442e193a140286415863c", async() => {
                 BeginContext(242, 6, true);
                 WriteLiteral("LogOut");
                 EndContext();
