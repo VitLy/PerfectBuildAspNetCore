@@ -1,0 +1,79 @@
+﻿@using PerfectBuild
+@using PerfectBuild.Models.Document
+@using System
+@model IEnumerable<TrainingHead>
+@inject IHtmlLocalizer<SharedResource> LocalizerShared
+@inject IViewLocalizer Localizer
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"
+          asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
+          asp-fallback-test-class="hidden" asp-fallback-test-property="visibility" asp-fallback-test-value="hidden" />
+    <link rel="stylesheet" href="~/css/basestyle.css" />
+</head>
+<body>
+    <div class="bg-primary text-white"><h3>@Localizer["TittleTrainigJournal"]</h3></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-primary">
+                    <tr>
+                        <th>#</th>
+                        <th>@LocalizerShared["Id"]</th>
+                        <th>@LocalizerShared["Date"]</th>
+                        <th>@LocalizerShared["DateEnd"]</th>
+                        <th>@LocalizerShared["Duration"]</th>
+                        <th>@LocalizerShared["Calories"]</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    @{ int i = 1; }
+                    @if (Model.Count() != 0)
+                    {
+                        @foreach (var line in Model)
+                        {
+                            <tr>
+                                <td>@(i++)</td>
+                                <td>@line.Id</td>
+                                <td>@line.Date</td>
+                                <td>@line.DateEnd</td>
+                                <td>@line.DateEnd-Date</td>
+                                <td>@line.Calories</td>
+                                <td>
+                                    <a class="btn btn-primary" asp-action="Modify" asp-route-id=@line.Id>
+                                        @LocalizerShared["ModifyButton"]
+                                    </a>
+                                </td>
+
+                                <td>
+                                    <a class="btn btn-danger" asp-action="Delete" asp-route-id=@line.Id>
+                                        @LocalizerShared["DeleteButton"]
+                                    </a>
+                                </td>                             
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <th colspan="6">@Localizer["EmptyTrainingDay"]</th>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+

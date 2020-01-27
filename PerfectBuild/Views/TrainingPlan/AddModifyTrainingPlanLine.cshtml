@@ -1,0 +1,49 @@
+﻿@model TrainigSpecLineChangeViewModel
+@inject IHtmlLocalizer<SharedResource> LocalizerShared
+@inject IViewLocalizer Localizer
+
+<form method="post" asp-action="AddModifyTrainingPlanLine">
+    <div class="validation" asp-validation-summary="All"> </div>
+    <div class="form-group">
+        <label>@LocalizerShared["AddingExerciseToPlan"]</label>
+        <label>@ViewBag.TrainingDay</label>
+        <div asp-validation-for="@Model.ExerciseId"></div>
+        <select name="ExerciseId" required="required" size="1">
+            @if (Model.Id == 0)
+            {
+                <option selected disabled>@Localizer["ChooseExercise"]</option>
+            }
+            else
+            {
+                <option selected value="@Model.Exercises.Where(x=>x.Name==Model.Name).FirstOrDefault().Id">@Model.Name</option>
+            }
+            @foreach (var exercise in @Model.Exercises)
+            {
+                <option value="@exercise.Id">@exercise.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <input asp-for="HeadId" value="@Model.HeadId" hidden="hidden" />
+        <input asp-for="Id" value="@Model.Id" hidden="hidden" />
+        <input name="dayTraining" value="@ViewBag.TrainingDay" hidden="hidden" />
+
+        <div asp-validation-for="@Model.Set"></div>
+        <label asp-for="Set">@LocalizerShared["Set"]</label>
+        <input asp-for="Set" value=@Model.Set class="form-control">
+    </div>
+    <div>
+        <label asp-for="Weight">@LocalizerShared["Weight"]</label>
+        <div asp-validation-for="@Model.Weight"></div>
+        <input asp-for="Weight" value=@Model.Weight type="number" step="0.1" class="form-control">
+    </div>
+    <div class="form-group">
+        <label asp-for="Amount">@LocalizerShared["Amount"]</label>
+        <div asp-validation-for="@Model.Amount"></div>
+        <input asp-for="Amount" value=@Model.Amount class="form-control">
+    </div>
+
+    <button class="btn btn-primary">@LocalizerShared["OkButton"]</button>
+    <a asp-action="Show" class="btn btn-warning">@LocalizerShared["CancelButton"]</a>
+
+</form>

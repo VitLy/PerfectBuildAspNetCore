@@ -1,0 +1,33 @@
+﻿@model AddTrainingManuallyViewModel
+@using PerfectBuild
+@using PerfectBuild.Models.Document
+@using System
+@inject IHtmlLocalizer<SharedResource> LocalizerShared
+@inject IViewLocalizer Localizer
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"
+          asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
+          asp-fallback-test-class="hidden" asp-fallback-test-property="visibility" asp-fallback-test-value="hidden" />
+    <script src="https://kit.fontawesome.com/c0bb6a9e00.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="~/css/basestyle.css" />
+</head>
+<body>
+    <div class="bg-primary text-white"><h3>@Localizer["TittleAddTrainingManually"]</h3></div>
+
+    <form asp-action="AddTrainingByHand" method="post">
+        <div class="form-control card-body line1">
+            <label asp-for="TrainingName">Название тренировки:<input asp-for="TrainingName" type="text"></label>
+            <label asp-for="Date">Дата:<input asp-for="Date" type="date"></label>
+            <label asp-for="TimeStart">Начало:<input asp-for="TimeStart" type="time"></label>
+            <label asp-for="TimeStart">Завершение:<input asp-for="TimeStart" type="time"></label>
+        </div>
+        <div>
+            <input type="button" class="btn btn-secondary" name="addLine" />
+        </div>
+    </form>
+</body>
+</html>
