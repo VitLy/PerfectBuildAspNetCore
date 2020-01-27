@@ -213,8 +213,8 @@
   <data name="Thursday" xml:space="preserve">
     <value>Четверг</value>
   </data>
-  <data name="TrainingDiary" xml:space="preserve">
-    <value>Дневник тренировок</value>
+  <data name="TrainingJournal" xml:space="preserve">
+    <value>Журнал тренировок</value>
   </data>
   <data name="TrainingProgram" xml:space="preserve">
     <value>Тренировочная программа</value>

@@ -34,6 +34,5 @@ namespace PerfectBuild.Models
 
         [ForeignKey("ExId")]
         public Exercise Exercise { get; set; }
-
     }
 }

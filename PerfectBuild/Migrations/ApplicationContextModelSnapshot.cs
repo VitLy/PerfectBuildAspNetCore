@@ -227,7 +227,11 @@ namespace PerfectBuild.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("Calories");
+
                     b.Property<DateTime>("Date");
+
+                    b.Property<DateTime>("DateEnd");
 
                     b.Property<int>("TrainigPlanHeadId");
 
@@ -280,9 +284,9 @@ namespace PerfectBuild.Migrations
 
                     b.Property<int>("ExId");
 
-                    b.Property<int>("Order");
+                    b.Property<int>("HeadId");
 
-                    b.Property<int>("ProgramHeadId");
+                    b.Property<int>("Order");
 
                     b.Property<byte>("Set");
 
@@ -337,7 +341,9 @@ namespace PerfectBuild.Migrations
 
                     b.Property<int>("ExId");
 
-                    b.Property<int>("ProgramHeadId");
+                    b.Property<int>("HeadId");
+
+                    b.Property<int?>("ProgramHeadId");
 
                     b.Property<byte>("Set");
 
@@ -542,8 +548,7 @@ namespace PerfectBuild.Migrations
 
                     b.HasOne("PerfectBuild.Models.TrainingProgramHead", "TrainingProgramHead")
                         .WithMany("TrainingProgramSpec")
-                        .HasForeignKey("ProgramHeadId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ProgramHeadId");
                 });
 
             modelBuilder.Entity("PerfectBuild.Models.TrainingSpec", b =>

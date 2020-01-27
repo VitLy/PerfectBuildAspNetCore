@@ -1,15 +1,16 @@
-﻿using PerfectBuild.Models.Interfaces;
+﻿using PerfectBuild.Models.Document;
+using PerfectBuild.Models.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PerfectBuild.Models
 {
-    public class TrainingPlanSpec : ITrainingDocumSpec
+    public class TrainingPlanSpec : IDocument,IOrdered
     {
         [Key]
         public int Id { get; set; }
 
-        public int ProgramHeadId { get; set; }
+        public int HeadId { get; set; }
 
         public int ExId { get; set; }
 

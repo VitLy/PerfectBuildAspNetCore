@@ -27,7 +27,7 @@ namespace PerfectBuild
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
             services.AddTransient<ITrainigDayConverter,TrainingDayConverter>();
-            services.AddTransient<FitDocument<TrainingPlanSpec>>();
+            services.AddTransient<DocumentHandler<TrainingPlanSpec>>();
             services.AddIdentity<User, IdentityRole>(opt =>
             {
                 opt.Password.RequireNonAlphanumeric = false;

@@ -13,6 +13,11 @@ namespace PerfectBuild.Models
         [Required]
         public DateTime Date { get; set; }
 
+        [Required]
+        public DateTime DateEnd { get; set; }
+
+        public int Calories { get; set; }
+
         public string UserId { get; set; }
 
         [ForeignKey("UserId")]

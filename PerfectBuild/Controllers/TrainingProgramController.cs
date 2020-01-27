@@ -34,7 +34,7 @@ namespace PerfectBuild.Controllers
         [HttpGet]
         public IActionResult GetSpecLine(int headId)
         {
-            var specCollection = appContext.TrainingProgramSpecs.Include(x => x.Exercise).Where(x => x.ProgramHeadId == headId).Select(selector => new {
+            var specCollection = appContext.TrainingProgramSpecs.Include(x => x.Exercise).Where(x => x.HeadId == headId).Select(selector => new {
                 id=selector.Id, exercise=selector.Exercise.Name,set=selector.Set, weight=selector.Weight, amount=selector.Amount }).ToList();
 
             var spec = Json(specCollection);
@@ -52,7 +52,7 @@ namespace PerfectBuild.Controllers
         {
             if (id != 0)
             {
-                var specList = appContext.TrainingProgramSpecs.Where(x => x.ProgramHeadId == id);
+                var specList = appContext.TrainingProgramSpecs.Where(x => x.HeadId == id);
                 appContext.RemoveRange(specList);
                 await appContext.SaveChangesAsync();
                 var head = appContext.TrainingProgramHeads.Where(x => x.Id == id);
@@ -172,7 +172,7 @@ namespace PerfectBuild.Controllers
             {
                 TrainingProgramSpec programSpec = new TrainingProgramSpec
                 {
-                    ProgramHeadId = viewModel.HeadId,
+                    HeadId = viewModel.HeadId,
                     ExId = viewModel.ExerciseId,
                     Set = viewModel.Set,
                     Weight = viewModel.Weight,
@@ -195,13 +195,13 @@ namespace PerfectBuild.Controllers
             return View("TrainingSpecList", Getmodel(viewModel.HeadId));
         }
 
-        private AddModifyTrainingSpecViewModel<TrainingProgramSpec> Getmodel(int headId)
+        private AddModifyTrainingSpecViewModel Getmodel(int headId)
         {
-            var model = new AddModifyTrainingSpecViewModel<TrainingProgramSpec>
+            var model = new AddModifyTrainingSpecViewModel
             {
                 TrainingHeadName = appContext.TrainingProgramHeads.Where(x => x.Id == headId).FirstOrDefault().Name,
                 TrainingHeadCategory = appContext.TrainingProgramHeads.Where(x => x.Id == headId).Include(x => x.Category).FirstOrDefault().Category.Name,
-                TrainingSpecs = appContext.TrainingProgramSpecs.Where(x => x.ProgramHeadId == headId).Include(x => x.Exercise).ToList(),
+                TrainingSpecs = appContext.TrainingProgramSpecs.Where(x => x.HeadId == headId).Include(x => x.Exercise).ToList(),
                 TrainingHeadId = headId,
                 TrainingHeadDate = appContext.TrainingProgramHeads.Where(x => x.Id == headId).FirstOrDefault().Date
             };

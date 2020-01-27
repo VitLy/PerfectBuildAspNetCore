@@ -27,6 +27,13 @@
     font-size:28px;
     font-weight:bold;
 }
+.block {
+    display: inline-block;
+}
+input,
+label {
+    display: block;
+}
 .field-validation-error {
     color: red;
 }

@@ -1,15 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using PerfectBuild.Models.Interfaces;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PerfectBuild.Models
 {
-    public class TrainingProgramSpec
+    public class TrainingProgramSpec: IDocument,IOrdered
     {
         [Key]
         public int Id { get; set; }
 
-        public int ProgramHeadId { get; set; }
+        public int HeadId { get; set; }
 
         [ForeignKey("ProgramHeadId")]
         public TrainingProgramHead TrainingProgramHead { get; set; }
@@ -30,5 +31,7 @@ namespace PerfectBuild.Models
         [Required]
         [Range(1, 255)]
         public byte Amount { get; set; }
+
+        public int Order { get; set; }
     }
 }

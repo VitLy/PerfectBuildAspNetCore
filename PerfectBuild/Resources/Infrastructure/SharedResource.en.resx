@@ -210,8 +210,8 @@
   <data name="Thursday" xml:space="preserve">
     <value>Thursday</value>
   </data>
-  <data name="TrainingDiary" xml:space="preserve">
-    <value>Training diary</value>
+  <data name="TrainingJournal" xml:space="preserve">
+    <value>Training Journal</value>
   </data>
   <data name="TrainingProgram" xml:space="preserve">
     <value>Training program</value>
