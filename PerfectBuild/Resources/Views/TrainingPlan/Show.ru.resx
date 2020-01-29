@@ -117,17 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddExerciseButton" xml:space="preserve">
-    <value>Добавить тренировку</value>
-  </data>
   <data name="AddTrainigPlan" xml:space="preserve">
     <value>Добавить индивидуальный план тренировок</value>
-  </data>
-  <data name="ClearButton" xml:space="preserve">
-    <value>Очистить тренировочный день</value>
-  </data>
-  <data name="CreatePlanWithTrainingProgram" xml:space="preserve">
-    <value>Создать тренировочный план по тренировочной программе</value>
   </data>
   <data name="Date" xml:space="preserve">
     <value>Дата создания</value>

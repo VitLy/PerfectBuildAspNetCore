@@ -8,7 +8,6 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"
           asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
           asp-fallback-test-class="hidden" asp-fallback-test-property="visibility" asp-fallback-test-value="hidden" />
@@ -17,17 +16,48 @@
 </head>
 <body>
     <div class="bg-primary text-white"><h3>@Localizer["TittleAddTrainingManually"]</h3></div>
+    <div class="m-1 p-1">
+        <form asp-action="AddTrainingManually" method="post">
+            <div class="validation" asp-validation-summary="All"> </div>
+            <div class="form-group">
+                <div asp-validation-for="@Model.TrainingName"></div>
+                <label asp-for="TrainingName">
+                    @Localizer["TrainingName"]
+                    <input asp-for="TrainingName" class="form-control" type="text">
+                </label>
+            </div>
+            <div class="form-group">
+                <div asp-validation-for="@Model.Date"></div>
+                <label asp-for="Date">
+                    @Localizer["Date"]
+                    <input asp-for="Date" type="date">
+                </label>
+            </div>
 
-    <form asp-action="AddTrainingByHand" method="post">
-        <div class="form-control card-body line1">
-            <label asp-for="TrainingName">Название тренировки:<input asp-for="TrainingName" type="text"></label>
-            <label asp-for="Date">Дата:<input asp-for="Date" type="date"></label>
-            <label asp-for="TimeStart">Начало:<input asp-for="TimeStart" type="time"></label>
-            <label asp-for="TimeStart">Завершение:<input asp-for="TimeStart" type="time"></label>
-        </div>
-        <div>
-            <input type="button" class="btn btn-secondary" name="addLine" />
-        </div>
-    </form>
+            <div class="form-group">
+                <div asp-validation-for="@Model.NumDocument"></div>
+                <label asp-for="NumDocument">
+                    @Localizer["NumDocument"]
+                    <input asp-for=NumDocument type="number">
+                </label>
+            </div>
+            <div class="form-group">
+                <div asp-validation-for="@Model.Duration"></div>
+                <label asp-for="Duration">
+                    @Localizer["Duration"]
+                    <input asp-for="Duration" type="number">
+                </label>
+            </div>
+            <div class="form-group">
+                <div asp-validation-for="@Model.Calories"></div>
+                <label asp-for="Calories">
+                    @Localizer["Calories"]
+                    <input asp-for="Calories" type="number">
+                </label>
+            </div>
+            <input type="submit" class="btn btn-primary" value=@LocalizerShared["AddExerciseButton"] />
+            <a asp-controller="Home" asp-action="Index" class="btn btn-warning">@LocalizerShared["CancelButton"]</a>
+        </form>
+    </div>
 </body>
 </html>

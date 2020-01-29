@@ -126,14 +126,20 @@
   <data name="DateEnd" xml:space="preserve">
     <value>DateEnd</value>
   </data>
+  <data name="DocumName" xml:space="preserve">
+    <value>Document Name</value>
+  </data>
   <data name="Duration" xml:space="preserve">
     <value>Duration</value>
   </data>
   <data name="EmptyTrainingDay" xml:space="preserve">
     <value>Empty Training Day</value>
   </data>
-  <data name="Id" xml:space="preserve">
-    <value>Id</value>
+  <data name="ExerciseCount" xml:space="preserve">
+    <value>Exercises Amount </value>
+  </data>
+  <data name="SetCount" xml:space="preserve">
+    <value>Sets Amount</value>
   </data>
   <data name="TittleTrainingJournal" xml:space="preserve">
     <value>Training Journal</value>

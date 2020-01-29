@@ -117,7 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Calories" xml:space="preserve">
+    <value>Calories Spent</value>
+  </data>
+  <data name="ClearButton" xml:space="preserve">
+    <value>Clear all exercises</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Training Date</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Training Duration</value>
+  </data>
+  <data name="GoToExercises" xml:space="preserve">
+    <value>Go To Exercises</value>
+  </data>
+  <data name="NumDocument" xml:space="preserve">
+    <value>Document Number</value>
+  </data>
   <data name="TittleAddTrainingManually" xml:space="preserve">
     <value>Add Training manually</value>
+  </data>
+  <data name="TrainingName" xml:space="preserve">
+    <value>Training Name</value>
   </data>
 </root>

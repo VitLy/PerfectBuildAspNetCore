@@ -126,6 +126,9 @@
   <data name="AddButton" xml:space="preserve">
     <value>Добавить</value>
   </data>
+  <data name="AddExerciseButton" xml:space="preserve">
+    <value>Добавить упражнение в документ</value>
+  </data>
   <data name="AddWorkout" xml:space="preserve">
     <value>Внести тренировку</value>
   </data>
@@ -141,6 +144,9 @@
   <data name="Buttock" xml:space="preserve">
     <value>Ягодицы</value>
   </data>
+  <data name="Calories" xml:space="preserve">
+    <value>Kcal</value>
+  </data>
   <data name="CancelButton" xml:space="preserve">
     <value>Выход</value>
   </data>
@@ -148,10 +154,13 @@
     <value>Категории</value>
   </data>
   <data name="ClearButton" xml:space="preserve">
-    <value>Очистить</value>
+    <value>Очистить тренировочный день</value>
   </data>
   <data name="CloseButton" xml:space="preserve">
     <value>Выход</value>
+  </data>
+  <data name="CreatePlanWithTrainingProgram" xml:space="preserve">
+    <value>Создать тренировочный план по тренировочной программе</value>
   </data>
   <data name="Date" xml:space="preserve">
     <value>Дата</value>

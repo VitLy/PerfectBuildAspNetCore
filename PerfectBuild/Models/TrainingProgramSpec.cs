@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PerfectBuild.Models
 {
-    public class TrainingProgramSpec: IDocument,IOrdered
+    public class TrainingProgramSpec: ISpec,IOrdered
     {
         [Key]
         public int Id { get; set; }

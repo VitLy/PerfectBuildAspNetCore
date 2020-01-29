@@ -233,6 +233,11 @@ namespace PerfectBuild.Migrations
 
                     b.Property<DateTime>("DateEnd");
 
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<int>("Number");
+
                     b.Property<int>("TrainigPlanHeadId");
 
                     b.Property<int?>("TrainingPlanHeadId");
@@ -343,6 +348,8 @@ namespace PerfectBuild.Migrations
 
                     b.Property<int>("HeadId");
 
+                    b.Property<int>("Order");
+
                     b.Property<int?>("ProgramHeadId");
 
                     b.Property<byte>("Set");
@@ -370,9 +377,9 @@ namespace PerfectBuild.Migrations
 
                     b.Property<int>("HeadId");
 
-                    b.Property<byte>("Set");
+                    b.Property<int>("Order");
 
-                    b.Property<int>("TrainigPlanId");
+                    b.Property<byte>("Set");
 
                     b.Property<float>("Weight");
 
@@ -381,8 +388,6 @@ namespace PerfectBuild.Migrations
                     b.HasIndex("ExId");
 
                     b.HasIndex("HeadId");
-
-                    b.HasIndex("TrainigPlanId");
 
                     b.ToTable("TrainingSpecs");
                 });
@@ -561,11 +566,6 @@ namespace PerfectBuild.Migrations
                     b.HasOne("PerfectBuild.Models.TrainingHead", "TrainingHead")
                         .WithMany("TrainingSpec")
                         .HasForeignKey("HeadId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("PerfectBuild.Models.TrainingPlanHead", "TrainingPlanHead")
-                        .WithMany()
-                        .HasForeignKey("TrainigPlanId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

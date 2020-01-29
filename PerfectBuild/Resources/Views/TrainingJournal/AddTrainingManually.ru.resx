@@ -117,7 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="TittleAddTrainingByHand" xml:space="preserve">
-    <value>Добавление тренировки вручную</value>
+  <data name="Calories" xml:space="preserve">
+    <value>Потраченные калории</value>
+  </data>
+  <data name="ClearButton" xml:space="preserve">
+    <value>Очистить упражнения</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Дата тренировки</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Продолжительность</value>
+  </data>
+  <data name="GoToExercises" xml:space="preserve">
+    <value>Перейти к упражнениям</value>
+  </data>
+  <data name="NumDocument" xml:space="preserve">
+    <value>Номер документа</value>
+  </data>
+  <data name="TittleAddTrainingManually" xml:space="preserve">
+    <value>Добавление тренировки</value>
+  </data>
+  <data name="TrainingName" xml:space="preserve">
+    <value>Имя тренировки</value>
   </data>
 </root>

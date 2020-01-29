@@ -22,5 +22,6 @@ namespace PerfectBuild.Models.ViewModels
         [Required]
         [Range(1, 255)]
         public byte Amount { get; set; }
+        public int Order { get; set; }
     }
 }

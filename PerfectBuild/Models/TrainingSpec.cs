@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PerfectBuild.Models.Interfaces;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PerfectBuild.Models
 {
-    public class TrainingSpec
+    public class TrainingSpec : ISpec, IOrdered
     {
         [Key]
         public int Id { get; set; }
@@ -25,14 +26,11 @@ namespace PerfectBuild.Models
         [Range(1, 255)]
         public byte Amount { get; set; }
 
-        public int TrainigPlanId { get; set; }
-
-        [ForeignKey("TrainigPlanId")]
-        public TrainingPlanHead TrainingPlanHead {get;set;}
-
         public int ExId { get; set; }
 
         [ForeignKey("ExId")]
         public Exercise Exercise { get; set; }
+
+        public int Order { get; set; }
     }
 }

@@ -25,16 +25,16 @@
                 <trainingDay action="Show" current-day="@Model.CurrentTrainingDay"></trainingDay>
             </div>
             <div class="col-md-10">
-                <table class="table table-primary">
+                <table class="table table-hover">
                     <tr>
                         <td colspan="4">
                             <a class="btn btn-danger" asp-action="Clear" asp-route-dayTraining=@Model.CurrentTrainingDay asp-route-headId=@Model.Id>
-                                @Localizer["ClearButton"]
+                                @LocalizerShared["ClearButton"]
                             </a>
                         </td>
                         <td colspan="5">
                             <a class="btn btn-warning" asp-action="CreatePlanWithTrainingProgram" asp-route-headId=@Model.Id>
-                                @Localizer["CreatePlanWithTrainingProgram"]
+                                @LocalizerShared["CreatePlanWithTrainingProgram"]
                             </a>
                         </td>
                     </tr>
@@ -47,7 +47,7 @@
                         <th></th>
                         <th colspan="4">
                             <a class="btn btn-primary" asp-action="AddModifyTrainingPlanLine" asp-route-dayTraining=@Model.CurrentTrainingDay asp-route-headId=@Model.Id>
-                                @Localizer["AddExerciseButton"]
+                                @LocalizerShared["AddExerciseButton"]
                             </a>
                         </th>
                         <th>

@@ -121,19 +121,25 @@
     <value>Потраченные калории</value>
   </data>
   <data name="Date" xml:space="preserve">
-    <value>Начало</value>
+    <value>Дата</value>
   </data>
   <data name="DateEnd" xml:space="preserve">
     <value>Завершение</value>
   </data>
+  <data name="DocumName" xml:space="preserve">
+    <value>Название </value>
+  </data>
   <data name="Duration" xml:space="preserve">
-    <value>Длительность</value>
+    <value>Продолжительность </value>
   </data>
   <data name="EmptyTrainingDay" xml:space="preserve">
     <value>Тренировок нет</value>
   </data>
-  <data name="Id" xml:space="preserve">
-    <value>Id</value>
+  <data name="ExerciseCount" xml:space="preserve">
+    <value>Количество упражнений</value>
+  </data>
+  <data name="SetCount" xml:space="preserve">
+    <value>Количество подходов</value>
   </data>
   <data name="TittleTrainingJournal" xml:space="preserve">
     <value>Журнал тренировок</value>

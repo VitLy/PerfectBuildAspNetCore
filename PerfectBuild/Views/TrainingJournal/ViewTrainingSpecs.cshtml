@@ -1,0 +1,112 @@
+﻿@using PerfectBuild
+@using PerfectBuild.Models.Document
+@using System
+@using System.Globalization
+@model AddTrainingManuallyViewModel
+@inject IHtmlLocalizer<SharedResource> LocalizerShared
+@inject IViewLocalizer Localizer
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"
+          asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
+          asp-fallback-test-class="hidden" asp-fallback-test-property="visibility" asp-fallback-test-value="hidden" />
+    <script src="https://kit.fontawesome.com/c0bb6a9e00.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="~/css/basestyle.css" />
+</head>
+<body>
+    <div class="bg-primary text-white"><h3>@Localizer["TittleViewTrainingSpecs"]</h3></div>
+    <div class="container-fluid"> 
+        <div class="row">
+            
+            <div class="col-md-1"><h4><span class="badge badge-primary">@Model.Date.ToString("d",CultureInfo.CurrentCulture)</span></h4></div>
+            <div class="col-md-2"><h4><span class="badge badge-primary">@Localizer["NumDocument"]:@Model.NumDocument</span></h4></div>
+            <div class="col-md-7"><h4><span class="badge badge-primary">@Localizer["TrainingName"]:@Model.TrainingName</span></h4></div>
+            <div class="col-md-2"><h4><span class="badge badge-primary">@LocalizerShared["Calories"]: @Model.Calories</span></h4></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-hover">
+                    <tr>
+                        <td colspan="5">
+                            <a class="btn btn-danger" asp-action="Clear"  asp-route-date=@Model.Date asp-route-headId=@Model.HeadId>
+                                @LocalizerShared["ClearButton"]
+                            </a>
+                        </td>
+                        <td colspan="5">
+                            <a class="btn btn-warning" asp-action="CreatePlanWithTrainingProgram" asp-route-headId=@Model.HeadId>
+                                @LocalizerShared["CreatePlanWithTrainingProgram"]
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>#</th>
+                        <th>@LocalizerShared["Exercise"]</th>
+                        <th>@LocalizerShared["Set"]</th>
+                        <th>@LocalizerShared["Weight"]</th>
+                        <th>@LocalizerShared["Amount"]</th>
+                        <th></th>
+                        <th colspan="4">
+                            <a class="btn btn-primary" asp-action="AddModifySpecLine" asp-route-date=@Model.Date asp-route-headId=@Model.HeadId>
+                                @LocalizerShared["AddExerciseButton"]
+                            </a>
+                        </th>
+                    </tr>
+                    @{ int i = 1; }
+                    @if (Model.Spec.Count() != 0)
+                    {
+                        @foreach (var line in Model.Spec)
+                        {
+                            <tr>
+                                <td>@(i++)</td>
+                                <td>@line.Exercise.Name</td>
+                                <td>@line.Set</td>
+                                <td>@line.Weight</td>
+                                <td>@line.Amount</td>
+                                <td></td>
+                                <td>
+                                    <a class="btn btn-primary" asp-action="Modify" asp-route-id=@line.Id asp-route-headId=@Model.HeadId asp-route-dateTraining=@Model.Date>
+                                        @LocalizerShared["ModifyButton"]
+                                    </a>
+                                </td>
+
+                                <td>
+                                    <a class="btn btn-danger" asp-action="Delete" asp-route-id=@line.Id asp-route-headId=@Model.HeadId asp-route-dateTraining=@Model.Date>
+                                        @LocalizerShared["DeleteButton"]
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-secondary" asp-action="LineUp" asp-route-specId=@line.Id asp-route-headId=@Model.HeadId>
+                                        <i class="fas fa-arrow-up"></i>
+                                    </a>
+                                    <a class="btn btn-secondary" asp-action="LineDown" asp-route-specId=@line.Id asp-route-headId=@Model.HeadId>
+                                        <i class="fas fa-arrow-down"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <th colspan="6">@Localizer["EmptyTrainingDay"]</th>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+        <a asp-action="List" class="btn btn-warning">@Localizer["ToJournal"]</a>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+

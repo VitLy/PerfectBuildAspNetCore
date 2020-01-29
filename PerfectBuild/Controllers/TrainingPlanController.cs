@@ -20,11 +20,11 @@ namespace PerfectBuild.Controllers
     {
         private readonly UserManager<User> userManager;
         private readonly ApplicationContext appContext;
-        private readonly DocumentHandler<TrainingPlanSpec> documentHandler;
+        private readonly DocumentSpecHandler<TrainingPlanSpec> documentHandler;
         private readonly ITrainigDayConverter trainigDayConverter;
 
         public TrainingPlanController(UserManager<User> userManager, ApplicationContext appContext,
-            DocumentHandler<TrainingPlanSpec> documentHandler, ITrainigDayConverter trainigDayConverter)
+            DocumentSpecHandler<TrainingPlanSpec> documentHandler, ITrainigDayConverter trainigDayConverter)
         {
             this.appContext = appContext;
             this.userManager = userManager;
