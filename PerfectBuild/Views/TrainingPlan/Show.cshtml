@@ -33,8 +33,8 @@
                             </a>
                         </td>
                         <td colspan="5">
-                            <a class="btn btn-warning" asp-action="CreatePlanWithTrainingProgram" asp-route-headId=@Model.Id>
-                                @LocalizerShared["CreatePlanWithTrainingProgram"]
+                            <a class="btn btn-warning" asp-action="AddExFromTrainProgram" asp-route-headId=@Model.Id asp-route-dayTraining=@Model.CurrentTrainingDay>
+                                @Localizer["AddDayPlanWithTrainingProgram"]
                             </a>
                         </td>
                     </tr>

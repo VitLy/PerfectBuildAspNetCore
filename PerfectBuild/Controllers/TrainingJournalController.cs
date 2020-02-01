@@ -31,8 +31,15 @@ namespace PerfectBuild.Controllers
         }
 
         [HttpGet]
-        public IActionResult List()
+        public async Task<IActionResult> List(int headId = 0)
         {
+            if (headId != 0)
+            {
+                if (!IsHeadHasSpec(headId))
+                {
+                    await DeleteDocument(headId);
+                }
+            }
             var userId = userManager.GetUserId(HttpContext.User);
             var userHead = appContext.TrainingHeads.Where(x => x.UserId.Equals(userId));
 
@@ -54,6 +61,7 @@ namespace PerfectBuild.Controllers
 
             return View(query.ToList());
         }
+
 
         [HttpGet]
         public IActionResult Details(int headId = 0)
@@ -115,7 +123,7 @@ namespace PerfectBuild.Controllers
                 var head = appContext.TrainingHeads.Where(x => x.Id == headId)?.FirstOrDefault();
                 if (head != null)
                 {
-                    var spec = appContext.TrainingSpecs.Where(x => x.HeadId == headId).Include(x => x.Exercise).OrderBy(x=>x.Order);
+                    var spec = appContext.TrainingSpecs.Where(x => x.HeadId == headId).Include(x => x.Exercise).OrderBy(x => x.Order);
                     AddTrainingManuallyViewModel model = new AddTrainingManuallyViewModel
                     {
                         HeadId = head.Id,
@@ -151,6 +159,7 @@ namespace PerfectBuild.Controllers
                     model.Set = spec.Set;
                     model.Weight = spec.Weight;
                     model.Amount = spec.Amount;
+                    return View(model);
                 }
                 else //new Line
                 {
@@ -206,8 +215,11 @@ namespace PerfectBuild.Controllers
                     try
                     {
                         var specs = appContext.TrainingSpecs.Where(x => x.HeadId.Equals(headId));
-                        appContext.TrainingSpecs.RemoveRange(specs);
-                        await appContext.SaveChangesAsync();
+                        if (specs.Count() != 0)
+                        {
+                            appContext.TrainingSpecs.RemoveRange(specs);
+                            await appContext.SaveChangesAsync();
+                        }
                         var head = appContext.TrainingHeads.Where(x => x.Id.Equals(headId));
                         appContext.TrainingHeads.RemoveRange(head);
                         await appContext.SaveChangesAsync();
@@ -240,7 +252,7 @@ namespace PerfectBuild.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> LineDown( int headId, int specId)
+        public async Task<IActionResult> LineDown(int headId, int specId)
         {
             var lines = appContext.TrainingSpecs.Where(x => x.HeadId.Equals(headId))?.ToList();
             var line = lines?.Where(x => x.Id.Equals(specId))?.FirstOrDefault();
@@ -256,10 +268,47 @@ namespace PerfectBuild.Controllers
             return RedirectToAction("ViewTrainingSpecs", new { headId = headId });
         }
 
+        [HttpGet]
+        public async Task<IActionResult> DeleteLine(int id, int headId)
+        {
+            if (headId != 0 && id != 0)
+            {
+                var spec = appContext.TrainingSpecs.Find(id);
+                if (spec.HeadId.Equals(headId))
+                {
+                    appContext.TrainingSpecs.Remove(spec);
+                    await appContext.SaveChangesAsync();
+                }
+            }
+            return RedirectToAction("ViewTrainingSpecs", new { headId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Clear(int headId)
+        {
+            if (headId != 0)
+            {
+                var specs = appContext.TrainingSpecs.Where(x => x.HeadId.Equals(headId));
+                if (specs.Count() != 0)
+                {
+                    appContext.TrainingSpecs.RemoveRange(specs);
+                    await appContext.SaveChangesAsync();
+                }
+            }
+            return RedirectToAction("ViewTrainingSpecs", new { headId });
+        }
+
+        #region private methods
         private async Task SaveMovedLine(IEnumerable<TrainingSpec> lines)
         {
             appContext.TrainingSpecs.UpdateRange(lines);
             await appContext.SaveChangesAsync();
         }
+
+        private bool IsHeadHasSpec(int headId)
+        {
+            return appContext.TrainingSpecs.Where(x => x.HeadId.Equals(headId)).Any();
+        }
+        #endregion
     }
 }

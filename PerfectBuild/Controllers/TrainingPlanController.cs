@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using PerfectBuild.Data;
 using PerfectBuild.Models;
 using PerfectBuild.Models.Document;
-using PerfectBuild.Models.Interfaces;
 using PerfectBuild.Models.ViewModels;
 using PerfectBuild.Services;
 using System;
@@ -20,15 +19,16 @@ namespace PerfectBuild.Controllers
     {
         private readonly UserManager<User> userManager;
         private readonly ApplicationContext appContext;
-        private readonly DocumentSpecHandler<TrainingPlanSpec> documentHandler;
+        private readonly DocumentSpecHandler<TrainingPlanSpec> documentSpecHandler;
         private readonly ITrainigDayConverter trainigDayConverter;
+        //TODO: Создать приватное поле userId
 
         public TrainingPlanController(UserManager<User> userManager, ApplicationContext appContext,
-            DocumentSpecHandler<TrainingPlanSpec> documentHandler, ITrainigDayConverter trainigDayConverter)
+            DocumentSpecHandler<TrainingPlanSpec> documentSpecHandler, ITrainigDayConverter trainigDayConverter)
         {
             this.appContext = appContext;
             this.userManager = userManager;
-            this.documentHandler = documentHandler;
+            this.documentSpecHandler = documentSpecHandler;
             this.trainigDayConverter = trainigDayConverter;
         }
 
@@ -101,7 +101,7 @@ namespace PerfectBuild.Controllers
                 {
                     headId = await CreateTrainigPlanHead(dayTraining);
                 }
-                documentHandler.FillDocument(appContext.TrainingPlanSpecs.Where(x => x.HeadId.Equals(headId)).ToList());
+                documentSpecHandler.FillDocument(appContext.TrainingPlanSpecs.Where(x => x.HeadId.Equals(headId)).ToList());
                 var planSpecLine = new TrainingPlanSpec
                 {
                     HeadId = headId,
@@ -109,7 +109,7 @@ namespace PerfectBuild.Controllers
                     Set = viewModel.Set,
                     Weight = viewModel.Weight,
                     Amount = viewModel.Amount,
-                    Order = documentHandler.GetLastOrder()
+                    Order = documentSpecHandler.GetLastOrder()
                 };
 
                 if (viewModel.Id == 0)
@@ -172,12 +172,12 @@ namespace PerfectBuild.Controllers
             if (headId != 0)
             {
                 var deletingLines = appContext.TrainingPlanSpecs.Where(x => x.HeadId.Equals(headId)).ToList();
-                
-                    if (deletingLines != null)
-                    {
-                        appContext.TrainingPlanSpecs.RemoveRange(deletingLines);
-                        await appContext.SaveChangesAsync();
-                    }
+
+                if (deletingLines != null)
+                {
+                    appContext.TrainingPlanSpecs.RemoveRange(deletingLines);
+                    await appContext.SaveChangesAsync();
+                }
             }
             TempData["dayTraining"] = dayTraining;
             return RedirectToAction("Show");
@@ -190,8 +190,8 @@ namespace PerfectBuild.Controllers
             var line = lines?.Where(x => x.Id.Equals(specId))?.FirstOrDefault();
             if (lines != null & line != null)
             {
-                documentHandler.FillDocument(lines);
-                lines = (List<TrainingPlanSpec>)documentHandler.MoveLineUp(line);
+                documentSpecHandler.FillDocument(lines);
+                lines = (List<TrainingPlanSpec>)documentSpecHandler.MoveLineUp(line);
                 if (lines != null)
                 {
                     await SaveMovedLine(lines);
@@ -208,8 +208,8 @@ namespace PerfectBuild.Controllers
             var line = lines?.Where(x => x.Id.Equals(specId))?.FirstOrDefault();
             if (lines != null & line != null)
             {
-                documentHandler.FillDocument(lines);
-                lines = (List<TrainingPlanSpec>)documentHandler.MoveLineDown(line);
+                documentSpecHandler.FillDocument(lines);
+                lines = (List<TrainingPlanSpec>)documentSpecHandler.MoveLineDown(line);
                 if (lines != null)
                 {
                     await SaveMovedLine(lines);
@@ -217,6 +217,92 @@ namespace PerfectBuild.Controllers
             }
             TempData["dayTraining"] = dayTraining;
             return RedirectToAction("Show");
+        }
+
+        [HttpGet]
+        public IActionResult AddExFromTrainProgram(DayOfWeek dayTraining, int headId)
+        {
+            var userId = userManager.GetUserId(HttpContext.User);
+            var model = new AddExerciseFromTrainingPlanViewModel
+            {
+                DayTraining = dayTraining,
+                HeadId = headId,
+                TrainingPrograms = appContext.TrainingProgramHeads.Where(x => x.UserId.Equals(userId)).Include(x=>x.Category).ToList()
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddExFromTrainProgram(AddExerciseFromTrainingPlanViewModel model)
+        {
+            if (model != null)
+            {
+                var trainingProgramSpecs = appContext.TrainingProgramSpecs.Where(x => x.HeadId.Equals(model.ProgramHeadId)).ToList();
+                if (trainingProgramSpecs.Count() != 0)
+                {
+                    var userId = userManager.GetUserId(HttpContext.User);
+                    int headId = model.HeadId;
+                    byte SetNum = 1;
+                    List<TrainingPlanSpec> lines;
+
+                    #region Find last order number in current training plan
+                    if (headId == 0)
+                    {
+                        headId = await CreateTrainigPlanHead(model.DayTraining);
+                        lines = new List<TrainingPlanSpec>();
+                    }
+                    else
+                    {
+                        lines = appContext.TrainingPlanSpecs.Where(x => x.HeadId.Equals(model.HeadId)).ToList();
+                        if (lines.Count() != 0)
+                        {
+                            SetNum = Convert.ToByte(lines.Max(x => x.Set) + 1);
+                        }
+                    }
+                    documentSpecHandler.FillDocument(lines);
+                    int lastOrderNum = documentSpecHandler.GetLastOrder();
+                    int step=documentSpecHandler.GetOrderStep();
+                    #endregion
+                    lines = new List<TrainingPlanSpec>();
+                    foreach (var trainingProgramLine in trainingProgramSpecs)
+                    {
+                        lines.Add(new TrainingPlanSpec
+                        {
+                            HeadId = headId,
+                            Set = SetNum,
+                            ExId = trainingProgramLine.ExId,
+                            Weight = trainingProgramLine.Weight,
+                            Amount = trainingProgramLine.Amount,
+                            Order=lastOrderNum+=step
+                        });
+                    }
+                    await appContext.TrainingPlanSpecs.AddRangeAsync(lines);
+                    await appContext.SaveChangesAsync();
+                }
+            }
+            TempData["dayTraining"] = model.DayTraining;
+            return RedirectToAction("Show");
+        }
+
+        [HttpGet]
+        public IActionResult GetSpecLines(int headId)
+        {
+            return RedirectToAction("GetSpecLine", "TrainingProgram", new { headId });
+        }
+
+        [HttpGet]
+        public IActionResult GetProgramHeadData(int headId)
+        {
+            var headProgramData = appContext.TrainingProgramHeads.Where(x => x.Id == headId).Include(x => x.Category).Select(selector => new
+            {
+                id = selector.Id,
+                category = selector.Category.Name,
+                date = selector.Date.ToString("d"),
+                description = selector.Description??String.Empty,
+            }).FirstOrDefault();
+
+            var headData = Json(headProgramData);
+            return headData;
         }
 
         #region private methods

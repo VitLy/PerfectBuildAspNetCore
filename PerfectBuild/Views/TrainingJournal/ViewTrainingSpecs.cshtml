@@ -69,13 +69,13 @@
                                 <td>@line.Amount</td>
                                 <td></td>
                                 <td>
-                                    <a class="btn btn-primary" asp-action="Modify" asp-route-id=@line.Id asp-route-headId=@Model.HeadId asp-route-dateTraining=@Model.Date>
+                                    <a class="btn btn-primary" asp-action="AddModifySpecLine" asp-route-id=@line.Id asp-route-headId=@Model.HeadId>
                                         @LocalizerShared["ModifyButton"]
                                     </a>
                                 </td>
 
                                 <td>
-                                    <a class="btn btn-danger" asp-action="Delete" asp-route-id=@line.Id asp-route-headId=@Model.HeadId asp-route-dateTraining=@Model.Date>
+                                    <a class="btn btn-danger" asp-action="DeleteLine" asp-route-id=@line.Id asp-route-headId=@Model.HeadId>
                                         @LocalizerShared["DeleteButton"]
                                     </a>
                                 </td>
@@ -99,7 +99,7 @@
                 </table>
             </div>
         </div>
-        <a asp-action="List" class="btn btn-warning">@Localizer["ToJournal"]</a>
+        <a asp-action="List" class="btn btn-warning"asp-route-headId=@Model.HeadId>@Localizer["ToJournal"]</a>
     </div>
 </body>
 </html>

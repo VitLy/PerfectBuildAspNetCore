@@ -112,6 +112,7 @@ namespace PerfectBuild.Controllers
         public async Task<IActionResult> SeedData()
         {
             //ToDo:Продумать повторное подтверждение на удаление данных и запаолнение перовначальными значениями
+            //ToDo:Обновить SeedData под новую структуру базы данных
 
             ConfigureStartDatabase dbHandler = new ConfigureStartDatabase(HttpContext);
             dbHandler.Seed();

@@ -153,20 +153,26 @@
   <data name="Categories" xml:space="preserve">
     <value>Категории</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="ChooseButton" xml:space="preserve">
+    <value>Выбрать</value>
+  </data>
   <data name="ClearButton" xml:space="preserve">
     <value>Очистить тренировочный день</value>
   </data>
   <data name="CloseButton" xml:space="preserve">
     <value>Выход</value>
   </data>
-  <data name="CreatePlanWithTrainingProgram" xml:space="preserve">
-    <value>Создать тренировочный план по тренировочной программе</value>
-  </data>
   <data name="Date" xml:space="preserve">
     <value>Дата</value>
   </data>
   <data name="DeleteButton" xml:space="preserve">
     <value>Удалить</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
   </data>
   <data name="Diary" xml:space="preserve">
     <value>Мой дневник</value>

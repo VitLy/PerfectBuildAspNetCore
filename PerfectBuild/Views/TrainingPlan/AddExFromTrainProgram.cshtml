@@ -1,0 +1,129 @@
+﻿@{
+    Layout = null;
+}
+
+@model AddExerciseFromTrainingPlanViewModel
+@inject IHtmlLocalizer<SharedResource> LocalizerShared
+@inject IViewLocalizer Localizer
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"
+          asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
+          asp-fallback-test-class="hidden" asp-fallback-test-property="visibility" asp-fallback-test-value="hidden" />
+    <link rel="stylesheet" href="~/css/basestyle.css" />
+</head>
+<body>
+    <header>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-11 p-0">
+                    @await Html.PartialAsync("_MenuPanelPartial")
+                </div>
+                <div class="col-1 bg-primary p-1 text-light">@await Component.InvokeAsync("LoginPanel")</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="bg-primary text-white"><h3>@Localizer["AddExFromTrainProgram"]</h3></div>
+    <form asp-action="AddExFromTrainProgram" method="post">
+        <div class="container-fluid  m-1 p-1">
+            <input asp-for="DayTraining", value="@Model.DayTraining" hidden />
+            <input asp-for="HeadId", value="@Model.HeadId" hidden />
+            <div class="row">
+                <div class="col-3">
+                    <select id="selTrPr" name="ProgramHeadId" size="1" required class="browser-default custom-select">
+                        <option disabled selected>CHOOSE TRAINING PROGRAM</option>
+                        @foreach (var prg in @Model.TrainingPrograms)
+                        {
+                            <option value="@prg.Id">@prg.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-7">
+                    <table id="TableProgramHead" class="table table-hover">
+                        <tr>
+                            <th>@LocalizerShared["Date"]</th>
+                            <th>@LocalizerShared["Category"]</th>
+                            <th>@LocalizerShared["Description"]</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <table id="TableProgram" class="table table-hover">
+                        <tr>
+                            <th>#</th>
+                            <th>@LocalizerShared["Exercise"]</th>
+                            <th>@LocalizerShared["Set"]</th>
+                            <th>@LocalizerShared["Weight"]</th>
+                            <th>@LocalizerShared["Amount"]</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary">@LocalizerShared["ChooseButton"]</button>
+        <a asp-action="Show" asp-route-dayTraining=@Model.DayTraining class="btn btn-warning">@LocalizerShared["CancelButton"]</a>
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"
+            asp-fallback-src="~/lib/jquery-validate/jquery.validate.js"
+            asp-fallback-test="window.jQuery && window.jQuery.validator">
+    </script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"
+            asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"
+            asp-fallback-test="window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive">
+    </script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("select").change(function () {
+                if ($(this).val() == 0) return false;
+                var selectedId = $(this).val();
+
+                $.getJSON('/TrainingPlan/GetProgramHeadData', { headId: selectedId }, function (headData) {
+                    var date = headData["date"];
+                    var category = headData["category"];
+                    var description = "";
+                    var description = headData["description"];
+
+                    $('#TableProgramHead').find('td').remove();
+                    var row = $('<tr>').
+                        append('<td>' + date + '</td>').
+                        append('<td>' + category + '</td>').
+                        append('<td>' + description + '</td>').
+                        append('</tr>');
+                    $('#TableProgramHead').append(row);
+                });
+
+                $.getJSON('/TrainingPlan/GetSpecLines', { headId: selectedId }, function (spec) {
+                    $('#TableProgram').find('td').remove();
+                    $.each(spec, function (i, item) {
+                        var row = $('<tr>').
+                            append('<td>' + (++i) + '</td>').
+                            append('<td>' + item.exercise + '</td>').
+                            append('<td>' + item.set + '</td>').
+                            append('<td>' + item.weight + '</td>').
+                            append('<td>' + item.amount + '</td>').
+                            append('</tr>');
+
+                        $('#TableProgram').append(row);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

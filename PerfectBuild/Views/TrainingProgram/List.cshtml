@@ -30,44 +30,50 @@
         </div>
     </header>
     <div class="bg-primary text-white"><h3>@Localizer["TittleTrainigProgram"]</h3></div>
-    <div class="container m-1 p-1">
+    <div class="container-fluid  m-1 p-1">
         <div class="row justify-content-sm-between">
-            <div class="col-sm-12">
-                <table class="table table-hover">
-                    <tr>
-                        <th>@Localizer["TrainigProgramName"]</th>
-                        <th>@Localizer["Category"]</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    @foreach (var trPr in Model)
-                    {
-                        <tr>
-                            <td>@trPr.Name</td>
-                            <td>@trPr.Category.Name</td>
-                            <td><a class="btn btn-primary" asp-action="AddModifyTrainingProgram" asp-route-id="@trPr.Id">@LocalizerShared["ModifyButton"]</a></td>
-                            <td><a class="btn btn-danger" asp-action="DeleteTrainingProgram" asp-route-id="@trPr.Id">@LocalizerShared["DeleteButton"]</a></td>
-                            <td><input hidden="hidden" value="@trPr.Id" name="headId" /></td>
-                        </tr>
-                    }
-                </table>
-                <div><a class="btn btn-primary" asp-action="AddModifyTrainingProgram">@LocalizerShared["AddButton"]</a></div>
+            <div class="col-sm-7">
+                <div class="container-fluid  m-1 p-1">
+                    <div class="row justify-content-sm-between">
+                        <div class="col-sm-12">
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>@Localizer["TrainigProgramName"]</th>
+                                    <th>@Localizer["Category"]</th>
+                                    <th></th>
+                                    <th><a class="btn btn-primary" asp-action="AddModifyTrainingProgram">@LocalizerShared["AddButton"]</a></th>
+                                </tr>
+                                @foreach (var trPr in Model)
+                                {
+                                    <tr>
+                                        <td>@trPr.Name</td>
+                                        <td>@trPr.Category.Name</td>
+                                        <td><a class="btn btn-primary" asp-action="AddModifyTrainingProgram" asp-route-id="@trPr.Id">@LocalizerShared["ModifyButton"]</a></td>
+                                        <td><a class="btn btn-danger" asp-action="DeleteTrainingProgram" asp-route-id="@trPr.Id">@LocalizerShared["DeleteButton"]</a></td>
+                                        <td><input hidden="hidden" value="@trPr.Id" name="headId" /></td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="container m-1 p-1">
-        <div class="row justify-content-sm-between">
-            <div class="col-sm-12">
-                <table id="TableProgram" class="table table-hover">
-                    <tr>
-                        <th>#</th>
-                        <th>@Localizer["Exercise"]</th>
-                        <th>@Localizer["Set"]</th>
-                        <th>@Localizer["Weight"]</th>
-                        <th>@Localizer["Amount"]</th>
-                    </tr>
-                </table>
-
+            <div class="col-sm-5">
+                <div class="container-fluid  m-1 p-1">
+                    <div class="row justify-content-sm-between">
+                        <div class="col-sm-12">
+                            <table id="TableProgram" class="table table-hover">
+                                <tr>
+                                    <th>#</th>
+                                    <th>@Localizer["Exercise"]</th>
+                                    <th>@Localizer["Set"]</th>
+                                    <th>@Localizer["Weight"]</th>
+                                    <th>@Localizer["Amount"]</th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -89,13 +95,13 @@
     <script type="text/javascript">
         $(document).ready(function () {
             var cssData = {
-                "background-color":'#255180'
+                "background-color": '#f5f5f5'
             };
 
             $('tr').has('td').first().css(cssData);
             GetSpec($('tr').has('td').first().find("input[name=headId]").val());
 
-            $('tr').has('td').bind("mouseenter mouseout",handleMouse);
+            $('tr').has('td').bind("mouseenter mouseout", handleMouse);
             function handleMouse(event) {
 
                 if (event.type == "mouseout") {
@@ -104,7 +110,7 @@
                 }
                 if (event.type == "mouseenter") {
 
-                    cssData["background-color"] = "#255180";
+                    cssData["background-color"] = "#f5f5f5";
                 }
                 $(this).css(cssData);
             };
@@ -114,14 +120,14 @@
             $('tr').has('td').css('font-size', '1em');
             GetSpec($(this).find("input[name=headId]").val());
             var elements = $(this);
-             $(elements).css('font-size', '1.2em');
+            $(elements).css('font-size', '1.2em');
 
         });
 
-            function GetSpec(headId) {
-                $.getJSON('/TrainingProgram/GetSpecLine', { headId: headId }, function (spec) {
-                    $('#TableProgram').find('td').remove();
-                 $.each(spec, function (i, item) {
+        function GetSpec(headId) {
+            $.getJSON('/TrainingProgram/GetSpecLine', { headId: headId }, function (spec) {
+                $('#TableProgram').find('td').remove();
+                $.each(spec, function (i, item) {
                     var row = $('<tr>').
                         append('<td>' + (++i) + '</td>').
                         append('<td>' + item.exercise + '</td>').
@@ -133,7 +139,7 @@
                     $('#TableProgram').append(row);
                 });
             });
-            };
+        };
     </script>
 
 </body>

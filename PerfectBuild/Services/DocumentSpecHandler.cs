@@ -134,6 +134,11 @@ namespace PerfectBuild.Services
         {
             return lines;
         }
+
+        internal int GetOrderStep()
+        {
+            return step;
+        }
     }
 }
 
