@@ -1,14 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using PerfectBuild.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace PerfectBuild.Models.ViewModels
 {
-
     public class UserProfileModel
     {
         public Profile Profile { get; set; }

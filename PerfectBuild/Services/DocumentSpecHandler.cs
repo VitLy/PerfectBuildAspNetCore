@@ -5,8 +5,8 @@ using System.Linq;
 
 namespace PerfectBuild.Services
 {
-    public class DocumentSpecHandler<T> 
-        where T:ISpec,IOrdered
+    public class DocumentSpecHandler<T>
+        where T : ISpec, IOrdered
     {
         private List<T> lines;
         private int currentId = 1;
@@ -75,7 +75,7 @@ namespace PerfectBuild.Services
 
             if (line.Order > lines.Min(x => x.Order) & (lines.Count > 1))
             {
-                var lineMoving = lines.Where(x => x.Order == (line.Order - step)).FirstOrDefault();
+                var lineMoving = lines.Where(x => x.Order < line.Order).OrderByDescending(x => x.Order).FirstOrDefault();
 
                 if (line.Set > lineMoving.Set)
                 {
@@ -87,7 +87,7 @@ namespace PerfectBuild.Services
                 line.Order = lineMoving.Order;
                 lineMoving.Order = tempOrderNum;
 
-                return new List<T> { line, lineMoving }; 
+                return new List<T> { line, lineMoving };
             }
             return null;
         }
@@ -99,10 +99,10 @@ namespace PerfectBuild.Services
                 throw new ArgumentNullException(nameof(line));
             }
 
-            if (line.Order < lines.Max(x => x.Order) & (lines.Count >1))
+            if (line.Order < lines.Max(x => x.Order) & (lines.Count > 1))
             {
-                var lineMoving = lines.Where(x => x.Order == (line.Order + step)).FirstOrDefault();
-              
+                var lineMoving = lines.Where(x => x.Order > line.Order).OrderBy(x => x.Order).FirstOrDefault();
+
                 if (line.Set < lineMoving.Set)
                 {
                     byte tempSet = line.Set;
@@ -119,7 +119,7 @@ namespace PerfectBuild.Services
 
         private void Replace(T line, T lineMoving)
         {
-            if (line.Set > lineMoving.Set) 
+            if (line.Set > lineMoving.Set)
             {
                 byte tempSet = line.Set;
                 line.Set = lineMoving.Set;
@@ -128,6 +128,16 @@ namespace PerfectBuild.Services
             int tempOrderNum = line.Order;
             line.Order = lineMoving.Order;
             lineMoving.Order = tempOrderNum;
+        }
+
+        internal T GetNextLine(T currentLine)
+        {
+            return lines.Where(x => x.Order > currentLine.Order).OrderBy(x => x.Order).FirstOrDefault();
+        }
+
+        internal T GetPreviousLine(T currentLine)
+        {
+            return lines.Where(x => x.Order < currentLine.Order).OrderByDescending(x => x.Order).FirstOrDefault();
         }
 
         internal IEnumerable<T> GetLines()

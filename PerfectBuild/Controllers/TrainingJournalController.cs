@@ -20,14 +20,16 @@ namespace PerfectBuild.Controllers
         private readonly ApplicationContext appContext;
         private readonly DocumentHeadHandler<TrainingHead> headHandler;
         private readonly DocumentSpecHandler<TrainingSpec> documentSpecHandler;
+        private readonly ITrainigDayConverter dayConverter;
 
         public TrainingJournalController(UserManager<User> userManager, ApplicationContext appContext,
-            DocumentHeadHandler<TrainingHead> headHandler, DocumentSpecHandler<TrainingSpec> documentSpecHandler)
+            DocumentHeadHandler<TrainingHead> headHandler, DocumentSpecHandler<TrainingSpec> documentSpecHandler, ITrainigDayConverter dayConverter)
         {
             this.userManager = userManager;
             this.appContext = appContext;
             this.headHandler = headHandler;
             this.documentSpecHandler = documentSpecHandler;
+            this.dayConverter = dayConverter;
         }
 
         [HttpGet]
@@ -59,9 +61,8 @@ namespace PerfectBuild.Controllers
                             SetMax = groupedSpec.Max(x => x.Set)
                         };
 
-            return View(query.ToList());
+            return View(query.ToList().OrderBy(x=>x.Date));
         }
-
 
         [HttpGet]
         public IActionResult Details(int headId = 0)
@@ -206,6 +207,7 @@ namespace PerfectBuild.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
         public async Task<IActionResult> DeleteDocument(int headId)
         {
             if (headId != 0)
@@ -298,8 +300,103 @@ namespace PerfectBuild.Controllers
             return RedirectToAction("ViewTrainingSpecs", new { headId });
         }
 
-        #region private methods
-        private async Task SaveMovedLine(IEnumerable<TrainingSpec> lines)
+        [HttpGet]
+        public IActionResult AddExFromTrainPlan(int headId)
+        {
+            if (headId != 0)
+            {
+                var userId = userManager.GetUserId(HttpContext.User);
+                var trainingDays = dayConverter.ByteToDays(appContext.TrainingPlanHeads.Where(x => x.UserId.Equals(userId)).Select(x => x.TrainingDays).ToList());
+
+                var model = new AddExercisesFromPlanViewModel
+                {
+                    TrainingDays = trainingDays,
+                    HeadId = headId,
+                };
+                return View(model);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddExFromTrainPlan(AddExercisesFromPlanViewModel model)
+        {
+            if (model != null & model.HeadId != 0)
+            {
+                var trainingPlanSpecs = appContext.TrainingPlanSpecs.Where(x => x.HeadId.Equals(model.PlanHeadId)).ToList();
+                var userId = userManager.GetUserId(HttpContext.User);
+                int headId = model.HeadId;
+                byte SetNum = 1;
+                List<TrainingSpec> lines;
+                if (trainingPlanSpecs.Count() != 0)
+                {
+                    lines = appContext.TrainingSpecs.Where(x => x.HeadId.Equals(model.HeadId)).ToList();
+                    if (lines.Count() != 0)
+                    {
+                        SetNum = Convert.ToByte(lines.Max(x => x.Set) + 1);
+                    }
+
+                    documentSpecHandler.FillDocument(lines);
+                    int lastOrderNum = documentSpecHandler.GetLastOrder();
+                    int step = documentSpecHandler.GetOrderStep();
+
+                    lines = new List<TrainingSpec>();
+                    foreach (var trainingPlanLine in trainingPlanSpecs)
+                    {
+                        lines.Add(new TrainingSpec
+                        {
+                            HeadId = headId,
+                            Set = SetNum,
+                            ExId = trainingPlanLine.ExId,
+                            Weight = trainingPlanLine.Weight,
+                            Amount = trainingPlanLine.Amount,
+                            Order = lastOrderNum += step
+                        });
+                    }
+                    await appContext.TrainingSpecs.AddRangeAsync(lines);
+                    await appContext.SaveChangesAsync();
+                    return RedirectToAction("ViewTrainingSpecs", new { headId = headId });
+                }
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult GetPlanSpecJson(DayOfWeek? day=null)
+        {
+            if (day != null)
+            {
+                var userId = userManager.GetUserId(HttpContext.User);
+                var specPlan = appContext.TrainingPlanHeads.Where(x => x.TrainingDays.Equals(dayConverter.DaysToByte(day.Value)) & x.UserId.Equals(userId))
+                    .Join(appContext.TrainingPlanSpecs.Include(x => x.Exercise),
+                    head => head.Id,
+                    spec => spec.HeadId,
+                    (head, spec) => new { spec.Id, Exercise=spec.Exercise.Name, spec.Set, spec.Weight, spec.Amount, spec.Order });
+
+                return Json(specPlan);
+            }
+            else throw new ArgumentException(nameof(day));
+        }
+
+        [HttpGet]
+        public IActionResult GetPlanHeadJson(DayOfWeek? day = null)
+        {
+            if (day != null)
+            {
+                var userId = userManager.GetUserId(HttpContext.User);
+                var headPlan = appContext.TrainingPlanHeads.Where(x => x.TrainingDays.Equals(dayConverter.DaysToByte(day.Value)) & x.UserId.Equals(userId)).Select(selector => new
+                {
+                    id = selector.Id,
+                }).FirstOrDefault();
+
+
+                return Json(headPlan);
+            }
+            else throw new ArgumentException(nameof(day));
+        }
+
+            #region private methods
+            private async Task SaveMovedLine(IEnumerable<TrainingSpec> lines)
         {
             appContext.TrainingSpecs.UpdateRange(lines);
             await appContext.SaveChangesAsync();

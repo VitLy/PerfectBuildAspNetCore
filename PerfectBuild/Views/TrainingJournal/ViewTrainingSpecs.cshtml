@@ -22,7 +22,6 @@
     <div class="bg-primary text-white"><h3>@Localizer["TittleViewTrainingSpecs"]</h3></div>
     <div class="container-fluid"> 
         <div class="row">
-            
             <div class="col-md-1"><h4><span class="badge badge-primary">@Model.Date.ToString("d",CultureInfo.CurrentCulture)</span></h4></div>
             <div class="col-md-2"><h4><span class="badge badge-primary">@Localizer["NumDocument"]:@Model.NumDocument</span></h4></div>
             <div class="col-md-7"><h4><span class="badge badge-primary">@Localizer["TrainingName"]:@Model.TrainingName</span></h4></div>
@@ -38,8 +37,8 @@
                             </a>
                         </td>
                         <td colspan="5">
-                            <a class="btn btn-warning" asp-action="CreatePlanWithTrainingProgram" asp-route-headId=@Model.HeadId>
-                                @LocalizerShared["CreatePlanWithTrainingProgram"]
+                            <a class="btn btn-warning" asp-action="AddExFromTrainPlan" asp-route-headId=@Model.HeadId>
+                                @Localizer["AddExFromTrainPlan"]
                             </a>
                         </td>
                     </tr>

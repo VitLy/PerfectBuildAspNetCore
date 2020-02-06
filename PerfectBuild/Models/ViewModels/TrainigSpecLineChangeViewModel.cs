@@ -5,7 +5,6 @@ namespace PerfectBuild.Models.ViewModels
 {
     public class TrainigSpecLineChangeViewModel
     {
-        
         public List<Exercise> Exercises { get; set; }
 
         public int HeadId { get; set; }

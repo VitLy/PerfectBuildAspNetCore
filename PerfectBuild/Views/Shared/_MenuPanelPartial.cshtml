@@ -15,7 +15,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuActivity">
                     <a class="dropdown-item" asp-controller="Activity" asp-action="DailyParameters">@Localizer["AddBodyParams"]</a>
                     <a class="dropdown-item" asp-controller="TrainingJournal" asp-action="AddTrainingManually">@Localizer["AddWorkout"]</a>
-                    <a class="dropdown-item" href="#">@Localizer["StartTraining"]</a>
+                    <a class="dropdown-item" asp-controller="Training" asp-action="Start">@Localizer["StartTraining"]</a>
                 </div>
             </li>
             <li class="nav-item dropdown">

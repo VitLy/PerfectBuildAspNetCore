@@ -40,6 +40,7 @@ namespace PerfectBuild.Services
         {
             return DaysToByte(new List<DayOfWeek> { day });
         }
+        
         public byte DaysToByte(IEnumerable<DayOfWeek> days)
         {
             if (days == null)

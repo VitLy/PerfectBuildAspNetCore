@@ -21,7 +21,7 @@ namespace PerfectBuild.Controllers
         private readonly ApplicationContext appContext;
         private readonly DocumentSpecHandler<TrainingPlanSpec> documentSpecHandler;
         private readonly ITrainigDayConverter trainigDayConverter;
-        //TODO: Создать приватное поле userId
+        //TODO: При выходе из документа - проверка на наличие спецификации, если нет - удалить заголовок
 
         public TrainingPlanController(UserManager<User> userManager, ApplicationContext appContext,
             DocumentSpecHandler<TrainingPlanSpec> documentSpecHandler, ITrainigDayConverter trainigDayConverter)
@@ -52,12 +52,12 @@ namespace PerfectBuild.Controllers
             {
                 Id = headId,
                 CurrentTrainingDay = dayTraining.Value,
-                Lines = new List<Line>()
+                Lines = new List<TrainingPlanSpec>()
             };
 
             if (headId != 0)
             {
-                viewModel.Lines = GetLinesFromSpec(appContext.TrainingPlanSpecs.Where(x => x.HeadId.Equals(headId)).Include(x => x.Exercise).OrderBy(x => x.Order).ToList());
+                viewModel.Lines = appContext.TrainingPlanSpecs.Where(x => x.HeadId.Equals(headId)).Include(x => x.Exercise).OrderBy(x => x.Order).ToList();
             }
 
             return View(viewModel);
@@ -223,7 +223,7 @@ namespace PerfectBuild.Controllers
         public IActionResult AddExFromTrainProgram(DayOfWeek dayTraining, int headId)
         {
             var userId = userManager.GetUserId(HttpContext.User);
-            var model = new AddExerciseFromTrainingPlanViewModel
+            var model = new AddExercisesFromTrainingProgramViewModel
             {
                 DayTraining = dayTraining,
                 HeadId = headId,
@@ -233,7 +233,7 @@ namespace PerfectBuild.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddExFromTrainProgram(AddExerciseFromTrainingPlanViewModel model)
+        public async Task<IActionResult> AddExFromTrainProgram(AddExercisesFromTrainingProgramViewModel model)
         {
             if (model != null)
             {
@@ -345,17 +345,15 @@ namespace PerfectBuild.Controllers
             return appContext.TrainingPlanHeads.Where(x => x.UserId.Equals(userId) && x.TrainingDays.Equals(trainingDay)).FirstOrDefault().Id;
         }
 
-        private List<Line> GetLinesFromSpec(List<TrainingPlanSpec> trPlanSpeclist)
-        {
-            List<Line> lines = new List<Line>();
-            foreach (var item in trPlanSpeclist)
-            {
-                lines.Add(new Line { Id = item.Id, ExerciseId = item.ExId, Exercise = item.Exercise.Name, Set = item.Set, Weight = item.Weight, Amount = item.Amount, Order = item.Order });
-            }
-            return lines;
-        }
-
-
+        //private List<Line> GetLinesFromSpec(List<TrainingPlanSpec> trPlanSpeclist)
+        //{
+        //    List<Line> lines = new List<Line>();
+        //    foreach (var item in trPlanSpeclist)
+        //    {
+        //        lines.Add(new Line { Id = item.Id, ExerciseId = item.ExId, Exercise = item.Exercise.Name, Set = item.Set, Weight = item.Weight, Amount = item.Amount, Order = item.Order });
+        //    }
+        //    return lines;
+        //}
         #endregion
     }
 }
