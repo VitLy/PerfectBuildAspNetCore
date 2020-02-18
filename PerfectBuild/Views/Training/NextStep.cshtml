@@ -1,0 +1,43 @@
+﻿@model TrainingStepViewModel
+@inject IHtmlLocalizer<SharedResource> LocalizerShared
+@inject IViewLocalizer Localizer
+
+
+<div class="bg-primary text-white"><h3>@Localizer["TittleTraining"]</h3></div>
+<form asp-action="NextStep" method="post">
+    <div class="form-control" hidden>
+        <input name="HeadTrainingPlanId" value="@Model.HeadTrainingPlanId" />
+        <input name="HeadTrainingId" value="@Model.HeadTrainingId" />
+        <input name="CurrenSpecPlanId" value="@Model.CurrentSpecPlanId" />
+        <input name="CurrenSpecId" value="@Model.CurrentSpecId" />
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">@Model.Exercise</h4>
+            <h6 class="card-subtitle mb-2 text-muted">@Model.ExerciseDescription</h6>
+            <p class="card-text">
+                <div class="form-control">
+                    <label asp-for="Set"></label>
+                    <input readonly asp-for="Set" value="@Model.Set" />
+                </div>
+                <div class="form-control">
+                    <label asp-for="Weight"></label>
+                    <input asp-for="Weight" value="@Model.Weight" />
+                </div>
+                <div class="form-control">
+                    <label asp-for="Amount"></label>
+                    <input asp-for="Amount" value="@Model.Amount" />
+                </div>
+                <div class="form-control">
+                    <input asp-for="Order" value="@Model.Order" hidden />
+                </div>
+            </p>
+            <a class="btn btn-danger" asp-controller="Previous">@LocalizerShared["PreviousButton"]</a>
+            <a class="btn btn-danger" asp-controller="Skip">@LocalizerShared["SkipButton"]</a>
+            <button class="btn btn-primary">@Localizer["NextButton"]</button>
+        </div>
+    </div>
+
+    <a class="btn btn-danger" asp-action="Index" asp-controller="Home">@LocalizerShared["CancelButton"]</a>
+
+</form>

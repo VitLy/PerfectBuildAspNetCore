@@ -10,6 +10,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200215093345_addedfieldTrPlSpecIdtoTrainingSpec.cs" />
+    <Compile Remove="Migrations\20200215093345_addedfieldTrPlSpecIdtoTrainingSpec.Designer.cs" />
+    <Compile Remove="Migrations\20200218195900_CheckTrainingHead.cs" />
+    <Compile Remove="Migrations\20200218195900_CheckTrainingHead.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Repository\" />
   </ItemGroup>
 

@@ -30,10 +30,8 @@ namespace PerfectBuild.Models
         [ForeignKey("UserId")]
         public User User { get; set; }
 
-        public int TrainigPlanHeadId { get; set; }
-
-        public TrainingPlanHead TrainingPlanHead { get; set; }
-       
+        public int TrainingPlanHeadId { get; set; }
+      
         public virtual ICollection<TrainingSpec> TrainingSpec { get; set; }
     }
 }

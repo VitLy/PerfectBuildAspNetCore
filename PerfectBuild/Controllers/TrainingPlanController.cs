@@ -70,10 +70,11 @@ namespace PerfectBuild.Controllers
             int specId = 0;
             var model = new TrainigSpecLineChangeViewModel
             {
-                Exercises = exercises
+                Exercises = exercises,
+                HeadId=headId
             };
 
-            if (TempData["specId"] != null && TempData["specId"] != null && TempData["dayTraining"] != null)
+            if (TempData["specId"] != null && TempData["headId"] != null && TempData["dayTraining"] != null)
             {
                 specId = (int)TempData["specId"];
                 headId = (int)TempData["headId"];

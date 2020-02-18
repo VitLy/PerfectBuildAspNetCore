@@ -238,15 +238,11 @@ namespace PerfectBuild.Migrations
 
                     b.Property<int>("Number");
 
-                    b.Property<int>("TrainigPlanHeadId");
-
-                    b.Property<int?>("TrainingPlanHeadId");
+                    b.Property<int>("TrainingPlanHeadId");
 
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("TrainingPlanHeadId");
 
                     b.HasIndex("UserId");
 
@@ -504,10 +500,6 @@ namespace PerfectBuild.Migrations
 
             modelBuilder.Entity("PerfectBuild.Models.TrainingHead", b =>
                 {
-                    b.HasOne("PerfectBuild.Models.TrainingPlanHead", "TrainingPlanHead")
-                        .WithMany()
-                        .HasForeignKey("TrainingPlanHeadId");
-
                     b.HasOne("PerfectBuild.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");

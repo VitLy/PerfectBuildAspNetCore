@@ -1,0 +1,49 @@
+﻿@model TrainigPlanViewModel
+@inject IHtmlLocalizer<SharedResource> LocalizerShared
+@inject IViewLocalizer Localizer
+
+<!DOCTYPE html>
+
+<html>
+<body>
+    <div class="bg-primary text-white"><h3>@Localizer["TittleAvailableProgram"]</h3></div>
+    <form asp-action="Start" method="post">
+
+        <input hidden name="currentHeadPlanId" value="@Model.Id" />
+        <input readonly asp-for="CurrentTrainingDay" />
+        <input readonly asp-for="Date" />
+        <input readonly asp-for="Description" />
+        <table>
+            <thead>
+                @Localizer["ExercisesList"];
+            </thead>
+            <tbody>
+                <tr>
+                    <th>@LocalizerShared["Set"]</th>
+                    <th>@LocalizerShared["Exercise"]</th>
+                    <th>@LocalizerShared["Weight"]</th>
+                    <th>@LocalizerShared["Amount"]</th>
+                </tr>
+            </tbody>
+            @foreach (var item in Model.Lines)
+            {
+                <tr>
+                    <td>@item.Set</td>
+                    <td>@item.Exercise.Name</td>
+                    <td>@item.Weight</td>
+                    <td>@item.Amount</td>
+                </tr>
+            }
+        </table>
+        <button class="btn btn-primary">@LocalizerShared["OkButton"]</button>
+        <a class="btn btn-danger" asp-action="Index" asp-controller="Home">@LocalizerShared["CancelButton"]</a>
+
+    </form>
+</body>
+</html>
+
+
+
+
+
+
