@@ -117,10 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DatePlanDocument" xml:space="preserve">
+    <value>Дата создания плана</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Тренировочный день</value>
+  </data>
+  <data name="DescriptionPlanDocument" xml:space="preserve">
+    <value>Описание</value>
+  </data>
   <data name="ExercisesList" xml:space="preserve">
     <value>Список упражнений</value>
   </data>
+  <data name="NamePlanDocument" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="NumPlanDocument" xml:space="preserve">
+    <value>Номер документа тренировочного плана</value>
+  </data>
+  <data name="StartTrainingButton" xml:space="preserve">
+    <value>Начать тренировку</value>
+  </data>
   <data name="TittleAvailableProgram" xml:space="preserve">
-    <value>Выбор плана тренировки</value>
+    <value>Параметры текущей тренировки</value>
   </data>
 </root>

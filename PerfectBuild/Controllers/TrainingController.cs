@@ -43,37 +43,32 @@ namespace PerfectBuild.Controllers
                 .Where(x => x.TrainingDays.Equals(dayConverter.DaysToByte(currentDay)))
                 ?.ToList().OrderBy(x => x.Date)
                 .LastOrDefault();
-            TrainigPlanViewModel model = new TrainigPlanViewModel
+
+            if (trainingPlan == null)
             {
-                CurrentTrainingDay = currentDay
+                ModelState.AddModelError("Program plan not found ", $"Personal program plan for {currentDay} not found");
+                return View("Error");
             };
-            if (appContext.TrainingHeads.Where(x => x.TrainingPlanHeadId.Equals(trainingPlan.Id)).ToList().FirstOrDefault() != null)
+
+            if (appContext.TrainingHeads.Where(x => x.TrainingPlanHeadId.Equals(trainingPlan.Id)).FirstOrDefault() != null)
             {
                 ModelState.AddModelError("Training already exists", "Training already exists. To change it, pass to the training journal");
                 return View("Error");
             }
 
-            if (trainingPlan == null)
+            List<TrainingPlanSpec> planSpec = appContext.TrainingPlanSpecs.Include(x => x.Exercise)
+                .Where(x => x.HeadId.Equals(trainingPlan.Id))
+                .OrderBy(x => x.Order)
+                .ToList();
+            TrainigPlanViewModel model = new TrainigPlanViewModel
             {
-                ModelState.AddModelError("Program plan not found ", "");
-                return View("Error");
-            }
-            else
-            {
-                List<TrainingPlanSpec> planSpec = appContext.TrainingPlanSpecs.Include(x => x.Exercise)
-                    .Where(x => x.HeadId.Equals(trainingPlan.Id))
-                    .OrderBy(x => x.Order)
-                    .ToList();
-                model = new TrainigPlanViewModel
-                {
-                    CurrentTrainingDay = currentDay,
-                    Id = trainingPlan.Id,
-                    Date = trainingPlan.Date,
-                    Description = trainingPlan.Description,
-                    Name = trainingPlan.Name,
-                    Lines = planSpec,
-                };
-            }
+                CurrentTrainingDay = currentDay,
+                Id = trainingPlan.Id,
+                Date = trainingPlan.Date,
+                Description = trainingPlan.Description,
+                Name = trainingPlan.Name,
+                Lines = planSpec,
+            };
             return View(model);
         }
 
@@ -88,6 +83,7 @@ namespace PerfectBuild.Controllers
                 {
                     TrainingHead trainingHead = new TrainingHead
                     {
+                        UserId = userId,
                         Date = DateTime.UtcNow,
                         TrainingPlanHeadId = currentHeadPlanId,
                         Name = trainingPlanHead.Name,
@@ -96,10 +92,10 @@ namespace PerfectBuild.Controllers
                     await appContext.TrainingHeads.AddAsync(trainingHead);
                     await appContext.SaveChangesAsync();
                     int trainingHeadId = trainingHead.Id;
-                   
+
                     int? currentSpecPlanId = appContext.TrainingPlanSpecs.Where(x => x.HeadId.Equals(currentHeadPlanId)).OrderBy(x => x.Order).FirstOrDefault()?.Id;
                     currentSpecPlanId = currentSpecPlanId ?? 0;
-                    return RedirectToAction("NextStep", new { currentSpecPlanId, trainingPlanHeadId=currentHeadPlanId, trainingHeadId });
+                    return RedirectToAction("NextStep", new { currentSpecPlanId, trainingPlanHeadId = currentHeadPlanId, trainingHeadId });
                 }
                 else
                 {
@@ -114,14 +110,14 @@ namespace PerfectBuild.Controllers
         }
 
         [HttpGet]
-        public IActionResult NextStep(int currentSpecPlanId = 0, int trainingPlanHeadId = 0, int trainingHeadId = 0)
+        public IActionResult NextStep(int currentSpecPlanId = 0, int trainingPlanHeadId = 0, int trainingHeadId = 0,bool isFinishedTraining=false)
         {
             if (currentSpecPlanId == 0)
             {
                 return RedirectToAction("Finish", new { trainingHeadId });
             }
 
-            var currentSpecPlanLine = appContext.TrainingPlanSpecs.Include(x=>x.Exercise).Where(x=>x.Id.Equals(currentSpecPlanId)).FirstOrDefault();
+            var currentSpecPlanLine = appContext.TrainingPlanSpecs.Include(x => x.Exercise).Where(x => x.Id.Equals(currentSpecPlanId)).FirstOrDefault();
 
             if (currentSpecPlanLine != null)
             {
@@ -144,7 +140,8 @@ namespace PerfectBuild.Controllers
                         Exercise = currentSpecPlanLine.Exercise.Name,
                         ExerciseDescription = currentSpecPlanLine.Exercise.Description,
                         Amount = currentSpecPlanLine.Amount,
-                        Order = currentSpecPlanLine.Order
+                        Order = currentSpecPlanLine.Order,
+                        IsFinishedTraining=isFinishedTraining
                     };
                 }
                 else
@@ -161,7 +158,8 @@ namespace PerfectBuild.Controllers
                         Exercise = currentSpecLine.Exercise.Name,
                         ExerciseDescription = currentSpecLine.Exercise.Description,
                         Amount = currentSpecLine.Amount,
-                        Order = currentSpecLine.Order
+                        Order = currentSpecLine.Order,
+                        IsFinishedTraining = isFinishedTraining
                     };
                 }
                 return View(model);
@@ -175,6 +173,8 @@ namespace PerfectBuild.Controllers
         {
             string userId = userManager.GetUserId(HttpContext.User);
             var currentSpecPlanId = model.CurrentSpecPlanId;
+            var currentSpecPlanLine = appContext.TrainingPlanSpecs.Find(currentSpecPlanId);
+            var currentSpecId = GetCurrentSpecLine(currentSpecPlanLine, model.HeadTrainingId) != null ? GetCurrentSpecLine(currentSpecPlanLine, model.HeadTrainingId).Id : 0;
 
             if (currentSpecPlanId != 0)
             {
@@ -208,16 +208,15 @@ namespace PerfectBuild.Controllers
                     appContext.TrainingSpecs.Add(currentSpecLine);
                     await appContext.SaveChangesAsync();
                 }
-
                 //Найти следующую запись в тренировочной программе.
                 var nextSpecPlanLine = GetNextSpecLine<TrainingPlanSpec>(model.CurrentSpecPlanId);
                 if (nextSpecPlanLine == null)
                 {
-                    return RedirectToAction("Finish", new { headPlanId = model.HeadTrainingPlanId });
+                    return RedirectToAction("NextStep", new { currentSpecPlanId = model.CurrentSpecPlanId, trainingPlanHeadId = model.HeadTrainingPlanId, trainingHeadId = model.HeadTrainingId,isFinishedTraining=true });
                 }
                 else
                 {
-                    return RedirectToAction("NextStep", new { curentSpecPlanId = nextSpecPlanLine.Id, trainingPlanHead = model.HeadTrainingPlanId, trainigHeadId = model.HeadTrainingId });
+                    return RedirectToAction("NextStep", new { currentSpecPlanId = nextSpecPlanLine.Id, trainingPlanHeadId = model.HeadTrainingPlanId, trainingHeadId = model.HeadTrainingId });
                 }
             }
             else
@@ -233,11 +232,7 @@ namespace PerfectBuild.Controllers
             var currentSpecLine = GetCurrentSpecLine(currentSpecPlanLine, model.HeadTrainingId);
             var nextSpecPlanLine = GetNextSpecLine<TrainingPlanSpec>(currentSpecPlanLine.Id);
 
-            if (nextSpecPlanLine == null)
-            {
-                return RedirectToAction("Finish", new { model.HeadTrainingPlanId });
-            }
-            else if (currentSpecLine == null)
+            if (currentSpecLine == null)
             {
                 currentSpecLine = new TrainingSpec
                 {
@@ -249,28 +244,41 @@ namespace PerfectBuild.Controllers
                     Order = model.Order
                 };
                 appContext.TrainingSpecs.Add(currentSpecLine);
+                UpdateTrainingDuration(model.HeadTrainingId,DateTime.UtcNow);
                 await appContext.SaveChangesAsync();
             }
-            return RedirectToAction("NextStep", new { curentSpecPlanId = nextSpecPlanLine.Id, trainingPlanHead = model.HeadTrainingPlanId, trainigHeadId = model.HeadTrainingId });
+
+            if (nextSpecPlanLine == null) 
+            {
+                return RedirectToAction("NextStep", new { currentSpecPlanId = currentSpecPlanLine.Id, trainingPlanHeadId = model.HeadTrainingPlanId, trainingHeadId = model.HeadTrainingId, isFinishedTraining = true });
+            }
+            return RedirectToAction("NextStep", new { currentSpecPlanId = nextSpecPlanLine.Id, trainingPlanHeadId = model.HeadTrainingPlanId, trainingHeadId = model.HeadTrainingId });
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult PreviousStep(TrainingStepViewModel model)
         {
-            var previousSpecPlanLine = GetPreviousSpecLine<TrainingSpec>(model.CurrentSpecPlanId);
+            var previousSpecPlanLine = GetPreviousSpecLine<TrainingPlanSpec>(model.CurrentSpecPlanId);
             if (previousSpecPlanLine != null)
             {
-                return RedirectToAction("NextStep", new { curentSpecPlanId = previousSpecPlanLine.Id, trainingPlanHead = model.HeadTrainingPlanId, trainigHeadId = model.HeadTrainingId });
+                return RedirectToAction("NextStep", new { currentSpecPlanId = previousSpecPlanLine.Id, trainingPlanHeadId = model.HeadTrainingPlanId, trainingHeadId = model.HeadTrainingId });
             }
             else
             {
-                return RedirectToAction("NextStep", new { curentSpecPlanId = model.CurrentSpecPlanId, trainingPlanHead = model.HeadTrainingPlanId, trainigHeadId = model.HeadTrainingId });
+                return RedirectToAction("NextStep", new { currentSpecPlanId = model.CurrentSpecPlanId, trainingPlanHeadId = model.HeadTrainingPlanId, trainingHeadId = model.HeadTrainingId });
             }
         }
 
-        [HttpGet]
-        public IActionResult Finish(int headPlanId)
+        [HttpPost]
+        public async Task<IActionResult> Finish(int headPlanId)
         {
+            var trainingHead = appContext.TrainingHeads.Where(x => x.TrainingPlanHeadId.Equals(headPlanId)).FirstOrDefault();
+            if (trainingHead != null)
+            {
+                trainingHead.DateEnd = DateTime.UtcNow;
+                appContext.TrainingHeads.Update(trainingHead);
+                await appContext.SaveChangesAsync();
+            }
             return View();
         }
 
@@ -278,7 +286,7 @@ namespace PerfectBuild.Controllers
         private T GetNextSpecLine<T>(int currentSpecId) where T : class, ISpec, IOrdered
         {
             var specs = appContext.Set<T>();
-            int headId = specs.Select(x => x.HeadId).FirstOrDefault();
+            int headId = specs.Find(currentSpecId).HeadId;
             var lines = specs.Where(x => x.HeadId.Equals(headId)).ToList();
             var line = lines.Where(x => x.Id.Equals(currentSpecId)).ToList().FirstOrDefault();
             var documentHandler = HttpContext.RequestServices.GetService<DocumentSpecHandler<T>>();
@@ -289,8 +297,8 @@ namespace PerfectBuild.Controllers
         private T GetPreviousSpecLine<T>(int currentSpecId) where T : class, ISpec, IOrdered
         {
             var specs = appContext.Set<T>();
-            int headId = specs.Select(x => x.HeadId).FirstOrDefault();
-            var lines = specs.Where(x => x.HeadId.Equals(headId));
+            int headId = specs.Find(currentSpecId).HeadId;
+            var lines = specs.Where(x => x.HeadId.Equals(headId)).ToList();
             var line = lines.Where(x => x.Id.Equals(currentSpecId)).ToList().FirstOrDefault();
             var documentHandler = HttpContext.RequestServices.GetService<DocumentSpecHandler<T>>();
             documentHandler.FillDocument(lines);
@@ -313,10 +321,17 @@ namespace PerfectBuild.Controllers
             {
                 return heads.Max(x => x.Number) + stepTrainingHeadDocument;
             }
-            else 
+            else
             {
                 return stepTrainingHeadDocument;
             }
+        }
+
+        private void UpdateTrainingDuration(int headTrainingId, DateTime trainingEndTime)
+        {
+            var trainingHead = appContext.TrainingHeads.Find(headTrainingId);
+            trainingHead.DateEnd = trainingEndTime;
+            appContext.TrainingHeads.Update(trainingHead);
         }
         #endregion
     }

@@ -23,5 +23,7 @@ namespace PerfectBuild.Models.ViewModels
 
         public int Order { get; set; }
 
+        public bool IsFinishedTraining { get; set; }
+
     }
 }

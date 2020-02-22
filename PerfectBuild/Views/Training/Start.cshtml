@@ -1,46 +1,60 @@
 ﻿@model TrainigPlanViewModel
+@using System.Globalization
 @inject IHtmlLocalizer<SharedResource> LocalizerShared
 @inject IViewLocalizer Localizer
 
-<!DOCTYPE html>
 
-<html>
-<body>
-    <div class="bg-primary text-white"><h3>@Localizer["TittleAvailableProgram"]</h3></div>
-    <form asp-action="Start" method="post">
+<div class="bg-primary text-white pl-3"><h3>@Localizer["TittleAvailableProgram"]</h3></div>
+<div class="container">
+    <div class="row">
+        <form method="post" class="form-inline">
+            <div class="form-row mb-3 ml-3">
+                <input value="@Model.Id" name="currentHeadPlanId" hidden />
+                <h5>@Localizer["Day"]:<span class="badge badge-warning"><big>@LocalizerShared[@Model.CurrentTrainingDay.ToString()]</big></span> </h5>
+                <button class="btn btn-primary ml-5">@Localizer["StartTrainingButton"]</button>
+            </div>
+ 
+ 
+        </form>
+    </div>
 
-        <input hidden name="currentHeadPlanId" value="@Model.Id" />
-        <input readonly asp-for="CurrentTrainingDay" />
-        <input readonly asp-for="Date" />
-        <input readonly asp-for="Description" />
-        <table>
-            <thead>
-                @Localizer["ExercisesList"];
-            </thead>
-            <tbody>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover">
                 <tr>
-                    <th>@LocalizerShared["Set"]</th>
+                    <th>#</th>
                     <th>@LocalizerShared["Exercise"]</th>
+                    <th>@LocalizerShared["Set"]</th>
                     <th>@LocalizerShared["Weight"]</th>
                     <th>@LocalizerShared["Amount"]</th>
                 </tr>
-            </tbody>
-            @foreach (var item in Model.Lines)
-            {
-                <tr>
-                    <td>@item.Set</td>
-                    <td>@item.Exercise.Name</td>
-                    <td>@item.Weight</td>
-                    <td>@item.Amount</td>
-                </tr>
-            }
-        </table>
-        <button class="btn btn-primary">@LocalizerShared["OkButton"]</button>
-        <a class="btn btn-danger" asp-action="Index" asp-controller="Home">@LocalizerShared["CancelButton"]</a>
+                @{ int i = 1; }
+                @if (Model.Lines.Count != 0)
+                {
 
-    </form>
-</body>
-</html>
+                    @foreach (var line in Model.Lines)
+                    {
+                        <tr>
+                            <td>@(i++)</td>
+                            <td>@line.Exercise.Name</td>
+                            <td>@line.Set</td>
+                            <td>@line.Weight</td>
+                            <td>@line.Amount</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <th colspan="6">@Localizer["EmptyTrainingDay"]</th>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
+
 
 
 

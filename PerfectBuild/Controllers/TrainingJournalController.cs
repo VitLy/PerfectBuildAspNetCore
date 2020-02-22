@@ -43,25 +43,28 @@ namespace PerfectBuild.Controllers
                 }
             }
             var userId = userManager.GetUserId(HttpContext.User);
-            var userHead = appContext.TrainingHeads.Where(x => x.UserId.Equals(userId));
+            var trainingHeads = appContext.TrainingHeads.Where(x => x.UserId.Equals(userId));
 
-            var query = from spec in appContext.TrainingSpecs
-                        group spec by spec.HeadId into groupedSpec
-                        join head in userHead on groupedSpec.FirstOrDefault().HeadId equals head.Id
-                        let duration = head.DateEnd - head.Date
+            var query = from heads in trainingHeads
+                        join specs in appContext.TrainingSpecs
+                        on heads.Id equals specs.HeadId
+                        into grouped
+                        let duration = heads.DateEnd - heads.Date
                         select new JournalColumnViewModel
                         {
-                            HeadId = head.Id,
-                            Number = head.Number,
-                            Date = head.Date,
-                            DocumName = head.Name,
+                            HeadId = heads.Id,
+                            Number = heads.Number,
+                            Date = heads.Date,
+                            DocumName = heads.Name,
                             Duration = duration.TotalMinutes,
-                            Calories = head.Calories,
-                            ExerciseCount = groupedSpec.Count(x => x.Id != 0),
-                            SetMax = groupedSpec.Max(x => x.Set)
+                            Calories = heads.Calories,
+                            ExerciseCount = grouped.Count(x => x.Id != 0),
+                            SetMax = grouped.Any()?grouped.Max(x=>x.Set):0
                         };
 
-            return View(query.ToList().OrderBy(x=>x.Date));
+            var result1 = query.ToList();
+            var result2 = result1?.OrderBy(x => x.Date);
+            return View(result2);
         }
 
         [HttpGet]
@@ -362,7 +365,7 @@ namespace PerfectBuild.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetPlanSpecJson(DayOfWeek? day=null)
+        public IActionResult GetPlanSpecJson(DayOfWeek? day = null)
         {
             if (day != null)
             {
@@ -371,7 +374,7 @@ namespace PerfectBuild.Controllers
                     .Join(appContext.TrainingPlanSpecs.Include(x => x.Exercise),
                     head => head.Id,
                     spec => spec.HeadId,
-                    (head, spec) => new { spec.Id, Exercise=spec.Exercise.Name, spec.Set, spec.Weight, spec.Amount, spec.Order });
+                    (head, spec) => new { spec.Id, Exercise = spec.Exercise.Name, spec.Set, spec.Weight, spec.Amount, spec.Order });
 
                 return Json(specPlan);
             }
@@ -395,8 +398,8 @@ namespace PerfectBuild.Controllers
             else throw new ArgumentException(nameof(day));
         }
 
-            #region private methods
-            private async Task SaveMovedLine(IEnumerable<TrainingSpec> lines)
+        #region private methods
+        private async Task SaveMovedLine(IEnumerable<TrainingSpec> lines)
         {
             appContext.TrainingSpecs.UpdateRange(lines);
             await appContext.SaveChangesAsync();

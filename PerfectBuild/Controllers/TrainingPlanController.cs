@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PerfectBuild.Data;
 using PerfectBuild.Models;
-using PerfectBuild.Models.Document;
 using PerfectBuild.Models.ViewModels;
 using PerfectBuild.Services;
 using System;
@@ -21,7 +20,7 @@ namespace PerfectBuild.Controllers
         private readonly ApplicationContext appContext;
         private readonly DocumentSpecHandler<TrainingPlanSpec> documentSpecHandler;
         private readonly ITrainigDayConverter trainigDayConverter;
-        //TODO: При выходе из документа - проверка на наличие спецификации, если нет - удалить заголовок
+        //TODO: При выходе(при удалении строки спецификации?) из документа - проверка на наличие спецификации, если нет - удалить заголовок
 
         public TrainingPlanController(UserManager<User> userManager, ApplicationContext appContext,
             DocumentSpecHandler<TrainingPlanSpec> documentSpecHandler, ITrainigDayConverter trainigDayConverter)
@@ -346,15 +345,6 @@ namespace PerfectBuild.Controllers
             return appContext.TrainingPlanHeads.Where(x => x.UserId.Equals(userId) && x.TrainingDays.Equals(trainingDay)).FirstOrDefault().Id;
         }
 
-        //private List<Line> GetLinesFromSpec(List<TrainingPlanSpec> trPlanSpeclist)
-        //{
-        //    List<Line> lines = new List<Line>();
-        //    foreach (var item in trPlanSpeclist)
-        //    {
-        //        lines.Add(new Line { Id = item.Id, ExerciseId = item.ExId, Exercise = item.Exercise.Name, Set = item.Set, Weight = item.Weight, Amount = item.Amount, Order = item.Order });
-        //    }
-        //    return lines;
-        //}
         #endregion
     }
 }

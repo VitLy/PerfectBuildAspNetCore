@@ -117,7 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="FinishButton" xml:space="preserve">
+    <value>Click to finish</value>
+  </data>
+  <data name="NextButton" xml:space="preserve">
+    <value>To next exercise</value>
+  </data>
+  <data name="PreviousButton" xml:space="preserve">
+    <value>To previous exercise</value>
+  </data>
+  <data name="SkipButton" xml:space="preserve">
+    <value>Skip this</value>
+  </data>
   <data name="TittleTraining" xml:space="preserve">
-    <value>training is in progress</value>
+    <value>Training is in progress</value>
   </data>
 </root>
