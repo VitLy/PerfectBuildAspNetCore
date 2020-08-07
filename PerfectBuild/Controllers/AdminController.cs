@@ -16,8 +16,8 @@ namespace PerfectBuild.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-        private UserManager<User> userManager;
-        private RoleManager<IdentityRole> roleManager;
+        private readonly UserManager<User> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
 
         public AdminController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
@@ -35,11 +35,11 @@ namespace PerfectBuild.Controllers
         [HttpGet]
         public async Task<IActionResult> ModifyUserRoles(string id)
         {
-            User user = await userManager.FindByIdAsync(id);
+            User user = await userManager.FindByIdAsync(id).ConfigureAwait(false);
             if (user != null)
             {
                 SortedDictionary<string, bool> roles = new SortedDictionary<string, bool>();
-                var userRoles = await userManager.GetRolesAsync(user);
+                var userRoles = await userManager.GetRolesAsync(user).ConfigureAwait(false);
 
                 foreach (var item in userRoles)
                 {
@@ -66,23 +66,26 @@ namespace PerfectBuild.Controllers
         [HttpPost]
         public async Task<IActionResult> ModifyUserRoles(UserRolesModel userRoles)
         {
-            User user = await userManager.FindByIdAsync(userRoles.UserId);
-            if (user != null)
+            if (userRoles != null)
             {
-                List<String> rolesToDelete = userRoles.Roles.Where(x => x.Value == false).Select(x => x.Key).ToList();
-                List<String> rolesToAdd = userRoles.Roles.Where(x => x.Value == true).Select(x => x.Key).ToList();
-                foreach (var role in rolesToDelete)
+                User user = await userManager.FindByIdAsync(userRoles.UserId).ConfigureAwait(false);
+                if (user != null)
                 {
-                    if (await userManager.IsInRoleAsync(user, role))
+                    List<String> rolesToDelete = userRoles.Roles.Where(x => x.Value == false).Select(x => x.Key).ToList();
+                    List<String> rolesToAdd = userRoles.Roles.Where(x => x.Value == true).Select(x => x.Key).ToList();
+                    foreach (var role in rolesToDelete)
                     {
-                        await userManager.RemoveFromRoleAsync(user, role);
+                        if (await userManager.IsInRoleAsync(user, role).ConfigureAwait(false))
+                        {
+                            await userManager.RemoveFromRoleAsync(user, role).ConfigureAwait(false);
+                        }
                     }
-                }
-                foreach (var role in rolesToAdd)
-                {
-                    if (!await userManager.IsInRoleAsync(user, role))
+                    foreach (var role in rolesToAdd)
                     {
-                        await userManager.AddToRoleAsync(user, role);
+                        if (!await userManager.IsInRoleAsync(user, role).ConfigureAwait(false))
+                        {
+                            await userManager.AddToRoleAsync(user, role).ConfigureAwait(false);
+                        }
                     }
                 }
             }

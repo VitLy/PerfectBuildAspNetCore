@@ -135,8 +135,8 @@
   <data name="Amount" xml:space="preserve">
     <value>Повторения</value>
   </data>
-  <data name="BodyStatistics" xml:space="preserve">
-    <value>Статистика тела</value>
+  <data name="BodyStat" xml:space="preserve">
+    <value>Статистика изменений параметров тела</value>
   </data>
   <data name="Breast" xml:space="preserve">
     <value>Грудь</value>
@@ -183,6 +183,9 @@
   <data name="Exercises" xml:space="preserve">
     <value>Упражнения</value>
   </data>
+  <data name="ExerciseStat" xml:space="preserve">
+    <value>Статистика упражнений</value>
+  </data>
   <data name="ExitButton" xml:space="preserve">
     <value>Выход</value>
   </data>
@@ -201,6 +204,9 @@
   <data name="PersonalTrainingPlan" xml:space="preserve">
     <value>Индивидуальный тренировочный план</value>
   </data>
+  <data name="PlanExecution" xml:space="preserve">
+    <value>Показатель исполнения тренировочной программы</value>
+  </data>
   <data name="Profile" xml:space="preserve">
     <value>Профиль</value>
   </data>
@@ -216,8 +222,14 @@
   <data name="Settings" xml:space="preserve">
     <value>Настройки</value>
   </data>
+  <data name="ShowStatisticsButton" xml:space="preserve">
+    <value>Показать статистику</value>
+  </data>
   <data name="StartTraining" xml:space="preserve">
     <value>Начать тренировку</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Статистика</value>
   </data>
   <data name="Sunday" xml:space="preserve">
     <value>Воскресенье</value>
@@ -242,6 +254,9 @@
   </data>
   <data name="UserData" xml:space="preserve">
     <value>Данные пользователя</value>
+  </data>
+  <data name="UserProgress" xml:space="preserve">
+    <value>Лучшие результаты </value>
   </data>
   <data name="Waist" xml:space="preserve">
     <value>Талия</value>

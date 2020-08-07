@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PerfectBuild.Models.ViewModels
 {
-    public class FillParametersViewModel
+    public class ParametersViewModel
     {
         [Required]
         public DateTime Date { get; set; }

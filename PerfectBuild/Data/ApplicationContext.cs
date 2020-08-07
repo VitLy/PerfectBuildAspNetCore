@@ -6,6 +6,10 @@ namespace PerfectBuild.Data
 {
     public class ApplicationContext : IdentityDbContext<User>
     {
+        public ApplicationContext()
+        {
+
+        }
         public ApplicationContext(DbContextOptions options) : base(options) { }
 
         public virtual DbSet<Exercise> Exercises { get; set; }

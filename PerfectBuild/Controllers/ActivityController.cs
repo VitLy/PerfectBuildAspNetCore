@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PerfectBuild.Controllers
 {
-    [Authorize(Roles ="User,Admin")]
+    [Authorize(Roles = "User,Admin")]
     public class ActivityController : Controller
     {
         private readonly ApplicationContext appContext;
@@ -21,41 +21,48 @@ namespace PerfectBuild.Controllers
             this.appContext = appContext;
             this.userManager = userManager;
         }
+        // TODO: "Подумать, стоит ли в этой же форме показывать пользователю предыдущие результаты или лучше выводить дату и нули во всех полях,
+        //а данные выводить только в том случае, если они есть за этот день "
 
         [HttpGet]
         public IActionResult DailyParameters()
         {
             var user = HttpContext.User;
+            ParametersViewModel viewModel = new ParametersViewModel {Date = DateTime.Now};
             string userId = userManager.GetUserId(user);
-            Param userParam = appContext.Params.Where(x => x.UserId == userId).FirstOrDefault();
-            FillParametersViewModel viewModel = new FillParametersViewModel
+            var currentUserParam = appContext.Params.Where(x => x.UserId.Equals(userId) & x.Date.Equals(DateTime.UtcNow.Date)).FirstOrDefault();
+
+            if (currentUserParam != null) // на эту дату есть уже внесенные данные в базе данных
             {
-                Date = DateTime.Today
-            };
-            if (userParam != null)
-            {
-                viewModel.Weight = userParam.Weight;
-                viewModel.Breast = userParam.Breast;
-                viewModel.Waist = userParam.Waist;
-                viewModel.Buttock = userParam.Buttock;
-                viewModel.Thigh = userParam.Thigh;
+                viewModel = new ParametersViewModel
+                {
+                    Date = DateTime.UtcNow,
+                    Breast = currentUserParam.Breast,
+                    Buttock = currentUserParam.Buttock,
+                    Thigh = currentUserParam.Thigh,
+                    Waist = currentUserParam.Waist,
+                    Weight = currentUserParam.Weight
+                };
             }
+
             return View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> DailyParameters(FillParametersViewModel viewModel)
+        public async Task<IActionResult> DailyParameters(ParametersViewModel viewModel)
         {
             var user = HttpContext.User;
             string userId = userManager.GetUserId(user);
-            Param userParam = appContext.Params.Where(x => x.UserId == userId).FirstOrDefault();
+
+            var userParam = appContext.Params.Where(x => x.UserId.Equals(userId) & x.Date.Equals(viewModel.Date.ToUniversalTime().Date)).FirstOrDefault();
+
             if (userParam == null)
             {
                 await appContext.Params.AddAsync(
                     new Param
                     {
                         UserId = userId,
-                        Date = viewModel.Date,
+                        Date = viewModel.Date.ToUniversalTime().Date,
                         Weight = viewModel.Weight,
                         Breast = viewModel.Breast,
                         Waist = viewModel.Waist,
@@ -65,7 +72,7 @@ namespace PerfectBuild.Controllers
             }
             else
             {
-                userParam.Date = viewModel.Date;
+                userParam.Date = viewModel.Date.ToUniversalTime().Date;
                 userParam.Weight = viewModel.Weight;
                 userParam.Breast = viewModel.Breast;
                 userParam.Waist = viewModel.Waist;

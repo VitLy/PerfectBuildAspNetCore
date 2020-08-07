@@ -135,8 +135,8 @@
   <data name="Amount" xml:space="preserve">
     <value>Amount</value>
   </data>
-  <data name="BodyStatistics" xml:space="preserve">
-    <value>Body statistics</value>
+  <data name="BodyStat" xml:space="preserve">
+    <value>Body parameter statistics</value>
   </data>
   <data name="Breast" xml:space="preserve">
     <value>Breast</value>
@@ -183,6 +183,9 @@
   <data name="Exercises" xml:space="preserve">
     <value>Exercises</value>
   </data>
+  <data name="ExerciseStat" xml:space="preserve">
+    <value>Exercise statistics</value>
+  </data>
   <data name="ExitButton" xml:space="preserve">
     <value>Exit</value>
   </data>
@@ -204,6 +207,9 @@
   <data name="PersonalTrainingPlan" xml:space="preserve">
     <value>Personal Training Plan</value>
   </data>
+  <data name="PlanExecution" xml:space="preserve">
+    <value>Trainig plan execution</value>
+  </data>
   <data name="Profile" xml:space="preserve">
     <value>Profile</value>
   </data>
@@ -219,8 +225,14 @@
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="ShowStatisticsButton" xml:space="preserve">
+    <value>Show Statistic</value>
+  </data>
   <data name="StartTraining" xml:space="preserve">
     <value>Start workout</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Statistics</value>
   </data>
   <data name="Sunday" xml:space="preserve">
     <value>Sunday</value>
@@ -242,6 +254,9 @@
   </data>
   <data name="UserData" xml:space="preserve">
     <value>User data</value>
+  </data>
+  <data name="UserProgress" xml:space="preserve">
+    <value>User progress</value>
   </data>
   <data name="Waist" xml:space="preserve">
     <value>Waist</value>

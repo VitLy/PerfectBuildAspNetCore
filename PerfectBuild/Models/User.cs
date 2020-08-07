@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
 
 namespace PerfectBuild.Models
 {
     public partial class User:IdentityUser
     {
+        //23/06/2020 добавил IUser
         //[Key]
         //public int Id { get; set; }
 

@@ -19,7 +19,7 @@ namespace PerfectBuild.Services
         {
             var heads = appContext.Set<T>().Where(x => x.UserId == userId).ToList();
             int maxNum = numberDocumentStep;
-            if (heads.Count() != 0)
+            if (heads.Count != 0)
             {
                 maxNum = heads.Max(x => x.Number) + numberDocumentStep;
             }

@@ -16,15 +16,7 @@
                     <a class="dropdown-item" asp-controller="Activity" asp-action="DailyParameters">@Localizer["AddBodyParams"]</a>
                     <a class="dropdown-item" asp-controller="TrainingJournal" asp-action="AddTrainingManually">@Localizer["AddWorkout"]</a>
                     <a class="dropdown-item" asp-controller="Training" asp-action="Start">@Localizer["StartTraining"]</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a style="color:#ffffffff" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuDiary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    @Localizer["Diary"]
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuDiary">
                     <a class="dropdown-item" asp-controller="TrainingJournal" asp-action="List">@Localizer["TrainingJournal"]</a>
-                    <a class="dropdown-item" href="#">@Localizer["BodyStatistics"]</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -44,6 +36,17 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuProfile">
                     <a class="dropdown-item" asp-controller="Profile" asp-action="Modify">@Localizer["UserData"]</a>
                     <a class="dropdown-item" asp-controller="TrainingPlan" asp-action="Show">@Localizer["PersonalTrainingPlan"]</a>
+            </div>
+            </li>
+            <li class="nav-item dropdown"  aria-labelledby="navbarDropdownMenuStatistics">
+                <a style="color:#ffffffff" class="nav-link dropdown-toggle" href="#" id="navbarDropdownStatistics" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @Localizer["Statistics"]
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" asp-controller="Statistic" asp-action="BodyStat">@Localizer["BodyStat"]</a>
+                    <a class="dropdown-item" asp-controller="Statistic" asp-action="ExerciseStat">@Localizer["ExerciseStat"]</a>
+                    <a class="dropdown-item" asp-controller="Statistic" asp-action="UserProgress">@Localizer["UserProgress"]</a>
+                    <a class="dropdown-item" asp-controller="Statistic" asp-action="PlanExecution">@Localizer["PlanExecution"]</a>
                 </div>
             </li>
         </ul>

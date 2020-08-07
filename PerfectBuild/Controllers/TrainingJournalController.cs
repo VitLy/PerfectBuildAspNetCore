@@ -101,7 +101,7 @@ namespace PerfectBuild.Controllers
                 if (headHandler.IsNumberPresent(model.NumDocument, userId))
                 {
                     ModelState.AddModelError($"Document:{model.NumDocument} is present in DB",
-                       $"Document:{model.NumDocument} with same nuber is present in DB");
+                       $"Document:{model.NumDocument} with same number is present in DB");
                     return RedirectToAction("AddTrainingManually");
                 }
                 else
@@ -331,10 +331,10 @@ namespace PerfectBuild.Controllers
                 int headId = model.HeadId;
                 byte SetNum = 1;
                 List<TrainingSpec> lines;
-                if (trainingPlanSpecs.Count() != 0)
+                if (trainingPlanSpecs.Count != 0)
                 {
                     lines = appContext.TrainingSpecs.Where(x => x.HeadId.Equals(model.HeadId)).ToList();
-                    if (lines.Count() != 0)
+                    if (lines.Count != 0)
                     {
                         SetNum = Convert.ToByte(lines.Max(x => x.Set) + 1);
                     }
@@ -356,8 +356,8 @@ namespace PerfectBuild.Controllers
                             Order = lastOrderNum += step
                         });
                     }
-                    await appContext.TrainingSpecs.AddRangeAsync(lines);
-                    await appContext.SaveChangesAsync();
+                    await appContext.TrainingSpecs.AddRangeAsync(lines).ConfigureAwait(false);
+                    await appContext.SaveChangesAsync().ConfigureAwait(false);
                     return RedirectToAction("ViewTrainingSpecs", new { headId = headId });
                 }
             }
@@ -378,7 +378,7 @@ namespace PerfectBuild.Controllers
 
                 return Json(specPlan);
             }
-            else throw new ArgumentException(nameof(day));
+            else throw new ArgumentNullException(nameof(day));
         }
 
         [HttpGet]

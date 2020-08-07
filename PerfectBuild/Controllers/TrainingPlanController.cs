@@ -238,7 +238,7 @@ namespace PerfectBuild.Controllers
             if (model != null)
             {
                 var trainingProgramSpecs = appContext.TrainingProgramSpecs.Where(x => x.HeadId.Equals(model.ProgramHeadId)).ToList();
-                if (trainingProgramSpecs.Count() != 0)
+                if (trainingProgramSpecs.Count != 0)
                 {
                     var userId = userManager.GetUserId(HttpContext.User);
                     int headId = model.HeadId;
@@ -254,7 +254,7 @@ namespace PerfectBuild.Controllers
                     else
                     {
                         lines = appContext.TrainingPlanSpecs.Where(x => x.HeadId.Equals(model.HeadId)).ToList();
-                        if (lines.Count() != 0)
+                        if (lines.Count != 0)
                         {
                             SetNum = Convert.ToByte(lines.Max(x => x.Set) + 1);
                         }

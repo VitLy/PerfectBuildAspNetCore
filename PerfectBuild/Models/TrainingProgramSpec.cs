@@ -5,33 +5,33 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PerfectBuild.Models
 {
-    public class TrainingProgramSpec: ISpec,IOrdered,ITrainingSpec
-    {
-        [Key]
-        public int Id { get; set; }
+	public class TrainingProgramSpec: ISpec,IOrdered,ITrainingSpec
+	{
+		[Key]
+		public int Id { get; set; }
 
-        public int HeadId { get; set; }
+		public int HeadId { get; set; }
 
-        [ForeignKey("ProgramHeadId")]
-        public TrainingProgramHead TrainingProgramHead { get; set; }
+		[ForeignKey("ProgramHeadId")]
+		public TrainingProgramHead TrainingProgramHead { get; set; }
 
-        public int ExId { get; set; }
+		public int ExId { get; set; }
 
-        [ForeignKey("ExId")]
-        public Exercise Exercise { get; set; }
+		[ForeignKey("ExId")]
+		public Exercise Exercise { get; set; }
 
-        [Required]
-        [Range(0.1f, 300f)]
-        public float Weight { get; set; }
+		[Required]
+		[Range(0.1f, 300f)]
+		public float Weight { get; set; }
 
-        [Required]
-        [Range(1, 255)]
-        public byte Set { get; set; }
+		[Required]
+		[Range(1, 255)]
+		public byte Set { get; set; }
 
-        [Required]
-        [Range(1, 255)]
-        public byte Amount { get; set; }
+		[Required]
+		[Range(1, 255)]
+		public byte Amount { get; set; }
 
-        public int Order { get; set; }
-    }
+		public int Order { get; set; }
+	}
 }

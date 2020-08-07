@@ -8,7 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 using PerfectBuild.Data;
 using PerfectBuild.Infrastructure;
 using PerfectBuild.Models;
+using PerfectBuild.Models.Interfaces;
+using PerfectBuild.Models.Report;
 using PerfectBuild.Services;
+using PerfectBuild.Services.Report;
 using System.Globalization;
 
 namespace PerfectBuild
@@ -30,6 +33,14 @@ namespace PerfectBuild
             services.AddTransient<DocumentSpecHandler<TrainingPlanSpec>>();
             services.AddTransient<DocumentHeadHandler<TrainingHead>>();
             services.AddTransient<DocumentSpecHandler<TrainingSpec>>();
+            services.AddTransient<ChartProvider,CanvasJSProvider>();
+
+            services.AddAuthentication().AddFacebook(option =>
+            {
+                option.AppId = Configuration["Authentication:Facebook:AppId"];
+                option.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            });
+
             services.AddIdentity<User, IdentityRole>(opt =>
             {
                 opt.Password.RequireNonAlphanumeric = false;
