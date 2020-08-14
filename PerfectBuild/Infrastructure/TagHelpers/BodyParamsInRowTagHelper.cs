@@ -28,7 +28,7 @@ namespace PerfectBuild.Infrastructure.TagHelpers
     [HtmlTargetElement("body-params-in-row")]
     public class BodyParamsInRowTagHelper : TagHelper
     {
-        public IEnumerable<SelectedBodyParam> BodyParameters { get; set; }
+        public IList<SelectedBodyParam> BodyParameters { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -38,34 +38,55 @@ namespace PerfectBuild.Infrastructure.TagHelpers
 
             TagBuilder divCheck = new TagBuilder("div");
             divCheck.AddCssClass("form-check form-check-inline");
-            int count = 0;
 
-            foreach (var item in BodyParameters)
+            for(int i = 0; i < BodyParameters.Count; i++)
             {
-                string name = "userBodyParam" + (++count).ToString();
+                string name = BodyParameters[i].BodyParameter.ToString();
 
-                TagBuilder input = new TagBuilder("input");
-                input.TagRenderMode = TagRenderMode.SelfClosing;
-                input.AddCssClass("form-check-input");
-                input.MergeAttribute("type", "checkbox");
-                input.MergeAttribute("value", item.ToString());
-                input.MergeAttribute("id", name);
-                input.MergeAttribute("name", name);
+                TagBuilder inputBodyParam = new TagBuilder("input");
+                inputBodyParam.TagRenderMode = TagRenderMode.SelfClosing;
+                inputBodyParam.MergeAttribute("hidden", "hidden");
+                inputBodyParam.MergeAttribute("name", "[" + i + "].BodyParameter");
+                inputBodyParam.MergeAttribute("value", name);
 
-                if (item.Select)
+                TagBuilder inputCheck = new TagBuilder("input");
+                inputCheck.TagRenderMode = TagRenderMode.SelfClosing;
+                inputCheck.AddCssClass("form-check-input");
+                inputCheck.MergeAttribute("type", "checkbox");
+                inputCheck.MergeAttribute("value", "true");
+                inputCheck.MergeAttribute("id", "["+i+"].BodyParameter");
+                inputCheck.MergeAttribute("name", "[" + i + "].Select");
+
+                if (BodyParameters[i].Select)
                 {
-                    input.MergeAttribute("checked", "checked");
+                    inputCheck.MergeAttribute("checked", "checked");
                 }
 
                 TagBuilder label = new TagBuilder("label");
                 label.AddCssClass("form-check-label");
-                label.InnerHtml.Append(item.BodyParameter.ToString());
-                label.MergeAttribute("for", name);
+                label.InnerHtml.Append(name);
+                label.MergeAttribute("for", "[" + i + "].BodyParameter");
 
-                divCheck.InnerHtml.AppendHtml(input);
                 divCheck.InnerHtml.AppendHtml(label);
+                divCheck.InnerHtml.AppendHtml(inputCheck);
+                divCheck.InnerHtml.AppendHtml(inputBodyParam);
             }
                 output.Content.AppendHtml(divCheck);
         }
     }
 }
+
+
+//@model IList<BodyParamsViewModel>
+
+//        @for(int i = 0; i<Model.Count; i++)
+//        {
+//            <div class="form-group">
+//                <input type = "checkbox" asp-for=@Model[i].IsSelected /> 
+//                <label asp-for=@Model[i].IsSelected>@Model[i].Name</label>
+//                <input hidden = "hidden" asp-for=@Model[i].Name/>
+//            </div>
+
+//        }
+//        <input type = "submit" />
+//    </ form >

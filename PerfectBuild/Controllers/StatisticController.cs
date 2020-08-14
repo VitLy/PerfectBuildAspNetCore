@@ -51,7 +51,7 @@ namespace PerfectBuild.Controllers
             });
         }
         [HttpPost]
-        public IActionResult BodyStat(string userId, DateTime dayFrom, DateTime dayTo, IEnumerable<SelectedBodyParam> userBodyParam)
+        public IActionResult BodyStat(string userId, DateTime dayFrom, DateTime dayTo, IList<SelectedBodyParam> userBodyParam)
         {
             var userParamPoint = new Dictionary<BodyParameter, Point<long, float>[]>();
             Point<long, float>[] points = new Point<long, float>[1];
@@ -60,56 +60,60 @@ namespace PerfectBuild.Controllers
                 if (param.Select)
                 {
                     switch (param.BodyParameter)
-                {
-                    case BodyParameter.Breast:
-                        points = appContext.Params
-                      .Where(x => x.UserId.Equals(userId, StringComparison.InvariantCulture) | x.Date <= dayFrom | x.Date >= dayTo)
-                      .Select(x => new Point<long, float>
-                      {
-                          X = x.Date.MillisecondsTimestamp(),
-                          Y = x.Breast
-                      }).ToArray();
-                        break;
-                    case BodyParameter.Buttock:
-                        points = appContext.Params
-                    .Where(x => x.UserId.Equals(userId, StringComparison.InvariantCulture) | x.Date <= dayFrom | x.Date >= dayTo)
-                    .Select(x => new Point<long, float>
                     {
-                        X = x.Date.MillisecondsTimestamp(),
-                        Y = x.Breast
-                    }).ToArray();
-                        break;
-                    case BodyParameter.Thigh:
-                        points = appContext.Params
-                      .Where(x => x.UserId.Equals(userId, StringComparison.InvariantCulture) | x.Date <= dayFrom | x.Date >= dayTo)
-                      .Select(x => new Point<long, float>
-                      {
-                          X = x.Date.MillisecondsTimestamp(),
-                          Y = x.Breast
-                      }).ToArray();
-                        break;
-                    case BodyParameter.Waist:
-                        points = appContext.Params
-                    .Where(x => x.UserId.Equals(userId, StringComparison.InvariantCulture) | x.Date <= dayFrom | x.Date >= dayTo)
-                    .Select(x => new Point<long, float>
-                    {
-                        X = x.Date.MillisecondsTimestamp(),
-                        Y = x.Breast
-                    }).ToArray();
-                        break;
-                    case BodyParameter.Weight:
-                        points = appContext.Params
-                      .Where(x => x.UserId.Equals(userId, StringComparison.InvariantCulture) & x.Date >= dayFrom & x.Date <= dayTo & x.Weight > 0)
-                      .Select(x => new Point<long, float>
-                      {
-                          X = x.Date.MillisecondsTimestamp(),
-                          Y = x.Weight
-                      }).ToArray();
-                        break;
+                        case BodyParameter.Breast:
+                            points = appContext.Params
+                          .Where(prm => prm.UserId.Equals(userId, StringComparison.InvariantCulture) & prm.Breast > 0)
+                          .Where(prm => prm.Date >= dayFrom & prm.Date <= dayTo)
+                          .Select(pts => new Point<long, float>
+                          {
+                              X = pts.Date.MillisecondsTimestamp(),
+                              Y = pts.Breast
+                          }).OrderBy(pts => pts.X).ToArray();
+                            break;
+                        case BodyParameter.Buttock:
+                            points = appContext.Params
+                        .Where(prm => prm.UserId.Equals(userId, StringComparison.InvariantCulture) & prm.Buttock > 0)
+                        .Where(prm => prm.Date >= dayFrom & prm.Date <= dayTo)
+                        .Select(pts => new Point<long, float>
+                        {
+                            X = pts.Date.MillisecondsTimestamp(),
+                            Y = pts.Buttock
+                        }).OrderBy(pts => pts.X).ToArray();
+                            break;
+                        case BodyParameter.Thigh:
+                            points = appContext.Params
+                          .Where(prm => prm.UserId.Equals(userId, StringComparison.InvariantCulture) & prm.Thigh > 0)
+                          .Where(prm => prm.Date >= dayFrom & prm.Date <= dayTo)
+                          .Select(pts => new Point<long, float>
+                          {
+                              X = pts.Date.MillisecondsTimestamp(),
+                              Y = pts.Thigh
+                          }).OrderBy(pts => pts.X).ToArray();
+                            break;
+                        case BodyParameter.Waist:
+                            points = appContext.Params
+                        .Where(prm => prm.UserId.Equals(userId, StringComparison.InvariantCulture) & prm.Waist > 0)
+                        .Where(prm => prm.Date >= dayFrom & prm.Date <= dayTo)
+                        .Select(pts => new Point<long, float>
+                        {
+                            X = pts.Date.MillisecondsTimestamp(),
+                            Y = pts.Waist
+                        }).OrderBy(pts => pts.X).ToArray();
+                            break;
+                        case BodyParameter.Weight:
+                            points = appContext.Params
+                          .Where(prm => prm.UserId.Equals(userId, StringComparison.InvariantCulture) & prm.Weight > 0)
+                          .Where(prm => prm.Date >= dayFrom & prm.Date <= dayTo)
+                          .Select(pts => new Point<long, float>
+                          {
+                              X = pts.Date.MillisecondsTimestamp(),
+                              Y = pts.Weight
+                          }).OrderBy(x => x.X).ToArray();
+                            break;
+                    }
+                    userParamPoint.Add(param.BodyParameter, points);
                 }
-                }
-                
-                userParamPoint.Add(param.BodyParameter, points);
             }
             LineChart<long, float> lineChart = new LineChart<long, float>(localizer["Tittle"], userParamPoint);
             var jsonData = chartProvider.GetLineChart(lineChart);
@@ -134,6 +138,5 @@ namespace PerfectBuild.Controllers
         {
             return View();
         }
-
     }
 }

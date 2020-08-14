@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace PerfectBuild.Models.ViewModels
 {
     public class SelectedBodyParam
     {
         public BodyParameter BodyParameter { get; set; }
-        public bool Select { get; set; } = false;
+        public bool Select { get; set; }
 
         public override string ToString()
         {
