@@ -38,7 +38,7 @@ namespace PerfectBuild.Controllers
                 {
                     Date = DateTime.UtcNow,
                     Breast = currentUserParam.Breast,
-                    Buttock = currentUserParam.Buttock,
+                    Pelvis = currentUserParam.Buttock,
                     Thigh = currentUserParam.Thigh,
                     Waist = currentUserParam.Waist,
                     Weight = currentUserParam.Weight
@@ -66,7 +66,7 @@ namespace PerfectBuild.Controllers
                         Weight = viewModel.Weight,
                         Breast = viewModel.Breast,
                         Waist = viewModel.Waist,
-                        Buttock = viewModel.Buttock,
+                        Buttock = viewModel.Pelvis,
                         Thigh = viewModel.Thigh
                     });
             }
@@ -76,7 +76,7 @@ namespace PerfectBuild.Controllers
                 userParam.Weight = viewModel.Weight;
                 userParam.Breast = viewModel.Breast;
                 userParam.Waist = viewModel.Waist;
-                userParam.Buttock = viewModel.Buttock;
+                userParam.Buttock = viewModel.Pelvis;
                 userParam.Thigh = viewModel.Thigh;
                 appContext.Params.Update(userParam);
             }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Microsoft.Extensions.Localization;
 using PerfectBuild.Models;
 using PerfectBuild.Models.ViewModels;
 using System.Collections.Generic;
@@ -29,6 +30,12 @@ namespace PerfectBuild.Infrastructure.TagHelpers
     public class BodyParamsInRowTagHelper : TagHelper
     {
         public IList<SelectedBodyParam> BodyParameters { get; set; }
+        private IStringLocalizer<BodyParamsInRowTagHelper> localizer;
+
+        public BodyParamsInRowTagHelper(IStringLocalizer<BodyParamsInRowTagHelper> localizer)
+        {
+            this.localizer = localizer;
+        }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -64,7 +71,7 @@ namespace PerfectBuild.Infrastructure.TagHelpers
 
                 TagBuilder label = new TagBuilder("label");
                 label.AddCssClass("form-check-label");
-                label.InnerHtml.Append(name);
+                label.InnerHtml.Append(localizer[name]);
                 label.MergeAttribute("for", "[" + i + "].BodyParameter");
 
                 divCheck.InnerHtml.AppendHtml(label);

@@ -5,12 +5,12 @@ namespace PerfectBuild.Models.Report
 {
     public enum ChartType
     {
-        line, bar, radar, pie, doughnat, polarArea, bubble, scatter, area, mixed
+        line, bar, radar, pie, doughnat, polarArea, bubble, scatter, area, mixed, column
     }
 
     public enum XValueType
     {
-        dateTime
+        empty,dateTime
     }
 
     [JsonObject(MemberSerialization.OptIn, Description = "data")]
@@ -35,9 +35,19 @@ namespace PerfectBuild.Models.Report
         private readonly XValueType xValueType;
 
         [JsonProperty(PropertyName = "dataPoints")]
-        private readonly Point<Tx, Ty>[] point;
+        private readonly Point<Ty>[] point;
 
         public DataSeries(ChartType chartType, string name, bool showInLegend,string legendText, XValueType xValueType,Point<Tx, Ty>[] point)
+        {
+            this.type = chartType;
+            this.name = name;
+            this.legendText = legendText;
+            this.showInLegend = showInLegend;
+            this.point = point;
+            this.xValueType = xValueType;
+        }
+
+        public DataSeries(ChartType chartType, string name, bool showInLegend, string legendText, XValueType xValueType, Point<Ty>[] point)
         {
             this.type = chartType;
             this.name = name;

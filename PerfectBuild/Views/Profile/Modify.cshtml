@@ -39,17 +39,17 @@
         </select>
     </div>
     <div class="form-group">
-        <label asp-for="Profile.DayBirth"></label>
+        <label asp-for="Profile.DayBirth">@LocalizerShared["BirthdayDay"]</label>
         <div asp-validation-for="@Model.Profile.DayBirth"></div>
         <input type="date" asp-for="Profile.DayBirth" />
     </div>
     <div class="form-group">
-        <label asp-for="Profile.Height"></label>
+        <label asp-for="Profile.Height">@LocalizerShared["Height"]</label>
         <div asp-validation-for="@Model.Profile.Height"></div>
         <input asp-for="Profile.Height" />
     </div>
     <div class="form-group">
-        <label asp-for="Profile.Weight"></label>
+        <label asp-for="Profile.Weight">@LocalizerShared["Weight"]</label>
         <input asp-for="@Model.Profile.Weight" />
         <span asp-validation-for="Profile.Weight"></span>
     </div>

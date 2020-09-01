@@ -1,0 +1,51 @@
+﻿@model ExerciseStatisticsChartViewModel
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> LocalizerShared
+
+@{
+    Layout = "_LayoutCanvasStatistics";
+}
+
+<div class="container m-0 p-3">
+    <div class="row p-1">
+        <div class="col-12">
+            <form method="post" asp-action="ExerciseStat">
+                <div class="form-row">
+                    <div class="form-group col-3">
+                        <input asp-for="@Model.UserId" hidden="hidden" value="@Model.UserId" />
+                        <label for="@Model.DayFrom"></label>
+                        <input asp-for="@Model.DayFrom" type="date" class="form-control">
+                    </div>
+                    <div class="form-group col-3">
+                        <label for="@Model.DayTo"></label>
+                        <input asp-for="@Model.DayTo" type="date" class="form-control">
+                    </div>
+                    <div class="form-group col-3">
+                        <select asp-for="Exercise" asp-items="@Model.Exercises">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <button class="btn btn-primary" asp-action="ExerciseStat">@LocalizerShared["Show"]</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div class="row p-1">
+        <div class="col-12">
+            <div id="chartContainer" style="height: 300px; width: 100%;">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    window.onload = function () {
+                        var chart = new CanvasJS.Chart("chartContainer",
+                            {
+                                @Html.Raw(Model.ChartDataJSON==null?"":Model.ChartDataJSON)
+                            });
+        chart.render();
+                    }
+</script>

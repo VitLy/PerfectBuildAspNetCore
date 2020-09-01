@@ -135,14 +135,14 @@
   <data name="Amount" xml:space="preserve">
     <value>Повторения</value>
   </data>
+  <data name="BirthdayDay" xml:space="preserve">
+    <value>День рождения</value>
+  </data>
   <data name="BodyStat" xml:space="preserve">
     <value>Статистика изменений параметров тела</value>
   </data>
   <data name="Breast" xml:space="preserve">
     <value>Грудь</value>
-  </data>
-  <data name="Buttock" xml:space="preserve">
-    <value>Ягодицы</value>
   </data>
   <data name="Calories" xml:space="preserve">
     <value>Kcal</value>
@@ -192,6 +192,9 @@
   <data name="Friday" xml:space="preserve">
     <value>Пятница</value>
   </data>
+  <data name="Height" xml:space="preserve">
+    <value>Рост</value>
+  </data>
   <data name="ModifyButton" xml:space="preserve">
     <value>Изменить</value>
   </data>
@@ -200,6 +203,9 @@
   </data>
   <data name="OkButton" xml:space="preserve">
     <value>Ok</value>
+  </data>
+  <data name="Pelvis" xml:space="preserve">
+    <value>Таз</value>
   </data>
   <data name="PersonalTrainingPlan" xml:space="preserve">
     <value>Индивидуальный тренировочный план</value>

@@ -19,7 +19,7 @@ namespace PerfectBuild.Models.Report
     {
         [JsonProperty(PropertyName = "title")]
         public Title Tittle { get; set; }
-
+      
         public Diagram(string tittle)
         {
             this.Tittle = new Title(tittle);

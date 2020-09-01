@@ -12,7 +12,7 @@ namespace PerfectBuild.Models.ViewModels
 
         public int Breast { get; set; }
 
-        public int Buttock { get; set; }
+        public int Pelvis { get; set; }
 
         public int Waist { get; set; }
 

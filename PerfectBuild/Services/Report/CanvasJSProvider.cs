@@ -7,26 +7,35 @@ namespace PerfectBuild.Services.Report
 {
     public class CanvasJSProvider : ChartProvider
     {
-        public override string GetBarChart(Diagram<string, int> diagram)
+        JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings();
+
+        public override string GetBarChart<Tx, Ty>(Diagram<Tx, Ty> diagram)
         {
             throw new NotImplementedException();
         }
 
-        public override string GetColumnChart(Diagram<string, int> diagram)
+        public override string GetColumnChart<Tx,Ty>(Diagram<Tx, Ty> diagram)
+        {
+            return Serialize(diagram);
+        }
+
+
+        public override string GetLineChart<Tx,Ty>(Diagram<Tx, Ty> diagram)
+        {
+            return Serialize(diagram);
+        }
+
+        public override string GetPieChart<Tx,Ty>(Diagram<Tx, Ty> diagram)
         {
             throw new NotImplementedException();
         }
 
-        public override string GetLineChart(Diagram<long, float> diagram)
+        private string Serialize<Tx,Ty>(Diagram<Tx, Ty> diagram)
         {
-            var jsonSerializerSettings = new JsonSerializerSettings();
             jsonSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-            return JsonConvert.SerializeObject(diagram, jsonSerializerSettings);
-        }
-
-        public override string GetPieChart(Diagram<float, string> diagram)
-        {
-            throw new NotImplementedException();
+            var diafgramData=JsonConvert.SerializeObject(diagram, jsonSerializerSettings);
+            var result = diafgramData.Substring(1, diafgramData.Length - 2);//обрезал лишние кавычки в начале и конце строки
+            return result;
         }
     }
 }

@@ -135,14 +135,14 @@
   <data name="Amount" xml:space="preserve">
     <value>Amount</value>
   </data>
+  <data name="BirthdayDay" xml:space="preserve">
+    <value>Birthday</value>
+  </data>
   <data name="BodyStat" xml:space="preserve">
     <value>Body parameter statistics</value>
   </data>
   <data name="Breast" xml:space="preserve">
     <value>Breast</value>
-  </data>
-  <data name="Buttock" xml:space="preserve">
-    <value>Buttock</value>
   </data>
   <data name="Calories" xml:space="preserve">
     <value>Kcal</value>
@@ -195,6 +195,9 @@
   <data name="GoToExercisesButton" xml:space="preserve">
     <value>Go to the exercises</value>
   </data>
+  <data name="Height" xml:space="preserve">
+    <value>Height</value>
+  </data>
   <data name="ModifyButton" xml:space="preserve">
     <value>Modify</value>
   </data>
@@ -203,6 +206,9 @@
   </data>
   <data name="OkButton" xml:space="preserve">
     <value>Ok</value>
+  </data>
+  <data name="Pelvis" xml:space="preserve">
+    <value>Pelvis</value>
   </data>
   <data name="PersonalTrainingPlan" xml:space="preserve">
     <value>Personal Training Plan</value>
