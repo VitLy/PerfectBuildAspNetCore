@@ -56,74 +56,77 @@ namespace PerfectBuild.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult BodyStat(string userId, DateTime dayFrom, DateTime dayTo, IList<SelectedBodyParam> userBodyParam)
         {
-            var userParamPoint = new Dictionary<BodyParameter, Point<long, float>[]>();
-            Point<long, float>[] points = new Point<long, float>[1];
-            foreach (var param in userBodyParam)
+            if (ModelState.IsValid)
             {
-                if (param.Select)
+                var userParamPoint = new Dictionary<BodyParameter, Point<long, float>[]>();
+                Point<long, float>[] points = new Point<long, float>[1];
+                foreach (var param in userBodyParam)
                 {
-                    switch (param.BodyParameter)
+                    if (param.Select)
                     {
-                        case BodyParameter.Breast:
-                            points = appContext.Params
-                          .Where(prm => prm.UserId.Equals(userId, StringComparison.InvariantCulture) & prm.Breast > 0)
-                          .Where(prm => prm.Date.ToLocalTime() >= dayFrom & prm.Date.ToLocalTime() <= dayTo)
-                          .Select(pts => new Point<long, float>
-                          {
-                              X = pts.Date.ToLocalTime().MillisecondsTimestamp(),
-                              Y = pts.Breast
-                          }).OrderBy(pts => pts.X).ToArray();
-                            break;
-                        case BodyParameter.Pelvis:
-                            points = appContext.Params
-                        .Where(prm => prm.UserId.Equals(userId, StringComparison.InvariantCulture) & prm.Buttock > 0)
-                        .Where(prm => prm.Date.ToLocalTime() >= dayFrom & prm.Date.ToLocalTime() <= dayTo)
-                        .Select(pts => new Point<long, float>
+                        switch (param.BodyParameter)
                         {
-                            X = pts.Date.ToLocalTime().MillisecondsTimestamp(),
-                            Y = pts.Buttock
-                        }).OrderBy(pts => pts.X).ToArray();
-                            break;
-                        case BodyParameter.Thigh:
-                            points = appContext.Params
-                          .Where(prm => prm.UserId.Equals(userId, StringComparison.InvariantCulture) & prm.Thigh > 0)
-                          .Where(prm => prm.Date.ToLocalTime() >= dayFrom & prm.Date.ToLocalTime() <= dayTo)
-                          .Select(pts => new Point<long, float>
-                          {
-                              X = pts.Date.ToLocalTime().MillisecondsTimestamp(),
-                              Y = pts.Thigh
-                          }).OrderBy(pts => pts.X).ToArray();
-                            break;
-                        case BodyParameter.Waist:
-                            points = appContext.Params
-                        .Where(prm => prm.UserId.Equals(userId, StringComparison.InvariantCulture) & prm.Waist > 0)
-                        .Where(prm => prm.Date.ToLocalTime() >= dayFrom & prm.Date.ToLocalTime() <= dayTo)
-                        .Select(pts => new Point<long, float>
-                        {
-                            X = pts.Date.ToLocalTime().MillisecondsTimestamp(),
-                            Y = pts.Waist
-                        }).OrderBy(pts => pts.X).ToArray();
-                            break;
-                        case BodyParameter.Weight:
-                            points = appContext.Params
-                          .Where(prm => prm.UserId.Equals(userId, StringComparison.InvariantCulture) & prm.Weight > 0)
-                          .Where(prm => prm.Date.ToLocalTime() >= dayFrom & prm.Date.ToLocalTime() <= dayTo)
-                          .Select(pts => new Point<long, float>
-                          {
-                              X = pts.Date.ToLocalTime().MillisecondsTimestamp(),
-                              Y = pts.Weight
-                          }).OrderBy(x => x.X).ToArray();
-                            break;
+                            case BodyParameter.Breast:
+                                points = appContext.Params
+                              .Where(prm => prm.UserId.Equals(userId, StringComparison.InvariantCulture) & prm.Breast > 0)
+                              .Where(prm => prm.Date.ToLocalTime() >= dayFrom & prm.Date.ToLocalTime() <= dayTo)
+                              .Select(pts => new Point<long, float>
+                              {
+                                  X = pts.Date.ToLocalTime().MillisecondsTimestamp(),
+                                  Y = pts.Breast
+                              }).OrderBy(pts => pts.X).ToArray();
+                                break;
+                            case BodyParameter.Pelvis:
+                                points = appContext.Params
+                            .Where(prm => prm.UserId.Equals(userId, StringComparison.InvariantCulture) & prm.Buttock > 0)
+                            .Where(prm => prm.Date.ToLocalTime() >= dayFrom & prm.Date.ToLocalTime() <= dayTo)
+                            .Select(pts => new Point<long, float>
+                            {
+                                X = pts.Date.ToLocalTime().MillisecondsTimestamp(),
+                                Y = pts.Buttock
+                            }).OrderBy(pts => pts.X).ToArray();
+                                break;
+                            case BodyParameter.Thigh:
+                                points = appContext.Params
+                              .Where(prm => prm.UserId.Equals(userId, StringComparison.InvariantCulture) & prm.Thigh > 0)
+                              .Where(prm => prm.Date.ToLocalTime() >= dayFrom & prm.Date.ToLocalTime() <= dayTo)
+                              .Select(pts => new Point<long, float>
+                              {
+                                  X = pts.Date.ToLocalTime().MillisecondsTimestamp(),
+                                  Y = pts.Thigh
+                              }).OrderBy(pts => pts.X).ToArray();
+                                break;
+                            case BodyParameter.Waist:
+                                points = appContext.Params
+                            .Where(prm => prm.UserId.Equals(userId, StringComparison.InvariantCulture) & prm.Waist > 0)
+                            .Where(prm => prm.Date.ToLocalTime() >= dayFrom & prm.Date.ToLocalTime() <= dayTo)
+                            .Select(pts => new Point<long, float>
+                            {
+                                X = pts.Date.ToLocalTime().MillisecondsTimestamp(),
+                                Y = pts.Waist
+                            }).OrderBy(pts => pts.X).ToArray();
+                                break;
+                            case BodyParameter.Weight:
+                                points = appContext.Params
+                              .Where(prm => prm.UserId.Equals(userId, StringComparison.InvariantCulture) & prm.Weight > 0)
+                              .Where(prm => prm.Date.ToLocalTime() >= dayFrom & prm.Date.ToLocalTime() <= dayTo)
+                              .Select(pts => new Point<long, float>
+                              {
+                                  X = pts.Date.ToLocalTime().MillisecondsTimestamp(),
+                                  Y = pts.Weight
+                              }).OrderBy(x => x.X).ToArray();
+                                break;
+                        }
+                        userParamPoint.Add(param.BodyParameter, points);
                     }
-                    userParamPoint.Add(param.BodyParameter, points);
                 }
-            }
-            LineChart<long, float> lineChart = new LineChart<long, float>(localizer["TittleLineChart"], userParamPoint);
-            var jsonData = chartProvider.GetLineChart(lineChart);
-            var result = jsonData.Substring(1, jsonData.Length - 2);//обрезал лишние кавычки в начале и в конце строки
+                LineChart<long, float> lineChart = new LineChart<long, float>(localizer["TittleLineChart"], userParamPoint);
+                var jsonData = chartProvider.GetLineChart(lineChart);
 
-            var viewModel = new BodyStatisticsChartViewModel { UserId = userId, DayFrom = dayFrom, DayTo = dayTo, UserBodyParam = userBodyParam, ChartDataJSON = result };
-            return View(viewModel);
+                var viewModel = new BodyStatisticsChartViewModel { UserId = userId, DayFrom = dayFrom, DayTo = dayTo, UserBodyParam = userBodyParam, ChartDataJSON = jsonData };
+                return View(viewModel);
+            }
+            return RedirectToAction("BodyStat");
         }
 
         [HttpGet]
@@ -165,29 +168,16 @@ namespace PerfectBuild.Controllers
                     .Join(appContext.TrainingSpecs, x => x.Id, y => y.HeadId, (x, y) => new UserSpec
                     { Date = x.Date, Set = y.Set, ExerciseId = y.ExId, Weight = y.Weight, Amount = y.Amount }).ToList();
 
-                //var userExercises = userData.Join(appContext.Exercises, x => x.ExerciseId, y => y.Id, (x, y) => new Exercise
-                //{ Id = y.Id, Name = y.Name, Description = y.Description }).Distinct().OrderBy(x => x.Name);
 
-                var userExercises = userData.Select(x => new { x.ExerciseId }).Distinct().Join(appContext.Exercises, x => x.ExerciseId, y => y.Id, (x, y) => new Exercise
-                { Id = y.Id, Name = y.Name, Description = y.Description }).OrderBy(x => x.Name);
+                var userExercises = appContext.Exercises.OrderBy(x => x.Name);
 
                 var statisticsModel = new StatisticsModel();
                 var userRows = statisticsModel.GetExerciseData(new UserGeneralData
                 { UserId = model.UserId, DateFrom = model.DayFrom, DateTo = model.DayTo, userSpecs = userData, userExercises = userExercises, ExerciseId = model.Exercise });
 
-                var userRowsInMSTimeSpan = new Dictionary<string, List<Point<long, float>>>();
-                foreach (var group in userRows)
-                {
-                    var key = group.Key;
-                    var points = new List<Point<long, float>>();
-                    foreach (var point in group.Value)
-                    {
-                        points.Add(new Point<long, float> { X = point.X.ToLocalTime().MillisecondsTimestamp(), Y = point.Y });
-                    }
-                    userRowsInMSTimeSpan.Add(key, points);
-                }
+                var userRowsInGradualNumberDateLabel = RowsXAxisConverter.ToSerialNumbersWithDateLabel(userRows);
 
-                ColumnChart<long, float> columnChart = new ColumnChart<long, float>(localizer["TittleColumnChart"], userRowsInMSTimeSpan);
+                ColumnChart<int, float> columnChart = new ColumnChart<int, float>(localizer["TittleColumnChart"], userRowsInGradualNumberDateLabel);
 
                 var jsonData = chartProvider.GetColumnChart(columnChart);
 
@@ -206,12 +196,12 @@ namespace PerfectBuild.Controllers
             }
             return RedirectToAction("ExerciseStat");
         }
-
         [HttpGet]
         public IActionResult ExerciseProgress()
         {
             return View();
         }
+
         [HttpGet]
         public IActionResult PlanExecution()
         {

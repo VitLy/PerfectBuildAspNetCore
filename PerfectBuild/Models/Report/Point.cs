@@ -16,6 +16,9 @@ namespace PerfectBuild.Models.Report
         [JsonProperty(PropertyName = "x")]
         public Tx X { get; set; }
 
+        [JsonProperty(PropertyName ="label")]
+        public string Label { get; set; }
+
         public override bool Equals(Object obj)
         {
             //Check for null and compare run-time types.

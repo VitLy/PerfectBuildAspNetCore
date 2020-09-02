@@ -10,18 +10,18 @@ namespace PerfectBuild.Models.Report
         [JsonProperty(PropertyName = "data")]
         public List<DataSeries<Tx, Ty>> Data { get; set; } = new List<DataSeries<Tx, Ty>>();
 
-        public ColumnChart(string tittle,Dictionary<string, List<Point<Tx, Ty>>> data) :base(tittle) 
+        public ColumnChart(string tittle,Dictionary<string, List<Point<Tx,Ty>>> data) :base(tittle) 
         {
             FillData(data);
         }
 
-        private void FillData(Dictionary<string, List<Point<Tx, Ty>>> data)
+        private void FillData(Dictionary<string, List<Point<Tx,Ty>>> data)
         {
             if (data != null)
             {
                 foreach (var item in data)
                 {
-                    var dataSeries = new DataSeries<Tx, Ty>(ChartType.column, "toDo", true, item.Key, XValueType.dateTime, item.Value.ToArray());
+                    var dataSeries = new DataSeries<Tx,Ty>(ChartType.column, "toDo", true, item.Key,XValueType.empty, item.Value.ToArray());
                     {
                         Data.Add(dataSeries);
                     }

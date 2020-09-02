@@ -35,19 +35,9 @@ namespace PerfectBuild.Models.Report
         private readonly XValueType xValueType;
 
         [JsonProperty(PropertyName = "dataPoints")]
-        private readonly Point<Ty>[] point;
+        private readonly Point<Tx,Ty>[] point;
 
         public DataSeries(ChartType chartType, string name, bool showInLegend,string legendText, XValueType xValueType,Point<Tx, Ty>[] point)
-        {
-            this.type = chartType;
-            this.name = name;
-            this.legendText = legendText;
-            this.showInLegend = showInLegend;
-            this.point = point;
-            this.xValueType = xValueType;
-        }
-
-        public DataSeries(ChartType chartType, string name, bool showInLegend, string legendText, XValueType xValueType, Point<Ty>[] point)
         {
             this.type = chartType;
             this.name = name;
