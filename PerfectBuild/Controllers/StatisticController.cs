@@ -52,6 +52,7 @@ namespace PerfectBuild.Controllers
                 }
             });
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult BodyStat(string userId, DateTime dayFrom, DateTime dayTo, IList<SelectedBodyParam> userBodyParam)
@@ -164,16 +165,14 @@ namespace PerfectBuild.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userData = appContext.TrainingHeads.Where(x => x.UserId.Equals(model.UserId) & x.Date >= model.DayFrom.ToUniversalTime() & x.Date <= model.DayTo.ToUniversalTime())
-                    .Join(appContext.TrainingSpecs, x => x.Id, y => y.HeadId, (x, y) => new UserSpec
-                    { Date = x.Date, Set = y.Set, ExerciseId = y.ExId, Weight = y.Weight, Amount = y.Amount }).ToList();
-
+                List<TrainingHead> userHeads = GetUserHead(model);
+                List<TrainingSpec> userSpec = GetUserSpec(userHeads);
 
                 var userExercises = appContext.Exercises.OrderBy(x => x.Name);
 
                 var statisticsModel = new StatisticsModel();
                 var userRows = statisticsModel.GetExerciseData(new UserGeneralData
-                { UserId = model.UserId, DateFrom = model.DayFrom, DateTo = model.DayTo, userSpecs = userData, userExercises = userExercises, ExerciseId = model.Exercise });
+                { UserId = model.UserId, DateFrom = model.DayFrom, DateTo = model.DayTo, UserHead = userHeads, UserSpecs = userSpec, UserExercises = userExercises, ExerciseId = model.Exercise });
 
                 var userRowsInGradualNumberDateLabel = RowsXAxisConverter.ToSerialNumbersWithDateLabel(userRows);
 
@@ -196,10 +195,38 @@ namespace PerfectBuild.Controllers
             }
             return RedirectToAction("ExerciseStat");
         }
+
         [HttpGet]
-        public IActionResult ExerciseProgress()
+        public IActionResult ExerciseRecords()
         {
-            return View();
+            var userId = userManager.GetUserId(HttpContext.User);
+            var dayFrom = DateTime.Now.ToLocalTime();
+            var dayTo = DateTime.Now.ToLocalTime();
+            return View(new ExerciseRecordsChartViewModel { UserId = userId, DayFrom = dayFrom, DayTo = dayTo });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ExerciseRecords(ExerciseRecordsChartViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = userManager.GetUserId(HttpContext.User);
+                var dayFrom = DateTime.Now.ToLocalTime();
+                var dayTo = DateTime.Now.ToLocalTime();
+
+                var userHeads = GetUserHead(model);
+                var userSpec = GetUserSpec(userHeads);
+                var userExercises = appContext.Exercises.OrderBy(x => x.Name);
+
+                StatisticsModel statisticsModel = new StatisticsModel();
+
+                List<Point<int,float>> exerciseRecordsRow= statisticsModel.GetExerciseRecords(
+                    new UserGeneralData { UserId = userId, DateFrom = dayFrom, DateTo = dayTo, UserSpecs = userSpec, UserHead = userHeads,UserExercises=userExercises });
+
+                return View(model);
+            }
+            return RedirectToAction(nameof(ExerciseRecords));
         }
 
         [HttpGet]
@@ -207,5 +234,19 @@ namespace PerfectBuild.Controllers
         {
             return View();
         }
+
+        #region private Methods
+        private List<TrainingSpec> GetUserSpec(List<TrainingHead> userHeads)
+        {
+            return userHeads
+                                .Join(appContext.TrainingSpecs, x => x.Id, y => y.HeadId, (x, y) => new TrainingSpec
+                                { HeadId = y.HeadId, Set = y.Set, ExId = y.ExId, Weight = y.Weight, Amount = y.Amount, }).ToList();
+        }
+
+        private List<TrainingHead> GetUserHead(StatisticsCommonDataChartViewModel model)
+        {
+            return appContext.TrainingHeads.Where(x => x.UserId.Equals(model.UserId) & x.Date >= model.DayFrom.ToUniversalTime() & x.Date <= model.DayTo.ToUniversalTime()).ToList();
+        } 
+        #endregion
     }
 }

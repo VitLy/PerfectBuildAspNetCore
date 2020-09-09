@@ -12,7 +12,8 @@ namespace PerfectBuild.Models.Report.ExerciseStatistics
         public DateTime DateTo { get; set; }
         public int ExerciseId { get; set; }
 
-        public IEnumerable<Exercise> userExercises { get; set; }
-        public IList<UserSpec> userSpecs { get; set; }
+        public IEnumerable<Exercise> UserExercises { get; set; }
+        public IList<TrainingHead> UserHead { get; set; }
+        public IList<TrainingSpec> UserSpecs { get; set; }
     }
 }

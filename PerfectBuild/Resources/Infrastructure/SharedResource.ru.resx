@@ -180,6 +180,9 @@
   <data name="Exercise" xml:space="preserve">
     <value>Упражнение</value>
   </data>
+  <data name="ExerciseRecords" xml:space="preserve">
+    <value>Рекорд по упражнениям</value>
+  </data>
   <data name="Exercises" xml:space="preserve">
     <value>Упражнения</value>
   </data>
@@ -260,9 +263,6 @@
   </data>
   <data name="UserData" xml:space="preserve">
     <value>Данные пользователя</value>
-  </data>
-  <data name="UserProgress" xml:space="preserve">
-    <value>Лучшие результаты </value>
   </data>
   <data name="Waist" xml:space="preserve">
     <value>Талия</value>

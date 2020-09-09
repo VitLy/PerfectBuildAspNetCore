@@ -180,6 +180,9 @@
   <data name="Exercise" xml:space="preserve">
     <value>Exercise</value>
   </data>
+  <data name="ExerciseRecords" xml:space="preserve">
+    <value>User exercise records</value>
+  </data>
   <data name="Exercises" xml:space="preserve">
     <value>Exercises</value>
   </data>
@@ -260,9 +263,6 @@
   </data>
   <data name="UserData" xml:space="preserve">
     <value>User data</value>
-  </data>
-  <data name="UserProgress" xml:space="preserve">
-    <value>User progress</value>
   </data>
   <data name="Waist" xml:space="preserve">
     <value>Waist</value>
