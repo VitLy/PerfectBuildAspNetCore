@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Localization;
+using Newtonsoft.Json;
+using PerfectBuild.Infrastructure;
 using System;
 using System.Collections.Generic;
 
@@ -10,7 +12,7 @@ namespace PerfectBuild.Models.Report
         [JsonProperty(PropertyName = "data")]
         public List<DataSeries<Tx, Ty>> Data { get; set; } = new List<DataSeries<Tx, Ty>>();
      
-        public LineChart(string title, Dictionary<BodyParameter,Point<Tx, Ty>[]> data) : base(title)
+        public LineChart(string title, Dictionary<BodyParameter,Point<Tx, Ty>[]> data,IStringLocalizer<SharedResource>localizer) : base(title,localizer)
         {
             FillData(data);
         }
@@ -21,7 +23,8 @@ namespace PerfectBuild.Models.Report
             {
                 foreach (var item in data)
                 {
-                    var dataSeries = new DataSeries<Tx, Ty>(ChartType.line, "toDo",true,item.Key.ToString(),XValueType.dateTime,  item.Value);
+                    var dataSeriesParameters = new DataSeriesParameters<Tx, Ty>(ChartType.line, true, localizer[item.Key.ToString()], XValueType.dateTime, item.Value, "");
+                    var dataSeries = new DataSeries<Tx, Ty>(dataSeriesParameters);
                     {
                         Data.Add(dataSeries);
                     }

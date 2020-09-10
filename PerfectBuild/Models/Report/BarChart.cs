@@ -1,35 +1,37 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Localization;
+using Newtonsoft.Json;
+using PerfectBuild.Controllers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PerfectBuild.Models.Report
 {
     [JsonObject(MemberSerialization.OptIn)]
-    public class BarChart<Tx,Ty>:Diagram<Tx,Ty>
+    public class BarChart<Tx, Ty> : Diagram<Tx, Ty>
     {
         [JsonProperty(PropertyName = "data")]
         public List<DataSeries<Tx, Ty>> Data { get; set; } = new List<DataSeries<Tx, Ty>>();
 
-        public BarChart(string tittle, Dictionary<string, Point<Tx, Ty>[]> data) :base(tittle) 
+        public BarChart(string tittle, IList<Point<Tx, Ty>> data, IStringLocalizer<StatisticController> localizer) : base(tittle,localizer)
         {
+            this.localizer = localizer;
             FillData(data);
         }
 
-        private void FillData(Dictionary<string, Point<Tx, Ty>[]> data)
+        private void FillData(IList<Point<Tx, Ty>> data)
         {
             if (data != null)
             {
-                foreach (var item in data)
+                var dataSeriesParameters = new DataSeriesParameters<Tx, Ty>(ChartType.bar, true, localizer["LegendExerciseRecord"], XValueType.empty, data, "");
+                dataSeriesParameters.ToolTipContent = "{y}({indexLabel})";
+                var dataSeries = new DataSeries<Tx, Ty>(dataSeriesParameters);
                 {
-                    var dataSeries = new DataSeries<Tx, Ty>(ChartType.bar, "toDo", true, item.Key, XValueType.dateTime, item.Value);
-                    {
-                        Data.Add(dataSeries);
-                    }
+                    Data.Add(dataSeries);
                 }
             }
             else throw new ArgumentNullException(nameof(data));
         }
+
+
     }
 }

@@ -36,8 +36,8 @@ namespace PerfectBuild.Models.Report.ExerciseStatistics
 
             var result = userData.UserSpecs.GroupBy(x => new { x.HeadId, x.ExId }, (x, y) => new { x.HeadId, x.ExId, Total = y.Sum(p => p.Weight * p.Amount) })
                 .GroupBy(x => x.ExId, (x, y) => new { Record = y.OrderByDescending(p => p.Total).FirstOrDefault() })
-                .Join(userData.UserHead, x => x.Record.HeadId, y => y.Id, (x, y) => new Point<int, float> { X = ++i, Y = x.Record.Total, Label = y.Date.ToString() }).ToList();
-
+                .Join(userData.UserHead, x => x.Record.HeadId, y => y.Id, (x, y) => new {x.Record.ExId,x.Record.HeadId,y.Date,x.Record.Total})
+                .Join(userData.UserExercises,x=>x.ExId,y=>y.Id,(x,y)=> new Point<int, float> { X = ++i, Y = x.Total, Label = y.Name,IndexLabel=x.Date.ToString("d") }).ToList(); 
 
             return result;
         }

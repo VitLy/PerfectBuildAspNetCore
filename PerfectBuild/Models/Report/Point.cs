@@ -19,6 +19,10 @@ namespace PerfectBuild.Models.Report
         [JsonProperty(PropertyName ="label")]
         public string Label { get; set; }
 
+        [JsonProperty(PropertyName = "indexLabel")]
+        public string IndexLabel { get; set; }
+        
+
         public override bool Equals(Object obj)
         {
             //Check for null and compare run-time types.

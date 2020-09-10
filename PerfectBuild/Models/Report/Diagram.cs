@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Localization;
+using Newtonsoft.Json;
+using PerfectBuild.Infrastructure;
 
 namespace PerfectBuild.Models.Report
 {
@@ -17,12 +19,16 @@ namespace PerfectBuild.Models.Report
     [JsonObject(MemberSerialization.OptIn)]
     public abstract class Diagram<Tx, Ty>
     {
+        [JsonIgnore]
+        protected IStringLocalizer localizer;
+
         [JsonProperty(PropertyName = "title")]
         public Title Tittle { get; set; }
       
-        public Diagram(string tittle)
+        public Diagram(string tittle, IStringLocalizer localizer)
         {
             this.Tittle = new Title(tittle);
+            this.localizer = localizer;
         }
     }
 }

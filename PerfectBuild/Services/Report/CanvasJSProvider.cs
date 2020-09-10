@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
 using PerfectBuild.Models.Report;
-using System;
-using System.Collections.Generic;
 
 namespace PerfectBuild.Services.Report
 {
@@ -11,7 +9,7 @@ namespace PerfectBuild.Services.Report
 
         public override string GetBarChart<Tx, Ty>(Diagram<Tx, Ty> diagram)
         {
-            throw new NotImplementedException();
+            return Serialize(diagram);
         }
 
         public override string GetColumnChart<Tx,Ty>(Diagram<Tx, Ty> diagram)
@@ -19,15 +17,9 @@ namespace PerfectBuild.Services.Report
             return Serialize(diagram);
         }
 
-
         public override string GetLineChart<Tx,Ty>(Diagram<Tx, Ty> diagram)
         {
             return Serialize(diagram);
-        }
-
-        public override string GetPieChart<Tx,Ty>(Diagram<Tx, Ty> diagram)
-        {
-            throw new NotImplementedException();
         }
 
         private string Serialize<Tx,Ty>(Diagram<Tx, Ty> diagram)

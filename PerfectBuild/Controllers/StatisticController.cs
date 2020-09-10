@@ -22,14 +22,17 @@ namespace PerfectBuild.Controllers
         private readonly ApplicationContext appContext;
         private readonly ChartProvider chartProvider;
         private readonly UserManager<User> userManager;
-        private readonly IStringLocalizer<StatisticController> localizer;
+        private readonly IStringLocalizer<StatisticController> localizerStatisticController;
+        private readonly IStringLocalizer<SharedResource> localizerShared;
 
-        public StatisticController(ApplicationContext appContext, ChartProvider chartProvider, UserManager<User> userManager, IStringLocalizer<StatisticController> localizer)
+        public StatisticController(ApplicationContext appContext, ChartProvider chartProvider, UserManager<User> userManager, 
+            IStringLocalizer<StatisticController> localizerStatisticController,IStringLocalizer<SharedResource> localizerShared)
         {
             this.appContext = appContext;
             this.chartProvider = chartProvider;
             this.userManager = userManager;
-            this.localizer = localizer;
+            this.localizerStatisticController = localizerStatisticController;
+            this.localizerShared = localizerShared;
         }
         [HttpGet]
         public IActionResult BodyStat()
@@ -121,7 +124,7 @@ namespace PerfectBuild.Controllers
                         userParamPoint.Add(param.BodyParameter, points);
                     }
                 }
-                LineChart<long, float> lineChart = new LineChart<long, float>(localizer["TittleLineChart"], userParamPoint);
+                LineChart<long, float> lineChart = new LineChart<long, float>(localizerStatisticController["TittleLineChart"], userParamPoint,localizerShared);
                 var jsonData = chartProvider.GetLineChart(lineChart);
 
                 var viewModel = new BodyStatisticsChartViewModel { UserId = userId, DayFrom = dayFrom, DayTo = dayTo, UserBodyParam = userBodyParam, ChartDataJSON = jsonData };
@@ -176,7 +179,7 @@ namespace PerfectBuild.Controllers
 
                 var userRowsInGradualNumberDateLabel = RowsXAxisConverter.ToSerialNumbersWithDateLabel(userRows);
 
-                ColumnChart<int, float> columnChart = new ColumnChart<int, float>(localizer["TittleColumnChart"], userRowsInGradualNumberDateLabel);
+                ColumnChart<int, float> columnChart = new ColumnChart<int, float>(localizerStatisticController["TittleColumnChart"], userRowsInGradualNumberDateLabel,localizerShared);
 
                 var jsonData = chartProvider.GetColumnChart(columnChart);
 
@@ -224,15 +227,12 @@ namespace PerfectBuild.Controllers
                 List<Point<int,float>> exerciseRecordsRow= statisticsModel.GetExerciseRecords(
                     new UserGeneralData { UserId = userId, DateFrom = dayFrom, DateTo = dayTo, UserSpecs = userSpec, UserHead = userHeads,UserExercises=userExercises });
 
-                return View(model);
+                BarChart<int, float> barChart = new BarChart<int, float>(localizerStatisticController["TittleBarChart"], exerciseRecordsRow,localizerStatisticController);
+                var jsonData = chartProvider.GetBarChart(barChart);
+                var viewModel = new ExerciseRecordsChartViewModel { DayFrom = model.DayFrom, DayTo = model.DayTo, UserId = model.UserId, ChartDataJSON = jsonData };
+                return View(viewModel);
             }
             return RedirectToAction(nameof(ExerciseRecords));
-        }
-
-        [HttpGet]
-        public IActionResult PlanExecution()
-        {
-            return View();
         }
 
         #region private Methods

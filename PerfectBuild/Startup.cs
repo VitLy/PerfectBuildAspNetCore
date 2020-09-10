@@ -30,7 +30,6 @@ namespace PerfectBuild
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
             services.AddTransient<ITrainigDayConverter,TrainingDayConverter>();
             services.AddTransient<DocumentSpecHandler<TrainingPlanSpec>>();
-            services.AddTransient<DocumentSpecHandler<TrainingPlanSpec>>();
             services.AddTransient<DocumentHeadHandler<TrainingHead>>();
             services.AddTransient<DocumentSpecHandler<TrainingSpec>>();
             services.AddTransient<ChartProvider,CanvasJSProvider>();

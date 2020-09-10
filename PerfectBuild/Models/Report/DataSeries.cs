@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.Linq;
 
 namespace PerfectBuild.Models.Report
 {
@@ -34,17 +35,23 @@ namespace PerfectBuild.Models.Report
         [JsonConverter(typeof(StringEnumConverter))]
         private readonly XValueType xValueType;
 
-        [JsonProperty(PropertyName = "dataPoints")]
-        private readonly Point<Tx,Ty>[] point;
+        [JsonProperty(PropertyName = "toolTipContent")]
+        private readonly string toolTipContent;
 
-        public DataSeries(ChartType chartType, string name, bool showInLegend,string legendText, XValueType xValueType,Point<Tx, Ty>[] point)
+        [JsonProperty(PropertyName = "dataPoints")]
+        private readonly Point<Tx,Ty>[] points;
+
+        public DataSeries(DataSeriesParameters<Tx,Ty> seriesParameters )
         {
-            this.type = chartType;
-            this.name = name;
-            this.legendText = legendText;
-            this.showInLegend = showInLegend;
-            this.point = point;
-            this.xValueType = xValueType;
+            if (seriesParameters != null) 
+            {
+            this.type = seriesParameters.ChartType;
+            this.legendText = seriesParameters.LegendText;
+            this.showInLegend = seriesParameters.ShowInLegend;
+            this.points = seriesParameters.Points.ToArray();
+            this.xValueType = seriesParameters.XValueType;
+            this.toolTipContent = seriesParameters.ToolTipContent;
+            }
         }
     }
 }
