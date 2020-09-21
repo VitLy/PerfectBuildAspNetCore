@@ -159,6 +159,12 @@
   <data name="ChooseButton" xml:space="preserve">
     <value>Выбрать</value>
   </data>
+  <data name="ChooseExercise" xml:space="preserve">
+    <value>Выберите упражнение</value>
+  </data>
+  <data name="ChooseTrainingProgram" xml:space="preserve">
+    <value>Выберите тренировочную программу</value>
+  </data>
   <data name="ClearButton" xml:space="preserve">
     <value>Очистить тренировочный день</value>
   </data>

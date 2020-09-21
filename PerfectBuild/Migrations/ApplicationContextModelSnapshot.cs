@@ -157,6 +157,8 @@ namespace PerfectBuild.Migrations
                         .IsRequired()
                         .HasMaxLength(45);
 
+                    b.Property<bool>("OwnWeight");
+
                     b.HasKey("Id");
 
                     b.ToTable("Exercises");

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
+using PerfectBuild.Infrastructure;
 using PerfectBuild.Models;
 using PerfectBuild.Models.ViewModels;
 using System.Collections.Generic;
@@ -15,10 +16,10 @@ namespace PerfectBuild.Controllers
         private UserManager<User> userManager;
         private SignInManager<User> signInManager;
         private RoleManager<IdentityRole> roleManager;
-        private IStringLocalizer<AccountController> localizer;
+        private IStringLocalizer<SharedResource> localizer;
 
         public AccountController(UserManager<User> userManager, SignInManager<User> signInManager,
-            IStringLocalizer<AccountController> localizer, RoleManager<IdentityRole> roleManager)
+            IStringLocalizer<SharedResource> localizer, RoleManager<IdentityRole> roleManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;

@@ -24,6 +24,7 @@
     <div class="form-group">
         <input asp-for="HeadId" value="@Model.HeadId" hidden="hidden" />
         <input asp-for="Id" value="@Model.Id" hidden="hidden" />
+        <input asp-for="Name" value="@Model.Name" hidden="hidden" />
         <input name="day" value="@ViewBag.TrainingDay" hidden="hidden" />
 
         <div asp-validation-for="@Model.Set"></div>

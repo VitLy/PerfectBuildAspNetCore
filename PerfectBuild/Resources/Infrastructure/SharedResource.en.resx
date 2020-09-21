@@ -159,6 +159,12 @@
   <data name="ChooseButton" xml:space="preserve">
     <value>Сhoose</value>
   </data>
+  <data name="ChooseExercise" xml:space="preserve">
+    <value>Choose Exercise</value>
+  </data>
+  <data name="ChooseTrainingProgram" xml:space="preserve">
+    <value>Choose Training Program</value>
+  </data>
   <data name="ClearButton" xml:space="preserve">
     <value>Clear TrainingPlan Day</value>
   </data>
@@ -200,6 +206,12 @@
   </data>
   <data name="Height" xml:space="preserve">
     <value>Height</value>
+  </data>
+  <data name="IncorrectWeightLong" xml:space="preserve">
+    <value>For exercises with ownweight mark the weight value must be one </value>
+  </data>
+  <data name="IncorrectWeightShort" xml:space="preserve">
+    <value>Weight is not equal one</value>
   </data>
   <data name="ModifyButton" xml:space="preserve">
     <value>Modify</value>

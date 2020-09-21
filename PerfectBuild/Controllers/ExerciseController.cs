@@ -25,7 +25,6 @@ namespace PerfectBuild.Controllers
         public IActionResult List(int currentPage = 1, string sortBy = "")
         {
             int totalItems = context.Exercises.Count();
-            //  totalPage = (int)Math.Ceiling((decimal)totalItems / itemOnPages);
             var exercises = context.Exercises.Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
             var sortedExercises = exercises.OrderBy(x => x.Name).ToList();
             if (sortBy == "name")

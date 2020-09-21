@@ -68,21 +68,21 @@ namespace PerfectBuild.Infrastructure
             {
                 List<Exercise> exercises = new List<Exercise>
                             {
-                                new Exercise{Name="Выпады с гантелями",Description=""},
-                                new Exercise{Name="Жим гантелей лежа на полу",Description=""},
-                                new Exercise{Name="Жим гантелей сидя",Description=""},
-                                new Exercise{Name="Подтягивания ",Description=""},
-                                new Exercise{Name="Подъем гантелей на бицепс стоя ",Description=""},
-                                new Exercise{Name="Подъем гантелей на бицепс хватом молоток",Description=""},
-                                new Exercise{Name="Подъем на носки с гантелями ",Description=""},
-                                new Exercise{Name="Подъем ног в положении лежа ",Description=""},
-                                new Exercise{Name="Подъем туловища из положения лежа ",Description=""},
-                                new Exercise{Name="Приседания с гантелями ",Description=""},
-                                new Exercise{Name="Становая тяга с гантелями ",Description=""},
-                                new Exercise{Name="Тяга гантелей в наклоне ",Description=""},
-                                new Exercise{Name="Французский жим ",Description=""},
-                                new Exercise{Name="Шраги с гантелями ",Description=""},
-                                new Exercise{Name="Орбитрек ",Description=""},
+                                new Exercise{Name="Выпады с гантелями",Description="",OwnWeight=false},
+                                new Exercise{Name="Жим гантелей лежа на полу",Description="",OwnWeight=false},
+                                new Exercise{Name="Жим гантелей сидя",Description="",OwnWeight=false},
+                                new Exercise{Name="Подтягивания ",Description="",OwnWeight=true},
+                                new Exercise{Name="Подъем гантелей на бицепс стоя ",Description="",OwnWeight=false},
+                                new Exercise{Name="Подъем гантелей на бицепс хватом молоток",Description="",OwnWeight=false},
+                                new Exercise{Name="Подъем на носки с гантелями ",Description="",OwnWeight=false},
+                                new Exercise{Name="Подъем ног в положении лежа ",Description="",OwnWeight=true},
+                                new Exercise{Name="Подъем туловища из положения лежа ",Description="",OwnWeight=true},
+                                new Exercise{Name="Приседания с гантелями ",Description="",OwnWeight=false},
+                                new Exercise{Name="Становая тяга с гантелями ",Description="",OwnWeight=false},
+                                new Exercise{Name="Тяга гантелей в наклоне ",Description="",OwnWeight=false},
+                                new Exercise{Name="Французский жим ",Description="",OwnWeight=false},
+                                new Exercise{Name="Шраги с гантелями ",Description="",OwnWeight=false},
+                                new Exercise{Name="Орбитрек ",Description="",OwnWeight=false},
                             };
                 appContext.Exercises.AddRange(exercises);
                 appContext.SaveChanges();

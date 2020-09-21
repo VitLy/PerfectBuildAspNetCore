@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using PerfectBuild.Data;
 using PerfectBuild.Models;
 using PerfectBuild.Models.ViewModels;
+using PerfectBuild.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,12 +17,14 @@ namespace PerfectBuild.Controllers
     {
         readonly ApplicationContext appContext;
         readonly UserManager<User> userManager;
+        private readonly SpecLineValidator specValidator;
         string userId;
 
-        public TrainingProgramController(ApplicationContext appContext, UserManager<User> userManager)
+        public TrainingProgramController(ApplicationContext appContext, UserManager<User> userManager, SpecLineValidator specValidator)
         {
             this.appContext = appContext;
             this.userManager = userManager;
+            this.specValidator = specValidator;
         }
 
         [HttpGet]
@@ -168,31 +171,43 @@ namespace PerfectBuild.Controllers
                 ModelState.AddModelError("Incorrect TrainigSpecLineChangeViewModel", "Incorrect TrainigSpecLineChangeViewModel");
                 return RedirectToAction("List");
             }
-            if (viewModel.Id == 0)
-            {
-                TrainingProgramSpec programSpec = new TrainingProgramSpec
-                {
-                    HeadId = viewModel.HeadId,
-                    ExId = viewModel.ExerciseId,
-                    Set = viewModel.Set,
-                    Weight = viewModel.Weight,
-                    Amount = viewModel.Amount
-                };
-                appContext.TrainingProgramSpecs.Add(programSpec);
-                await appContext.SaveChangesAsync();
-            }
-            else
-            {
-                TrainingProgramSpec programSpec = await appContext.TrainingProgramSpecs.FindAsync(viewModel.Id);
-                programSpec.ExId = viewModel.ExerciseId;
-                programSpec.Set = viewModel.Set;
-                programSpec.Weight = viewModel.Weight;
-                programSpec.Amount = viewModel.Amount;
-                appContext.Update(programSpec);
-                await appContext.SaveChangesAsync();
-            }
 
-            return View("TrainingSpecList", Getmodel(viewModel.HeadId));
+            var exercises = appContext.Exercises.ToList();
+            if (!specValidator.IsSpecLineHasCorrectWeight(viewModel.ExerciseId, viewModel.Weight,exercises, out string shortMessage, out string longMessage)) 
+            {
+                ModelState.AddModelError(shortMessage, longMessage);
+            }
+            if (ModelState.IsValid)
+            {
+                if (viewModel.Id == 0)
+                {
+                    TrainingProgramSpec programSpec = new TrainingProgramSpec
+                    {
+                        HeadId = viewModel.HeadId,
+                        ExId = viewModel.ExerciseId,
+                        Set = viewModel.Set,
+                        Weight = viewModel.Weight,
+                        Amount = viewModel.Amount
+                    };
+
+                    await appContext.TrainingProgramSpecs.AddAsync(programSpec);
+                    await appContext.SaveChangesAsync();
+                }
+                else
+                {
+                    TrainingProgramSpec programSpec = await appContext.TrainingProgramSpecs.FindAsync(viewModel.Id);
+                    programSpec.ExId = viewModel.ExerciseId;
+                    programSpec.Set = viewModel.Set;
+                    programSpec.Weight = viewModel.Weight;
+                    programSpec.Amount = viewModel.Amount;
+                    appContext.Update(programSpec);
+                    await appContext.SaveChangesAsync();
+                }
+
+                return View("TrainingSpecList", Getmodel(viewModel.HeadId));
+            }
+            viewModel.Exercises = exercises;
+            return View(viewModel);
         }
 
         private AddModifyTrainingSpecViewModel Getmodel(int headId)

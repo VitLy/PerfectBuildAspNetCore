@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using PerfectBuild.Data;
+using PerfectBuild.Infrastructure;
 using PerfectBuild.Models;
 using PerfectBuild.Models.ViewModels;
 using PerfectBuild.Services;
@@ -20,15 +22,18 @@ namespace PerfectBuild.Controllers
         private readonly ApplicationContext appContext;
         private readonly DocumentSpecHandler<TrainingPlanSpec> documentSpecHandler;
         private readonly ITrainigDayConverter trainigDayConverter;
+        private readonly SpecLineValidator specLineValidator;
+
         //TODO: При выходе(при удалении строки спецификации?) из документа - проверка на наличие спецификации, если нет - удалить заголовок
 
         public TrainingPlanController(UserManager<User> userManager, ApplicationContext appContext,
-            DocumentSpecHandler<TrainingPlanSpec> documentSpecHandler, ITrainigDayConverter trainigDayConverter)
+            DocumentSpecHandler<TrainingPlanSpec> documentSpecHandler, ITrainigDayConverter trainigDayConverter,SpecLineValidator specLineValidator)
         {
             this.appContext = appContext;
             this.userManager = userManager;
             this.documentSpecHandler = documentSpecHandler;
             this.trainigDayConverter = trainigDayConverter;
+            this.specLineValidator = specLineValidator;
         }
 
         [HttpGet]
@@ -65,12 +70,12 @@ namespace PerfectBuild.Controllers
         [HttpGet]
         public IActionResult AddModifyTrainingPlanLine(DayOfWeek dayTraining, int headId)
         {
-            var exercises = appContext.Exercises.ToList();
+            var exercises = appContext.Exercises.OrderBy(x=>x.Name).ToList();
             int specId = 0;
             var model = new TrainigSpecLineChangeViewModel
             {
                 Exercises = exercises,
-                HeadId=headId
+                HeadId = headId
             };
 
             if (TempData["specId"] != null && TempData["headId"] != null && TempData["dayTraining"] != null)
@@ -92,47 +97,62 @@ namespace PerfectBuild.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddModifyTrainingPlanLine(TrainigSpecLineChangeViewModel viewModel, DayOfWeek dayTraining)
+        public async Task<IActionResult> AddModifyTrainingPlanLine(TrainigSpecLineChangeViewModel viewModel)
         {
             if (viewModel != null)
             {
-                int headId = viewModel.HeadId;
-                if (viewModel.HeadId == 0)
+                var exercises = appContext.Exercises.ToList();
+                if (!specLineValidator.IsSpecLineHasCorrectWeight(viewModel.ExerciseId,viewModel.Weight,exercises, out string shortMessage, out string longMessage)) 
                 {
-                    headId = await CreateTrainigPlanHead(dayTraining);
+                    ModelState.AddModelError(shortMessage, longMessage);
                 }
-                documentSpecHandler.FillDocument(appContext.TrainingPlanSpecs.Where(x => x.HeadId.Equals(headId)).ToList());
-                var planSpecLine = new TrainingPlanSpec
-                {
-                    HeadId = headId,
-                    ExId = viewModel.ExerciseId,
-                    Set = viewModel.Set,
-                    Weight = viewModel.Weight,
-                    Amount = viewModel.Amount,
-                    Order = documentSpecHandler.GetLastOrder()
-                };
 
-                if (viewModel.Id == 0)
+                if (ModelState.IsValid)
                 {
-                    await appContext.TrainingPlanSpecs.AddAsync(planSpecLine);
-                    await appContext.SaveChangesAsync();
+                    int headId = viewModel.HeadId;
+                    if (viewModel.HeadId == 0)
+                    {
+                        headId = await CreateTrainigPlanHead(viewModel.DayTraining);
+                    }
+                    documentSpecHandler.FillDocument(appContext.TrainingPlanSpecs.Where(x => x.HeadId.Equals(headId)).ToList());
+                    var planSpecLine = new TrainingPlanSpec
+                    {
+                        HeadId = headId,
+                        ExId = viewModel.ExerciseId,
+                        Set = viewModel.Set,
+                        Weight = viewModel.Weight,
+                        Amount = viewModel.Amount,
+                        Order = documentSpecHandler.GetLastOrder()
+                    };
+
+                    if (viewModel.Id == 0)
+                    {
+                        await appContext.TrainingPlanSpecs.AddAsync(planSpecLine);
+                        await appContext.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        planSpecLine.Id = viewModel.Id;
+                        var changingProgramPlanSpec = appContext.TrainingPlanSpecs.Find(planSpecLine.Id);
+                        if (changingProgramPlanSpec != null)
+                        {
+                            changingProgramPlanSpec.ExId = planSpecLine.ExId;
+                            changingProgramPlanSpec.Set = planSpecLine.Set;
+                            changingProgramPlanSpec.Weight = planSpecLine.Weight;
+                            changingProgramPlanSpec.Amount = planSpecLine.Amount;
+                        }
+                        appContext.TrainingPlanSpecs.Update(changingProgramPlanSpec);
+                        await appContext.SaveChangesAsync();
+                    }
                 }
                 else
                 {
-                    planSpecLine.Id = viewModel.Id;
-                    var changingProgramPlanSpec = appContext.TrainingPlanSpecs.Find(planSpecLine.Id);
-                    if (changingProgramPlanSpec != null)
-                    {
-                        changingProgramPlanSpec.ExId = planSpecLine.ExId;
-                        changingProgramPlanSpec.Set = planSpecLine.Set;
-                        changingProgramPlanSpec.Weight = planSpecLine.Weight;
-                        changingProgramPlanSpec.Amount = planSpecLine.Amount;
-                    }
-                    appContext.TrainingPlanSpecs.Update(changingProgramPlanSpec);
-                    await appContext.SaveChangesAsync();
+                    viewModel.Exercises = exercises.OrderBy(x => x.Name).ToList();
+                    ViewBag.TrainingDay = viewModel.DayTraining;
+                    return View(viewModel);
                 }
             }
-            TempData["dayTraining"] = dayTraining;
+            TempData["dayTraining"] = viewModel.DayTraining;
             return RedirectToAction("Show");
         }
 
@@ -227,7 +247,7 @@ namespace PerfectBuild.Controllers
             {
                 DayTraining = dayTraining,
                 HeadId = headId,
-                TrainingPrograms = appContext.TrainingProgramHeads.Where(x => x.UserId.Equals(userId)).Include(x=>x.Category).ToList()
+                TrainingPrograms = appContext.TrainingProgramHeads.Where(x => x.UserId.Equals(userId)).Include(x => x.Category).ToList()
             };
             return View(model);
         }
@@ -261,7 +281,7 @@ namespace PerfectBuild.Controllers
                     }
                     documentSpecHandler.FillDocument(lines);
                     int lastOrderNum = documentSpecHandler.GetLastOrder();
-                    int step=documentSpecHandler.GetOrderStep();
+                    int step = documentSpecHandler.GetOrderStep();
                     #endregion
                     lines = new List<TrainingPlanSpec>();
                     foreach (var trainingProgramLine in trainingProgramSpecs)
@@ -273,7 +293,7 @@ namespace PerfectBuild.Controllers
                             ExId = trainingProgramLine.ExId,
                             Weight = trainingProgramLine.Weight,
                             Amount = trainingProgramLine.Amount,
-                            Order=lastOrderNum+=step
+                            Order = lastOrderNum += step
                         });
                     }
                     await appContext.TrainingPlanSpecs.AddRangeAsync(lines);
@@ -298,7 +318,7 @@ namespace PerfectBuild.Controllers
                 id = selector.Id,
                 category = selector.Category.Name,
                 date = selector.Date.ToString("d"),
-                description = selector.Description??String.Empty,
+                description = selector.Description ?? String.Empty,
             }).FirstOrDefault();
 
             var headData = Json(headProgramData);

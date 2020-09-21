@@ -33,6 +33,7 @@ namespace PerfectBuild
             services.AddTransient<DocumentHeadHandler<TrainingHead>>();
             services.AddTransient<DocumentSpecHandler<TrainingSpec>>();
             services.AddTransient<ChartProvider,CanvasJSProvider>();
+            services.AddSingleton<SpecLineValidator>();
 
             services.AddAuthentication().AddFacebook(option =>
             {

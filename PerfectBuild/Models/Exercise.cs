@@ -12,6 +12,8 @@ namespace PerfectBuild.Models
 
         [MaxLength(250, ErrorMessage = "Exercise's description length should be less then 250 chars")]
         public string Description { get; set; }
+
+        public bool OwnWeight { get; set; }
     }
 }
 
