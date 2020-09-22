@@ -123,6 +123,18 @@
   <data name="IncorrectWeightShort" xml:space="preserve">
     <value>Значение веса не равно единице</value>
   </data>
+  <data name="UnitIdNotFoundShort" xml:space="preserve">
+    <value>Id единицы измерения не найдено</value>
+  </data>
+  <data name="UnitNotFoundLong" xml:space="preserve">
+    <value>Id единицы измерения не найдено</value>
+  </data>
+  <data name="UserHasNotFinishedExercisesLong" xml:space="preserve">
+    <value>Завершенныe упражнения пользователя не найдены</value>
+  </data>
+  <data name="UserHasNotFinishedExercisesShort" xml:space="preserve">
+    <value>Упражнения не найдены</value>
+  </data>
   <data name="WeigtLessOrEqualThenZeroLong" xml:space="preserve">
     <value>Значение веса должно быть больше 0 и меньше 256</value>
   </data>

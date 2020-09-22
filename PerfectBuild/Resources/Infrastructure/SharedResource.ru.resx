@@ -267,6 +267,9 @@
   <data name="Tuesday" xml:space="preserve">
     <value>Вторник</value>
   </data>
+  <data name="Units" xml:space="preserve">
+    <value>Единицы измерения</value>
+  </data>
   <data name="UserData" xml:space="preserve">
     <value>Данные пользователя</value>
   </data>

@@ -159,7 +159,11 @@ namespace PerfectBuild.Migrations
 
                     b.Property<bool>("OwnWeight");
 
+                    b.Property<int>("UnitId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UnitId");
 
                     b.ToTable("Exercises");
                 });
@@ -390,6 +394,24 @@ namespace PerfectBuild.Migrations
                     b.ToTable("TrainingSpecs");
                 });
 
+            modelBuilder.Entity("PerfectBuild.Models.Unit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("ShortName")
+                        .IsRequired()
+                        .HasMaxLength(7);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Units");
+                });
+
             modelBuilder.Entity("PerfectBuild.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -483,6 +505,14 @@ namespace PerfectBuild.Migrations
                     b.HasOne("PerfectBuild.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("PerfectBuild.Models.Exercise", b =>
+                {
+                    b.HasOne("PerfectBuild.Models.Unit", "Unit")
+                        .WithMany()
+                        .HasForeignKey("UnitId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

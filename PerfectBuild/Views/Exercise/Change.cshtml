@@ -1,4 +1,4 @@
-﻿@model Exercise
+﻿@model ChangeExerciseViewModel
 @inject IHtmlLocalizer<SharedResource> LocalizerShared
 @inject IViewLocalizer Localizer
 
@@ -7,11 +7,28 @@
         <input asp-for="@Model.Id" hidden="hidden" />
         <label asp-for="@Model.Name"></label>
         <input asp-for="@Model.Name" value="@Model.Name" />
+
+    <select required="required" name="UnitId" size="1">
+        @if (Model.UnitId == 0)
+        {
+            <option selected disabled>@Localizer["ChooseExerciseUnit"]</option>
+        }
+        else
+        {
+            <option value="@Model.UnitId" selected>@Model.Units.Where(x=>x.Id.Equals(Model.UnitId)).FirstOrDefault().Name</option>
+        }
+        @foreach (Unit item in @Model.Units)
+        {
+            <option value="@item.Id">@item.Name</option>
+        }
+    </select>
+
         <label asp-for="@Model.Description"></label>
         <input asp-for="@Model.Description" value="@Model.Description" />
         <label asp-for="@Model.OwnWeight">@Localizer["OwnWeight"]</label>
+
         <input type="checkbox" asp-for="@Model.OwnWeight" checked=@Model.OwnWeight />
     </div>
-    <button class="btn btn-primary">@LocalizerShared["Ok"]</button>  
-    <button class="btn btn-secondary">@LocalizerShared["Cancel"]</button>  
+    <button class="btn btn-primary">@LocalizerShared["Ok"]</button>
+    <button class="btn btn-secondary">@LocalizerShared["Cancel"]</button>
 </form>

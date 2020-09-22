@@ -13,6 +13,7 @@ namespace PerfectBuild.Data
         public ApplicationContext(DbContextOptions options) : base(options) { }
 
         public virtual DbSet<Exercise> Exercises { get; set; }
+        public virtual DbSet<Unit> Units { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Profile> Profiles { get; set; }
         public virtual DbSet<Param> Params { get; set; }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PerfectBuild.Models
 {
@@ -12,6 +13,11 @@ namespace PerfectBuild.Models
 
         [MaxLength(250, ErrorMessage = "Exercise's description length should be less then 250 chars")]
         public string Description { get; set; }
+
+        public int UnitId { get; set; }
+
+        [ForeignKey("UnitId")]
+        public Unit Unit { get; set; }
 
         public bool OwnWeight { get; set; }
     }

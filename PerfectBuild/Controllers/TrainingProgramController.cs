@@ -6,6 +6,7 @@ using PerfectBuild.Data;
 using PerfectBuild.Models;
 using PerfectBuild.Models.ViewModels;
 using PerfectBuild.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -70,6 +71,7 @@ namespace PerfectBuild.Controllers
         {
             TrainigProgramHeadViewModel trHeadViewModel = new TrainigProgramHeadViewModel
             {
+                Date=DateTime.Now,
                 Categories = appContext.Categories.ToList(),
                 Exercises = appContext.Exercises.ToList()
             };

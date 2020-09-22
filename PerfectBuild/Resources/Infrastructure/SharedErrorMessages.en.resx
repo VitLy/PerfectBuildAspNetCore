@@ -123,6 +123,18 @@
   <data name="IncorrectWeightShort" xml:space="preserve">
     <value>Weight is not equal one</value>
   </data>
+  <data name="UnitIdNotFoundShort" xml:space="preserve">
+    <value>Unit id not found</value>
+  </data>
+  <data name="UnitNotFoundLong" xml:space="preserve">
+    <value>Unit id not found</value>
+  </data>
+  <data name="UserHasNotFinishedExercisesLong" xml:space="preserve">
+    <value>User has not completed exercises</value>
+  </data>
+  <data name="UserHasNotFinishedExercisesShort" xml:space="preserve">
+    <value>Exercises not found</value>
+  </data>
   <data name="WeigtLessOrEqualThenZeroLong" xml:space="preserve">
     <value>Weigth must be more than 1 and less than 256</value>
   </data>

@@ -66,23 +66,38 @@ namespace PerfectBuild.Infrastructure
 
             void AddExercises()
             {
+                Unit rpt = new Unit {ShortName = "повт", Name = "повторение" };
+                Unit duration = new Unit {ShortName = "мин", Name = "минута" };
+                Unit distance = new Unit {ShortName = "км", Name = "километр" };
+                List<Unit> units = new List<Unit>()
+                {
+                    rpt,duration,distance
+                };
+
+                appContext.Units.AddRange(units);
+                appContext.SaveChanges();
+
+                var rptUnitId = appContext.Units.Where(x => x.ShortName.Equals("повт")).FirstOrDefault().Id;
+                int durationUnitId = appContext.Units.Where(x => x.ShortName.Equals("мин")).FirstOrDefault().Id;
+                int distanceUnitId = appContext.Units.Where(x => x.ShortName.Equals("км")).FirstOrDefault().Id;
+
                 List<Exercise> exercises = new List<Exercise>
                             {
-                                new Exercise{Name="Выпады с гантелями",Description="",OwnWeight=false},
-                                new Exercise{Name="Жим гантелей лежа на полу",Description="",OwnWeight=false},
-                                new Exercise{Name="Жим гантелей сидя",Description="",OwnWeight=false},
-                                new Exercise{Name="Подтягивания ",Description="",OwnWeight=true},
-                                new Exercise{Name="Подъем гантелей на бицепс стоя ",Description="",OwnWeight=false},
-                                new Exercise{Name="Подъем гантелей на бицепс хватом молоток",Description="",OwnWeight=false},
-                                new Exercise{Name="Подъем на носки с гантелями ",Description="",OwnWeight=false},
-                                new Exercise{Name="Подъем ног в положении лежа ",Description="",OwnWeight=true},
-                                new Exercise{Name="Подъем туловища из положения лежа ",Description="",OwnWeight=true},
-                                new Exercise{Name="Приседания с гантелями ",Description="",OwnWeight=false},
-                                new Exercise{Name="Становая тяга с гантелями ",Description="",OwnWeight=false},
-                                new Exercise{Name="Тяга гантелей в наклоне ",Description="",OwnWeight=false},
-                                new Exercise{Name="Французский жим ",Description="",OwnWeight=false},
-                                new Exercise{Name="Шраги с гантелями ",Description="",OwnWeight=false},
-                                new Exercise{Name="Орбитрек ",Description="",OwnWeight=false},
+                                new Exercise{Name="Выпады с гантелями",Description="",OwnWeight=false,UnitId=rptUnitId},
+                                new Exercise{Name="Жим гантелей лежа на полу",Description="",OwnWeight=false,UnitId=rptUnitId},
+                                new Exercise{Name="Жим гантелей сидя",Description="",OwnWeight=false,UnitId=rptUnitId},
+                                new Exercise{Name="Подтягивания ",Description="",OwnWeight=true,UnitId=rptUnitId},
+                                new Exercise{Name="Подъем гантелей на бицепс стоя ",Description="",OwnWeight=false,UnitId=rptUnitId},
+                                new Exercise{Name="Подъем гантелей на бицепс хватом молоток",Description="",OwnWeight=false,UnitId=rptUnitId},
+                                new Exercise{Name="Подъем на носки с гантелями ",Description="",OwnWeight=false,UnitId=rptUnitId},
+                                new Exercise{Name="Подъем ног в положении лежа ",Description="",OwnWeight=true,UnitId=rptUnitId},
+                                new Exercise{Name="Подъем туловища из положения лежа ",Description="",OwnWeight=true,UnitId=rptUnitId},
+                                new Exercise{Name="Приседания с гантелями ",Description="",OwnWeight=false,UnitId=rptUnitId},
+                                new Exercise{Name="Становая тяга с гантелями ",Description="",OwnWeight=false,UnitId=rptUnitId},
+                                new Exercise{Name="Тяга гантелей в наклоне ",Description="",OwnWeight=false,UnitId=rptUnitId},
+                                new Exercise{Name="Французский жим ",Description="",OwnWeight=false,UnitId=rptUnitId},
+                                new Exercise{Name="Шраги с гантелями ",Description="",OwnWeight=false,UnitId=rptUnitId},
+                                new Exercise{Name="Орбитрек ",Description="",OwnWeight=false,UnitId=durationUnitId},
                             };
                 appContext.Exercises.AddRange(exercises);
                 appContext.SaveChanges();

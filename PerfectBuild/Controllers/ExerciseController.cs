@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PerfectBuild.Data;
 using PerfectBuild.Models;
 using PerfectBuild.Models.ViewModels;
@@ -12,20 +13,20 @@ namespace PerfectBuild.Controllers
     [Authorize(Roles = "Admin,User")]
     public class ExerciseController : Controller
     {
-        readonly ApplicationContext context;
+        readonly ApplicationContext appContext;
         readonly int itemOnPages = 6;
         bool nameAscend = true;
         bool descriptionAscend = true;
 
-        public ExerciseController(ApplicationContext context)
+        public ExerciseController(ApplicationContext appContext)
         {
-            this.context = context;
+            this.appContext = appContext;
         }
 
         public IActionResult List(int currentPage = 1, string sortBy = "")
         {
-            int totalItems = context.Exercises.Count();
-            var exercises = context.Exercises.Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
+            int totalItems = appContext.Exercises.Count();
+            var exercises = appContext.Exercises.Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
             var sortedExercises = exercises.OrderBy(x => x.Name).ToList();
             if (sortBy == "name")
             {
@@ -61,42 +62,70 @@ namespace PerfectBuild.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            return View("Change", new Exercise());
+            var units = appContext.Units.ToList();
+            return View("Change", new ChangeExerciseViewModel {Units=units });
         }
 
         [HttpGet]
         public IActionResult Modify(int id)
         {
-            Exercise exercise = context.Exercises.Find(id);
-            return View("Change", exercise);
+            Exercise exercise = appContext.Exercises.Include(x => x.Unit).Where(x => x.Id.Equals(id)).FirstOrDefault();
+            var units = appContext.Units.ToList();
+            var viewModel = new ChangeExerciseViewModel
+            {
+                Id = exercise.Id,
+                Name = exercise.Name,
+                UnitId = exercise.UnitId,
+                Description = exercise.Description,
+                Units = units
+            };
+            return View("Change", viewModel);
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            Exercise exercise = context.Exercises.Find(id);
-            context.Remove(exercise);
-            await context.SaveChangesAsync();
+            Exercise exercise = appContext.Exercises.Find(id);
+            appContext.Remove(exercise);
+            await appContext.SaveChangesAsync();
             return RedirectToAction("List");
         }
 
         [HttpPost]
-        public async Task<IActionResult> Change(Exercise exercise)
+        public async Task<IActionResult> Change(ChangeExerciseViewModel viewModel)
         {
-            if (exercise != null)
+            if (viewModel != null)
             {
-                if (exercise.Id == 0) //ветка добавления
+                if (viewModel.Id == 0) //ветка добавления
                 {
                     if (ModelState.IsValid)
                     {
-                        await context.Exercises.AddAsync(exercise);
-                        await context.SaveChangesAsync();
+                        Exercise exercise = new Exercise
+                        {
+                            Name = viewModel.Name,
+                            Description = viewModel.Description,
+                            UnitId = viewModel.UnitId,
+                            OwnWeight = viewModel.OwnWeight
+                        };
+                        await appContext.Exercises.AddAsync(exercise);
+                        await appContext.SaveChangesAsync();
                     }
                 }
                 else // ветка обновления данных
                 {
-                    context.Exercises.Update(exercise);
-                    await context.SaveChangesAsync();
+                    if (ModelState.IsValid)
+                    {
+                        Exercise exercise = appContext.Exercises.Find(viewModel.Id);
+                        if (exercise != null) 
+                        {
+                        exercise.Name = viewModel.Name;
+                        exercise.Description = viewModel.Description;
+                        exercise.UnitId = viewModel.UnitId;
+                        exercise.OwnWeight = viewModel.OwnWeight;
+                        appContext.Exercises.Update(exercise);
+                        await appContext.SaveChangesAsync();
+                        }
+                    }
                 }
             }
             return RedirectToAction("List");

@@ -10,6 +10,7 @@
     <div class="row p-1">
         <div class="col-12">
             <form method="post" asp-action="ExerciseStat">
+                    <div class="validation" asp-validation-summary="All"> </div>
                 <div class="form-row">
                     <div class="form-group col-3">
                         <input asp-for="@Model.UserId" hidden="hidden" value="@Model.UserId" />
@@ -21,23 +22,32 @@
                         <input asp-for="@Model.DayTo" type="date" class="form-control">
                     </div>
                     <div class="form-group col-3">
-                        <select asp-for="Exercise" asp-items="@Model.Exercises">
-                        </select>
+                        @if (Model.Exercises != null)
+                        {
+                            <select asp-for="Exercise" asp-items="@Model.Exercises">
+                            </select>
+                        }
+                        else
+                        {
+                            <label for="exercise">Exercises:</label>
+                            <select name="not found" id="exercise">
+                            </select>
+                        }
                     </div>
-                </div>
-                <div class="form-row">
-                    <button class="btn btn-primary" asp-action="ExerciseStat">@LocalizerShared["Show"]</button>
-                </div>
+                    </div>
+                    <div class="form-row">
+                        <button class="btn btn-primary" asp-action="ExerciseStat">@LocalizerShared["Show"]</button>
+                    </div>
 
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
-    <div class="row p-1">
-        <div class="col-12">
-            <div id="chartContainer" style="height: 300px; width: 100%;">
+        <div class="row p-1">
+            <div class="col-12">
+                <div id="chartContainer" style="height: 300px; width: 100%;">
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-@await Html.PartialAsync("CanvasJSScriptPartial")
+    @await Html.PartialAsync("CanvasJSScriptPartial")
