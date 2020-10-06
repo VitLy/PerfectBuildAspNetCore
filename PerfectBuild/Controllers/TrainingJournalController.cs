@@ -57,9 +57,9 @@ namespace PerfectBuild.Controllers
                         {
                             HeadId = heads.Id,
                             Number = heads.Number,
-                            Date = heads.Date,
+                            Date = heads.Date.ToLocalTime(),
                             DocumName = heads.Name,
-                            Duration = duration.TotalMinutes,
+                            Duration = Math.Round(duration.TotalMinutes),
                             Calories = heads.Calories,
                             ExerciseCount = grouped.Count(x => x.Id != 0),
                             SetMax = grouped.Any() ? grouped.Max(x => x.Set) : 0
@@ -88,7 +88,7 @@ namespace PerfectBuild.Controllers
             AddTrainingManuallyViewModel model = new AddTrainingManuallyViewModel
             {
                 Spec = new List<TrainingSpec>(),
-                Date = DateTime.UtcNow,
+                Date = DateTime.Now,
                 NumDocument = headHandler.GetNumberDocument(userId),
                 TrainingName = ""
             };
@@ -109,8 +109,8 @@ namespace PerfectBuild.Controllers
                 }
                 else
                 {
-                    var head = headHandler.GetHead(model.NumDocument, userId, model.TrainingName, model.Date);
-                    head.DateEnd = model.Date.AddMinutes(model.Duration);
+                    var head = headHandler.GetHead(model.NumDocument, userId, model.TrainingName, model.Date.ToUniversalTime());
+                    head.DateEnd = model.Date.AddMinutes(model.Duration).ToUniversalTime();
                     head.UserId = userId;
                     head.Calories = model.Calories;
                     await appContext.AddAsync(head);
@@ -136,7 +136,7 @@ namespace PerfectBuild.Controllers
                         HeadId = head.Id,
                         NumDocument = head.Number,
                         TrainingName = head.Name,
-                        Date = head.Date,
+                        Date = head.Date.ToLocalTime(),
                         Calories = head.Calories,
                         Spec = spec
                     };

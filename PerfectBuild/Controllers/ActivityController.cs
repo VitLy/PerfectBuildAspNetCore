@@ -30,13 +30,13 @@ namespace PerfectBuild.Controllers
             var user = HttpContext.User;
             ParametersViewModel viewModel = new ParametersViewModel {Date = DateTime.Now};
             string userId = userManager.GetUserId(user);
-            var currentUserParam = appContext.Params.Where(x => x.UserId.Equals(userId) & x.Date.Equals(DateTime.UtcNow.Date)).FirstOrDefault();
+            var currentUserParam = appContext.Params.Where(x => x.UserId.Equals(userId) & x.Date.Date.Equals(DateTime.UtcNow.Date)).FirstOrDefault();
 
             if (currentUserParam != null) // на эту дату есть уже внесенные данные в базе данных
             {
                 viewModel = new ParametersViewModel
                 {
-                    Date = DateTime.UtcNow,
+                    Date = currentUserParam.Date.ToLocalTime(),
                     Breast = currentUserParam.Breast,
                     Pelvis = currentUserParam.Buttock,
                     Thigh = currentUserParam.Thigh,
@@ -54,7 +54,7 @@ namespace PerfectBuild.Controllers
             var user = HttpContext.User;
             string userId = userManager.GetUserId(user);
 
-            var userParam = appContext.Params.Where(x => x.UserId.Equals(userId) & x.Date.Equals(viewModel.Date.ToUniversalTime().Date)).FirstOrDefault();
+            var userParam = appContext.Params.Where(x => x.UserId.Equals(userId) & x.Date.Date.Equals(viewModel.Date.ToUniversalTime().Date)).FirstOrDefault();
 
             if (userParam == null)
             {
@@ -62,7 +62,7 @@ namespace PerfectBuild.Controllers
                     new Param
                     {
                         UserId = userId,
-                        Date = viewModel.Date.ToUniversalTime().Date,
+                        Date = viewModel.Date.ToUniversalTime(),
                         Weight = viewModel.Weight,
                         Breast = viewModel.Breast,
                         Waist = viewModel.Waist,
@@ -72,7 +72,7 @@ namespace PerfectBuild.Controllers
             }
             else
             {
-                userParam.Date = viewModel.Date.ToUniversalTime().Date;
+                userParam.Date = viewModel.Date.ToUniversalTime();
                 userParam.Weight = viewModel.Weight;
                 userParam.Breast = viewModel.Breast;
                 userParam.Waist = viewModel.Waist;

@@ -40,8 +40,8 @@ namespace PerfectBuild.Controllers
         public IActionResult BodyStat()
         {
             var userId = userManager.GetUserId(HttpContext.User);
-            var dayFrom = DateTime.Now.ToLocalTime();
-            var dayTo = DateTime.Now.ToLocalTime();
+            var dayFrom = DateTime.Now.Date;
+            var dayTo = dayFrom.AddHours(23).AddMinutes(59);
             return View(new BodyStatisticsChartViewModel
             {
                 UserId = userId,
@@ -139,8 +139,8 @@ namespace PerfectBuild.Controllers
         public IActionResult ExerciseStat()
         {
             var userId = userManager.GetUserId(HttpContext.User);
-            var dayFrom = DateTime.Now.ToLocalTime();
-            var dayTo = DateTime.Now.ToLocalTime();
+            var dayFrom = DateTime.Now.Date;
+            var dayTo = dayFrom.AddHours(23).AddMinutes(59);
             var userExercises = appContext.TrainingHeads.Where(x => x.UserId.Equals(userManager.GetUserId(HttpContext.User)))
                 .Join(appContext.TrainingSpecs, x => x.Id, y => y.HeadId, (x, y) => new { y.ExId })
                 .Join(appContext.Exercises, x => x.ExId, y => y.Id, (x, y) => new { ExerciseName = y.Name, ExerciseId = y.Id })
@@ -150,15 +150,16 @@ namespace PerfectBuild.Controllers
             {
                 UserId = userId,
                 DayFrom = dayFrom,
-                DayTo = dayTo,
+                DayTo = dayTo
             };
 
-            if (userExercises.Any())
+            if (userExercises!=null)
             {
                 int exerciseId = userExercises.FirstOrDefault().ExerciseId;
                 model.UserId = userId;
                 model.DayFrom = dayFrom;
                 model.DayTo = dayTo;
+                model.Exercises = new List<SelectListItem>();
 
                 foreach (var item in userExercises)
                 {
@@ -214,8 +215,8 @@ namespace PerfectBuild.Controllers
         public IActionResult ExerciseRecords()
         {
             var userId = userManager.GetUserId(HttpContext.User);
-            var dayFrom = DateTime.Now.ToLocalTime();
-            var dayTo = DateTime.Now.ToLocalTime();
+            var dayFrom = DateTime.Now.Date;
+            var dayTo = dayFrom.AddHours(23).AddMinutes(59);
             return View(new ExerciseRecordsChartViewModel { UserId = userId, DayFrom = dayFrom, DayTo = dayTo });
         }
 

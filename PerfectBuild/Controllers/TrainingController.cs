@@ -64,7 +64,7 @@ namespace PerfectBuild.Controllers
             {
                 CurrentTrainingDay = currentDay,
                 Id = trainingPlan.Id,
-                Date = trainingPlan.Date,
+                Date = trainingPlan.Date.ToLocalTime(),
                 Description = trainingPlan.Description,
                 Name = trainingPlan.Name,
                 Lines = planSpec,
@@ -270,9 +270,9 @@ namespace PerfectBuild.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Finish(int headPlanId)
+        public async Task<IActionResult> Finish(int headTrainingPlanId)
         {
-            var trainingHead = appContext.TrainingHeads.Where(x => x.TrainingPlanHeadId.Equals(headPlanId)).FirstOrDefault();
+            var trainingHead = appContext.TrainingHeads.Where(x => x.TrainingPlanHeadId.Equals(headTrainingPlanId)).FirstOrDefault();
             if (trainingHead != null)
             {
                 trainingHead.DateEnd = DateTime.UtcNow;

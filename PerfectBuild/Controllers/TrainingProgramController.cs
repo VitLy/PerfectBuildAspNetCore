@@ -71,7 +71,7 @@ namespace PerfectBuild.Controllers
         {
             TrainigProgramHeadViewModel trHeadViewModel = new TrainigProgramHeadViewModel
             {
-                Date=DateTime.Now,
+                Date=DateTime.Now.ToLocalTime(),
                 Categories = appContext.Categories.ToList(),
                 Exercises = appContext.Exercises.ToList()
             };
@@ -79,7 +79,7 @@ namespace PerfectBuild.Controllers
             {
                 trHeadViewModel.Id = id;
                 trHeadViewModel.Name = appContext.TrainingProgramHeads.Find(id).Name;
-                trHeadViewModel.Date = appContext.TrainingProgramHeads.Find(id).Date;
+                trHeadViewModel.Date = appContext.TrainingProgramHeads.Find(id).Date.ToLocalTime();
                 trHeadViewModel.Description = appContext.TrainingProgramHeads.Find(id).Description;
                 trHeadViewModel.CategoryId = appContext.TrainingProgramHeads.Find(id).CategoryId;
             }
@@ -105,7 +105,7 @@ namespace PerfectBuild.Controllers
                     {
                         Name = viewModel.Name,
                         CategoryId = viewModel.CategoryId,
-                        Date = viewModel.Date,
+                        Date = viewModel.Date.ToUniversalTime(),
                         UserId = userId,
                         Description = viewModel.Description,
                         Category = new Category
@@ -220,7 +220,7 @@ namespace PerfectBuild.Controllers
                 TrainingHeadCategory = appContext.TrainingProgramHeads.Where(x => x.Id == headId).Include(x => x.Category).FirstOrDefault().Category.Name,
                 TrainingSpecs = appContext.TrainingProgramSpecs.Where(x => x.HeadId == headId).Include(x => x.Exercise).ToList(),
                 TrainingHeadId = headId,
-                TrainingHeadDate = appContext.TrainingProgramHeads.Where(x => x.Id == headId).FirstOrDefault().Date
+                TrainingHeadDate = appContext.TrainingProgramHeads.Where(x => x.Id == headId).FirstOrDefault().Date.ToLocalTime()
             };
             return model;
         }
