@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PerfectBuild.Models
 {
@@ -9,6 +10,8 @@ namespace PerfectBuild.Models
         [MaxLength(7),Required(AllowEmptyStrings =false)]       
         public string ShortName { get; set; }
         [MaxLength(10)]
-        public string Name { get; set; }                           
+        public string Name { get; set; }
+
+        public virtual ICollection<Exercise> Exercises { get; set; }
     }
 }

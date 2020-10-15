@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PerfectBuild.Controllers
 {
-
+    [AutoValidateAntiforgeryToken]
     public class AccountController : Controller
     {
         private UserManager<User> userManager;
@@ -34,7 +34,6 @@ namespace PerfectBuild.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel loginModel) 
         {
             if (ModelState.IsValid)

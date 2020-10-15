@@ -17,6 +17,7 @@ using System.Linq;
 namespace PerfectBuild.Controllers
 {
     [Authorize(Roles = "Admin,User")]
+    [AutoValidateAntiforgeryToken]
     public class StatisticController : Controller
     {
         private readonly ApplicationContext appContext;
@@ -59,7 +60,6 @@ namespace PerfectBuild.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult BodyStat(string userId, DateTime dayFrom, DateTime dayTo, IList<SelectedBodyParam> userBodyParam)
         {
             if (ModelState.IsValid)
@@ -175,7 +175,7 @@ namespace PerfectBuild.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        
         public IActionResult ExerciseStat(ExerciseStatisticsChartViewModel model)
         {
             if (ModelState.IsValid)
@@ -221,7 +221,7 @@ namespace PerfectBuild.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        
         public IActionResult ExerciseRecords(ExerciseRecordsChartViewModel model)
         {
             if (ModelState.IsValid)

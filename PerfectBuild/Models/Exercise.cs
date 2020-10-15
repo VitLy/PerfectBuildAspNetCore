@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PerfectBuild.Models
@@ -20,6 +21,11 @@ namespace PerfectBuild.Models
         public Unit Unit { get; set; }
 
         public bool OwnWeight { get; set; }
+
+        public virtual ICollection<TrainingProgramSpec> TrainingProgramSpecs {get;set;}
+        public virtual ICollection<TrainingPlanSpec> TrainingPlanSpecs {get;set;}
+        public virtual ICollection<TrainingSpec> TrainingSpecs {get;set;}
+
     }
 }
 

@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace PerfectBuild.Controllers
 {
     [Authorize(Roles = "Admin,User")]
+    [AutoValidateAntiforgeryToken]
     public class TrainingController : Controller
     {
         private const int stepTrainingHeadDocument = 1;

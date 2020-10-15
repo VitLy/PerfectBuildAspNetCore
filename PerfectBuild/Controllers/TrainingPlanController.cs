@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 namespace PerfectBuild.Controllers
 {
     [Authorize(Roles = "Admin,User")]
+    [AutoValidateAntiforgeryToken]
     public class TrainingPlanController : Controller
     {
         private readonly UserManager<User> userManager;

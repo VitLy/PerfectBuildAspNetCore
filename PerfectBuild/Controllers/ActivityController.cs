@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace PerfectBuild.Controllers
 {
     [Authorize(Roles = "User,Admin")]
+    [AutoValidateAntiforgeryToken]
     public class ActivityController : Controller
     {
         private readonly ApplicationContext appContext;

@@ -10,7 +10,7 @@ using System.Linq;
 namespace PerfectBuild.Controllers
 {
     [Authorize(Roles = "Admin,User")]
-
+    [AutoValidateAntiforgeryToken]
     public class HomeController : Controller
     {
         private ApplicationContext context;

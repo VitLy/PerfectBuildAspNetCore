@@ -511,9 +511,9 @@ namespace PerfectBuild.Migrations
             modelBuilder.Entity("PerfectBuild.Models.Exercise", b =>
                 {
                     b.HasOne("PerfectBuild.Models.Unit", "Unit")
-                        .WithMany()
+                        .WithMany("Exercises")
                         .HasForeignKey("UnitId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("PerfectBuild.Models.Param", b =>
@@ -547,21 +547,22 @@ namespace PerfectBuild.Migrations
             modelBuilder.Entity("PerfectBuild.Models.TrainingPlanSpec", b =>
                 {
                     b.HasOne("PerfectBuild.Models.Exercise", "Exercise")
-                        .WithMany()
+                        .WithMany("TrainingPlanSpecs")
                         .HasForeignKey("ExId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("PerfectBuild.Models.TrainingPlanHead")
+                    b.HasOne("PerfectBuild.Models.TrainingPlanHead", "TrainingPlanHead")
                         .WithMany("TrainingPlanSpec")
-                        .HasForeignKey("TrainingPlanHeadId");
+                        .HasForeignKey("TrainingPlanHeadId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("PerfectBuild.Models.TrainingProgramHead", b =>
                 {
                     b.HasOne("PerfectBuild.Models.Category", "Category")
-                        .WithMany()
+                        .WithMany("TrainingProgramHeads")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("PerfectBuild.Models.User", "User")
                         .WithMany()
@@ -571,26 +572,27 @@ namespace PerfectBuild.Migrations
             modelBuilder.Entity("PerfectBuild.Models.TrainingProgramSpec", b =>
                 {
                     b.HasOne("PerfectBuild.Models.Exercise", "Exercise")
-                        .WithMany()
+                        .WithMany("TrainingProgramSpecs")
                         .HasForeignKey("ExId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("PerfectBuild.Models.TrainingProgramHead", "TrainingProgramHead")
-                        .WithMany("TrainingProgramSpec")
-                        .HasForeignKey("ProgramHeadId");
+                        .WithMany("TrainingProgramSpecs")
+                        .HasForeignKey("ProgramHeadId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("PerfectBuild.Models.TrainingSpec", b =>
                 {
                     b.HasOne("PerfectBuild.Models.Exercise", "Exercise")
-                        .WithMany()
+                        .WithMany("TrainingSpecs")
                         .HasForeignKey("ExId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("PerfectBuild.Models.TrainingHead", "TrainingHead")
                         .WithMany("TrainingSpec")
                         .HasForeignKey("HeadId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

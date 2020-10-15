@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PerfectBuild.Models
@@ -10,6 +11,8 @@ namespace PerfectBuild.Models
 
         [MaxLength(40), Required]
         public String Name { get; set; }
+
+        public virtual ICollection<TrainingProgramHead> TrainingProgramHeads { get; set; }
     }
 }
 

@@ -117,6 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ElementCannotBeChangedLong" xml:space="preserve">
+    <value>Элемент изменить невозможно. Поле(я) изменить невозможно, т.к. есть связанные таблицы в базе данных</value>
+  </data>
+  <data name="ElementCannotBeChangedShort" xml:space="preserve">
+    <value>Невозможно изменить элемент</value>
+  </data>
+  <data name="ElementCantBeDeletedLong" xml:space="preserve">
+    <value>Элемент удалить невозможно,т.к. есть связанная запись в базе данных</value>
+  </data>
+  <data name="ElementCantBeDeletedShort" xml:space="preserve">
+    <value>Невозможно удалить элемент</value>
+  </data>
+  <data name="ElementPresentinDBLong" xml:space="preserve">
+    <value>Элемент добавить невозможно,т.к. такая запись есть в базе данных</value>
+  </data>
+  <data name="ElementPresentinDBShort" xml:space="preserve">
+    <value>Невозможно добавить элемент</value>
+  </data>
   <data name="IncorrectWeightLong" xml:space="preserve">
     <value>Для упражнений с собственным весом, вес должен быть равен единице</value>
   </data>

@@ -11,6 +11,8 @@ namespace PerfectBuild.Models
         public int Id { get; set; }
 
         public int HeadId { get; set; }
+       
+        public TrainingPlanHead TrainingPlanHead { get; set; }
 
         public int ExId { get; set; }
 

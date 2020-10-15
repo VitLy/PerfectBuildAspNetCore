@@ -117,17 +117,35 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ElementCannotBeChangedLong" xml:space="preserve">
+    <value>Element cannot be changed. The field (s) cannot be changed, because there are related tables</value>
+  </data>
+  <data name="ElementCannotBeChangedShort" xml:space="preserve">
+    <value>Element cannot be changed</value>
+  </data>
+  <data name="ElementCantBeDeletedLong" xml:space="preserve">
+    <value>Element cannot be deleted, there is a related record in the database</value>
+  </data>
+  <data name="ElementCantBeDeletedShort" xml:space="preserve">
+    <value>It is no posible to delete element</value>
+  </data>
+  <data name="ElementIdNotFoundShort" xml:space="preserve">
+    <value>Element id not found</value>
+  </data>
+  <data name="ElementNotFoundLong" xml:space="preserve">
+    <value>Element is missing in database</value>
+  </data>
+  <data name="ElementPresentinDBLong" xml:space="preserve">
+    <value>Element cannot be added. Such an item already exists in the database</value>
+  </data>
+  <data name="ElementPresentinDBShort" xml:space="preserve">
+    <value>It is no posible to add element</value>
+  </data>
   <data name="IncorrectWeightLong" xml:space="preserve">
     <value>For exercises with ownweight mark the weight value must be one </value>
   </data>
   <data name="IncorrectWeightShort" xml:space="preserve">
     <value>Weight is not equal one</value>
-  </data>
-  <data name="UnitIdNotFoundShort" xml:space="preserve">
-    <value>Unit id not found</value>
-  </data>
-  <data name="UnitNotFoundLong" xml:space="preserve">
-    <value>Unit id not found</value>
   </data>
   <data name="UserHasNotFinishedExercisesLong" xml:space="preserve">
     <value>User has not completed exercises</value>

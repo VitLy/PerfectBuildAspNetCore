@@ -30,6 +30,6 @@ namespace PerfectBuild.Models
         [MaxLength(250)]
         public string Description { get; set; }
 
-        public virtual ICollection<TrainingProgramSpec> TrainingProgramSpec { get; set; }
+        public virtual ICollection<TrainingProgramSpec> TrainingProgramSpecs { get; set; }
     }
 }

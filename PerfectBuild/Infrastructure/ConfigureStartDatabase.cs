@@ -106,14 +106,18 @@ namespace PerfectBuild.Infrastructure
 
             void DeleteData()
             {
-                appContext.Exercises.RemoveRange(appContext.Exercises);
-                appContext.Params.RemoveRange(appContext.Params);
                 appContext.Profiles.RemoveRange(appContext.Profiles);
-                appContext.Categories.RemoveRange(appContext.Categories);
-                appContext.TrainingHeads.RemoveRange(appContext.TrainingHeads);
-                appContext.TrainingSpecs.RemoveRange(appContext.TrainingSpecs);
+                appContext.Params.RemoveRange(appContext.Params);
                 appContext.TrainingProgramHeads.RemoveRange(appContext.TrainingProgramHeads);
                 appContext.TrainingProgramSpecs.RemoveRange(appContext.TrainingProgramSpecs);
+                appContext.TrainingPlanHeads.RemoveRange(appContext.TrainingPlanHeads);
+                appContext.TrainingPlanSpecs.RemoveRange(appContext.TrainingPlanSpecs);
+                appContext.TrainingHeads.RemoveRange(appContext.TrainingHeads);
+                appContext.TrainingSpecs.RemoveRange(appContext.TrainingSpecs);
+                appContext.Categories.RemoveRange(appContext.Categories);
+                appContext.Exercises.RemoveRange(appContext.Exercises);
+                appContext.Units.RemoveRange(appContext.Units);
+
 
                 appContext.SaveChanges();
             }

@@ -1,6 +1,6 @@
 ﻿@model ListItemViewModel<Category>
 @inject IViewLocalizer Localizer
-
+<div asp-validation-summary="All"></div>
 <div class="container m-0 p-3">
     <div class="row p-1">
         <div class="col-8"><a asp-action="List" asp-route-sortBy="name"><strong>Name</strong> </a></div>

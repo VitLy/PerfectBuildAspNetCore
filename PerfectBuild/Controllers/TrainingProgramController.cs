@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 namespace PerfectBuild.Controllers
 {
     [Authorize(Roles = "Admin,User")]
+    [AutoValidateAntiforgeryToken]
     public class TrainingProgramController : Controller
     {
         readonly ApplicationContext appContext;
@@ -48,7 +49,7 @@ namespace PerfectBuild.Controllers
         private List<TrainingProgramHead> GetTrainigPrograms()
         {
             userId = userManager.GetUserId(HttpContext.User);
-            return appContext.TrainingProgramHeads.Where(x=>x.UserId==userId).Include(x => x.Category).Include(x=>x.TrainingProgramSpec).ToList();
+            return appContext.TrainingProgramHeads.Where(x=>x.UserId==userId).Include(x => x.Category).Include(x=>x.TrainingProgramSpecs).ToList();
         }
 
         [HttpGet]

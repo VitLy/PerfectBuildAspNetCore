@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 namespace PerfectBuild.Controllers
 {
     [Authorize(Roles = "Admin,User")]
+    [AutoValidateAntiforgeryToken]
     public class ProfileController : Controller
     {
         private readonly UserManager<User> userManager;

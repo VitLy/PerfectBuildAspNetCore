@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 namespace PerfectBuild.Controllers
 {
     [Authorize(Roles = "Admin")]
+    [AutoValidateAntiforgeryToken]
     public class AdminController : Controller
     {
         private readonly UserManager<User> userManager;
@@ -111,11 +112,11 @@ namespace PerfectBuild.Controllers
             }
             return RedirectToAction("UserList");
         }
+
         [HttpPost]
         public async Task<IActionResult> SeedData()
         {
-            //ToDo:Продумать повторное подтверждение на удаление данных и запаолнение перовначальными значениями
-            //ToDo:Обновить SeedData под новую структуру базы данных
+            //TODO:Продумать повторное подтверждение на удаление данных и заполнение первоначальными значениями
 
             ConfigureStartDatabase dbHandler = new ConfigureStartDatabase(HttpContext);
             dbHandler.Seed();
