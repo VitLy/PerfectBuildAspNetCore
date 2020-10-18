@@ -7,9 +7,9 @@ namespace PerfectBuild.Models
     {
         [Key]
         public int Id { get; set; }
-        [MaxLength(7),Required(AllowEmptyStrings =false)]       
+        [MaxLength(7, ErrorMessage="ShortNameMaxLength"),Required(ErrorMessage= "ShortNameRequired", AllowEmptyStrings =false)]       
         public string ShortName { get; set; }
-        [MaxLength(10)]
+        [MaxLength(10,ErrorMessage = "NameMaxLength")]
         public string Name { get; set; }
 
         public virtual ICollection<Exercise> Exercises { get; set; }

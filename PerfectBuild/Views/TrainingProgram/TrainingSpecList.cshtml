@@ -3,22 +3,25 @@
 @inject IViewLocalizer Localizer
 
 @{
+    Layout = "~/Views/Shared/_LayoutWithoutMenuAndLge.cshtml";
+ }
+
+@{
     int i = 1;
 }
 
 <div class="bg-primary text-white">
-    <h3>@Localizer["TittleTrainigProgramSpec"]:</h3>
     <h4>@Model.TrainingHeadName, @Model.TrainingHeadDate (@Model.TrainingHeadCategory)</h4>
-</div>
+</div><h5></h5>
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-1">#</div>
-        <div class="col-4">@LocalizerShared["Exercise"]</div>
-        <div class="col-1">@LocalizerShared["Set"]</div>
-        <div class="col-2">@LocalizerShared["Weight"]</div>
-        <div class="col-2">@LocalizerShared["Amount"]</div>
-        <div class="col-1"><a asp-action="AddModifyTrainingSpecLine" asp-route-headId="@Model.TrainingHeadId" asp-route-specId="0" class="btn btn-primary">@LocalizerShared["Add"]</a></div>
+        <div class="col-1"><h6>#</h6></div>
+        <div class="col-4"><h6>@LocalizerShared["Exercise"]</h6></div>
+        <div class="col-1"><h6>@LocalizerShared["Set"]</h6></div>
+        <div class="col-2"><h6>@LocalizerShared["Weight"]</h6></div>
+        <div class="col-2"><h6>@LocalizerShared["Amount"]</h6></div>
+        <div class="col-1"><a asp-action="AddModifyTrainingSpecLine" asp-route-headId="@Model.TrainingHeadId" asp-route-specId="0" class="btn btn-primary">@LocalizerShared["AddButton"]</a></div>
         <div class="col-1"></div>
     </div>
 
@@ -30,8 +33,8 @@
             <div class="col-1">@spec.Set</div>
             <div class="col-2">@spec.Weight</div>
             <div class="col-2">@spec.Amount</div>
-            <div class="col-1"><a class="btn btn-primary" asp-action="AddModifyTrainingSpecLine" asp-route-headId="@Model.TrainingHeadId" asp-route-specId="@spec.Id">@LocalizerShared["Modify"]</a></div>
-            <div class="col-1"><a class="btn btn-danger" asp-action="DeleteTrainingSpecLine" asp-route-headId="@Model.TrainingHeadId" asp-route-specId="@spec.Id">@LocalizerShared["Delete"]</a></div>
+            <div class="col-1"><a class="btn btn-primary" asp-action="AddModifyTrainingSpecLine" asp-route-headId="@Model.TrainingHeadId" asp-route-specId="@spec.Id">@LocalizerShared["ModifyButton"]</a></div>
+            <div class="col-1"><a class="btn btn-danger" asp-action="DeleteTrainingSpecLine" asp-route-headId="@Model.TrainingHeadId" asp-route-specId="@spec.Id">@LocalizerShared["DeleteButton"]</a></div>
         }
     </div>
     <a  class="btn btn-warning" asp-action="AddModifyTrainingSpecLine">@LocalizerShared["CloseButton"]</a>

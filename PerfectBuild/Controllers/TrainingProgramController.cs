@@ -70,7 +70,7 @@ namespace PerfectBuild.Controllers
         [HttpGet]
         public IActionResult AddModifyTrainingProgram(int id = 0)
         {
-            TrainigProgramHeadViewModel trHeadViewModel = new TrainigProgramHeadViewModel
+            TrainingProgramHeadViewModel trHeadViewModel = new TrainingProgramHeadViewModel
             {
                 Date=DateTime.Now.ToLocalTime(),
                 Categories = appContext.Categories.ToList(),
@@ -88,7 +88,7 @@ namespace PerfectBuild.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddModifyTrainingProgram(TrainigProgramHeadViewModel viewModel)
+        public async Task<IActionResult> AddModifyTrainingProgram(TrainingProgramHeadViewModel viewModel)
         {
             TrainingProgramHead trPrHead = new TrainingProgramHead();
             userId = userManager.GetUserId(HttpContext.User);

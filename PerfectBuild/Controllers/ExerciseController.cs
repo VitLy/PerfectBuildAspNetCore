@@ -24,7 +24,7 @@ namespace PerfectBuild.Controllers
         bool nameAscend = true;
         bool descriptionAscend = true;
 
-        public ExerciseController(ApplicationContext appContext, IStringLocalizer<SharedErrorMessages> localizerErrorMessage)
+        public ExerciseController(ApplicationContext appContext, IStringLocalizer<SharedErrorMessages> localizerErrorMessage, IStringLocalizer<SharedResource> localizer)
         {
             this.appContext = appContext;
             this.localizerErrorMessage = localizerErrorMessage;
@@ -78,12 +78,14 @@ namespace PerfectBuild.Controllers
         public IActionResult Add()
         {
             var units = appContext.Units.ToList();
+            ViewBag.Tittle = "AddExercise";
             return View("Change", new ChangeExerciseViewModel { Units = units });
         }
 
         [HttpGet]
         public IActionResult Modify(int id)
         {
+            ViewBag.Tittle = "ModifyExercise";
             Exercise exercise = appContext.Exercises.Include(x => x.Unit).Where(x => x.Id.Equals(id)).FirstOrDefault();
             var units = appContext.Units.ToList();
             var viewModel = new ChangeExerciseViewModel

@@ -10,17 +10,18 @@ namespace PerfectBuild.Models.ViewModels
         public DayOfWeek DayTraining { get; set; }
 
         public int HeadId { get; set; }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public int ExerciseId { get; set; }
-        [Required]
-        [Range(1, 255)]
+        [Range(1, 255, ErrorMessage = "SetRange")]
+        [Required(ErrorMessage = "SetRequired")]
         public byte Set { get; set; }
-        [Required]
-        [Range(0.1f, 300f)]
+        [Range(0.1f, 300f, ErrorMessage = "WeightRange")]
+        [Required(ErrorMessage = "WeightRequired")]
         public float Weight { get; set; }
-        [Required]
-        [Range(1, 255)]
+        [Range(1, 255, ErrorMessage = "AmountRange")]
+        [Required(ErrorMessage = "AmountRequired")]
         public byte Amount { get; set; }
         public int Order { get; set; }
     }

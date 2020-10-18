@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddExercise" xml:space="preserve">
+    <value>Add Exercise</value>
+  </data>
+  <data name="ChooseExerciseUnit" xml:space="preserve">
+    <value>Choose exercise unit</value>
+  </data>
+  <data name="ModifyExercise" xml:space="preserve">
+    <value>Modify Exercise</value>
+  </data>
   <data name="OwnWeight" xml:space="preserve">
     <value>Do with own weigth</value>
   </data>

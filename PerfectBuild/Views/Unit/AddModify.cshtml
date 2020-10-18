@@ -6,18 +6,10 @@
 @inject IHtmlLocalizer<SharedResource> LocalizerShared
 @inject IViewLocalizer Localizer
 
-<!DOCTYPE html>
+@{ 
+    Layout = "~/Views/Shared/_LayoutWithoutMenuAndLge.cshtml";
+}
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Tittle</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"
-          asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
-          asp-fallback-test-class="hidden" asp-fallback-test-property="visibility" asp-fallback-test-value="hidden" />
-    <script src="https://kit.fontawesome.com/c0bb6a9e00.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="~/css/basestyle.css" />
-</head>
 <body>
     <div class="bg-primary text-white"><h3>@ViewBag.Tittle</h3></div>
     <div class="validation" asp-validation-summary="All"> </div>
@@ -26,17 +18,16 @@
             <span asp-validation-for="ShortName"></span>
             <label for="ShortName">@Localizer["UnitShortName"]</label>
             <input name="Id" value="@Model.Id" hidden />
-            <input asp-for="@Model.Name" value="@Model.ShortName" class="form-control-sm" />
+            <input asp-for="@Model.ShortName" value="@Model.ShortName" class="form-control" />
         </div>
 
         <div class="form-group">
             <span asp-validation-for="Name"></span>
             <label for="Name">@Localizer["UnitLongName"]</label>
-            <input asp-for="@Model.ShortName" value="@Model.Name" class="form-control-sm" />
+            <input asp-for="@Model.Name" value="@Model.Name" class="form-control" />
         </div>
 
         <button type="submit" class="btn btn-primary">@LocalizerShared["Ok"]</button>
-        <a class="btn btn-secondary" asp-action="List">@LocalizerShared["Cancel"]</a>
+        <a class="btn btn-danger" asp-action="List">@LocalizerShared["Cancel"]</a>
     </form>
 </body>
-</html>

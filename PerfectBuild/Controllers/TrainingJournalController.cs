@@ -161,6 +161,7 @@ namespace PerfectBuild.Controllers
 
                 if (id != 0) //existed Line
                 {
+                    ViewBag.Tittle = "Modify";
                     var spec = appContext.TrainingSpecs.Include(x => x.Exercise).Where(x => x.Id == id).ToList().FirstOrDefault();
                     model.Id = id;
                     model.Name = spec.Exercise.Name;
@@ -171,6 +172,7 @@ namespace PerfectBuild.Controllers
                 }
                 else //new Line
                 {
+                    ViewBag.Tittle = "Add";
                     return View(model);
                 }
             }
@@ -227,208 +229,208 @@ namespace PerfectBuild.Controllers
             {
                 viewModel.Exercises = exercises;
             }
-                return View(viewModel);
+            return View(viewModel);
         }
 
-    [HttpGet]
-    public async Task<IActionResult> DeleteDocument(int headId)
-    {
-        if (headId != 0)
+        [HttpGet]
+        public async Task<IActionResult> DeleteDocument(int headId)
         {
-            using (var transaction = appContext.Database.BeginTransaction())
+            if (headId != 0)
             {
-                try
+                using (var transaction = appContext.Database.BeginTransaction())
                 {
-                    var specs = appContext.TrainingSpecs.Where(x => x.HeadId.Equals(headId));
-                    if (specs.Count() != 0)
+                    try
                     {
-                        appContext.TrainingSpecs.RemoveRange(specs);
+                        var specs = appContext.TrainingSpecs.Where(x => x.HeadId.Equals(headId));
+                        if (specs.Count() != 0)
+                        {
+                            appContext.TrainingSpecs.RemoveRange(specs);
+                            await appContext.SaveChangesAsync();
+                        }
+                        var head = appContext.TrainingHeads.Where(x => x.Id.Equals(headId));
+                        appContext.TrainingHeads.RemoveRange(head);
                         await appContext.SaveChangesAsync();
+                        transaction.Commit();
                     }
-                    var head = appContext.TrainingHeads.Where(x => x.Id.Equals(headId));
-                    appContext.TrainingHeads.RemoveRange(head);
-                    await appContext.SaveChangesAsync();
-                    transaction.Commit();
-                }
-                catch
-                {
-                    ModelState.AddModelError("Error transaction delete document", "Error transaction delete document");
-                }
-            }
-        }
-        return RedirectToAction("List");
-    }
-
-    [HttpGet]
-    public async Task<IActionResult> LineUp(int headId, int specId)
-    {
-        var lines = appContext.TrainingSpecs.Where(x => x.HeadId.Equals(headId))?.ToList();
-        var line = lines?.Where(x => x.Id.Equals(specId))?.FirstOrDefault();
-        if (lines != null & line != null)
-        {
-            documentSpecHandler.FillDocument(lines);
-            lines = (List<TrainingSpec>)documentSpecHandler.MoveLineUp(line);
-            if (lines != null)
-            {
-                await SaveMovedLine(lines);
-            };
-        }
-        return RedirectToAction("ViewTrainingSpecs", new { headId = headId });
-    }
-
-    [HttpGet]
-    public async Task<IActionResult> LineDown(int headId, int specId)
-    {
-        var lines = appContext.TrainingSpecs.Where(x => x.HeadId.Equals(headId))?.ToList();
-        var line = lines?.Where(x => x.Id.Equals(specId))?.FirstOrDefault();
-        if (lines != null & line != null)
-        {
-            documentSpecHandler.FillDocument(lines);
-            lines = (List<TrainingSpec>)documentSpecHandler.MoveLineDown(line);
-            if (lines != null)
-            {
-                await SaveMovedLine(lines);
-            };
-        }
-        return RedirectToAction("ViewTrainingSpecs", new { headId = headId });
-    }
-
-    [HttpGet]
-    public async Task<IActionResult> DeleteLine(int id, int headId)
-    {
-        if (headId != 0 && id != 0)
-        {
-            var spec = appContext.TrainingSpecs.Find(id);
-            if (spec.HeadId.Equals(headId))
-            {
-                appContext.TrainingSpecs.Remove(spec);
-                await appContext.SaveChangesAsync();
-            }
-        }
-        return RedirectToAction("ViewTrainingSpecs", new { headId });
-    }
-
-    [HttpGet]
-    public async Task<IActionResult> Clear(int headId)
-    {
-        if (headId != 0)
-        {
-            var specs = appContext.TrainingSpecs.Where(x => x.HeadId.Equals(headId));
-            if (specs.Count() != 0)
-            {
-                appContext.TrainingSpecs.RemoveRange(specs);
-                await appContext.SaveChangesAsync();
-            }
-        }
-        return RedirectToAction("ViewTrainingSpecs", new { headId });
-    }
-
-    [HttpGet]
-    public IActionResult AddExFromTrainPlan(int headId)
-    {
-        if (headId != 0)
-        {
-            var userId = userManager.GetUserId(HttpContext.User);
-            var trainingDays = dayConverter.ByteToDays(appContext.TrainingPlanHeads.Where(x => x.UserId.Equals(userId)).Select(x => x.TrainingDays).ToList());
-
-            var model = new AddExercisesFromPlanViewModel
-            {
-                TrainingDays = trainingDays,
-                HeadId = headId,
-            };
-            return View(model);
-        }
-        return RedirectToAction("Index", "Home");
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> AddExFromTrainPlan(AddExercisesFromPlanViewModel model)
-    {
-        if (model != null & model.HeadId != 0)
-        {
-            var trainingPlanSpecs = appContext.TrainingPlanSpecs.Where(x => x.HeadId.Equals(model.PlanHeadId)).ToList();
-            var userId = userManager.GetUserId(HttpContext.User);
-            int headId = model.HeadId;
-            byte SetNum = 1;
-            List<TrainingSpec> lines;
-            if (trainingPlanSpecs.Count != 0)
-            {
-                lines = appContext.TrainingSpecs.Where(x => x.HeadId.Equals(model.HeadId)).ToList();
-                if (lines.Count != 0)
-                {
-                    SetNum = Convert.ToByte(lines.Max(x => x.Set) + 1);
-                }
-
-                documentSpecHandler.FillDocument(lines);
-                int lastOrderNum = documentSpecHandler.GetLastOrder();
-                int step = documentSpecHandler.GetOrderStep();
-
-                lines = new List<TrainingSpec>();
-                foreach (var trainingPlanLine in trainingPlanSpecs)
-                {
-                    lines.Add(new TrainingSpec
+                    catch
                     {
-                        HeadId = headId,
-                        Set = SetNum,
-                        ExId = trainingPlanLine.ExId,
-                        Weight = trainingPlanLine.Weight,
-                        Amount = trainingPlanLine.Amount,
-                        Order = lastOrderNum += step
-                    });
+                        ModelState.AddModelError("Error transaction delete document", "Error transaction delete document");
+                    }
                 }
-                await appContext.TrainingSpecs.AddRangeAsync(lines).ConfigureAwait(false);
-                await appContext.SaveChangesAsync().ConfigureAwait(false);
-                return RedirectToAction("ViewTrainingSpecs", new { headId = headId });
             }
+            return RedirectToAction("List");
         }
-        return RedirectToAction("Index", "Home");
-    }
 
-    [HttpGet]
-    public IActionResult GetPlanSpecJson(DayOfWeek? day = null)
-    {
-        if (day != null)
+        [HttpGet]
+        public async Task<IActionResult> LineUp(int headId, int specId)
         {
-            var userId = userManager.GetUserId(HttpContext.User);
-            var specPlan = appContext.TrainingPlanHeads.Where(x => x.TrainingDays.Equals(dayConverter.DaysToByte(day.Value)) & x.UserId.Equals(userId))
-                .Join(appContext.TrainingPlanSpecs.Include(x => x.Exercise),
-                head => head.Id,
-                spec => spec.HeadId,
-                (head, spec) => new { spec.Id, Exercise = spec.Exercise.Name, spec.Set, spec.Weight, spec.Amount, spec.Order });
-
-            return Json(specPlan);
-        }
-        else throw new ArgumentNullException(nameof(day));
-    }
-
-    [HttpGet]
-    public IActionResult GetPlanHeadJson(DayOfWeek? day = null)
-    {
-        if (day != null)
-        {
-            var userId = userManager.GetUserId(HttpContext.User);
-            var headPlan = appContext.TrainingPlanHeads.Where(x => x.TrainingDays.Equals(dayConverter.DaysToByte(day.Value)) & x.UserId.Equals(userId)).Select(selector => new
+            var lines = appContext.TrainingSpecs.Where(x => x.HeadId.Equals(headId))?.ToList();
+            var line = lines?.Where(x => x.Id.Equals(specId))?.FirstOrDefault();
+            if (lines != null & line != null)
             {
-                id = selector.Id,
-            }).FirstOrDefault();
-
-
-            return Json(headPlan);
+                documentSpecHandler.FillDocument(lines);
+                lines = (List<TrainingSpec>)documentSpecHandler.MoveLineUp(line);
+                if (lines != null)
+                {
+                    await SaveMovedLine(lines);
+                };
+            }
+            return RedirectToAction("ViewTrainingSpecs", new { headId = headId });
         }
-        else throw new ArgumentException(nameof(day));
-    }
 
-    #region private methods
-    private async Task SaveMovedLine(IEnumerable<TrainingSpec> lines)
-    {
-        appContext.TrainingSpecs.UpdateRange(lines);
-        await appContext.SaveChangesAsync();
-    }
+        [HttpGet]
+        public async Task<IActionResult> LineDown(int headId, int specId)
+        {
+            var lines = appContext.TrainingSpecs.Where(x => x.HeadId.Equals(headId))?.ToList();
+            var line = lines?.Where(x => x.Id.Equals(specId))?.FirstOrDefault();
+            if (lines != null & line != null)
+            {
+                documentSpecHandler.FillDocument(lines);
+                lines = (List<TrainingSpec>)documentSpecHandler.MoveLineDown(line);
+                if (lines != null)
+                {
+                    await SaveMovedLine(lines);
+                };
+            }
+            return RedirectToAction("ViewTrainingSpecs", new { headId = headId });
+        }
 
-    private bool IsHeadHasSpec(int headId)
-    {
-        return appContext.TrainingSpecs.Where(x => x.HeadId.Equals(headId)).Any();
+        [HttpGet]
+        public async Task<IActionResult> DeleteLine(int id, int headId)
+        {
+            if (headId != 0 && id != 0)
+            {
+                var spec = appContext.TrainingSpecs.Find(id);
+                if (spec.HeadId.Equals(headId))
+                {
+                    appContext.TrainingSpecs.Remove(spec);
+                    await appContext.SaveChangesAsync();
+                }
+            }
+            return RedirectToAction("ViewTrainingSpecs", new { headId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Clear(int headId)
+        {
+            if (headId != 0)
+            {
+                var specs = appContext.TrainingSpecs.Where(x => x.HeadId.Equals(headId));
+                if (specs.Count() != 0)
+                {
+                    appContext.TrainingSpecs.RemoveRange(specs);
+                    await appContext.SaveChangesAsync();
+                }
+            }
+            return RedirectToAction("ViewTrainingSpecs", new { headId });
+        }
+
+        [HttpGet]
+        public IActionResult AddExFromTrainPlan(int headId)
+        {
+            if (headId != 0)
+            {
+                var userId = userManager.GetUserId(HttpContext.User);
+                var trainingDays = dayConverter.ByteToDays(appContext.TrainingPlanHeads.Where(x => x.UserId.Equals(userId)).Select(x => x.TrainingDays).ToList());
+
+                var model = new AddExercisesFromPlanViewModel
+                {
+                    TrainingDays = trainingDays,
+                    HeadId = headId,
+                };
+                return View(model);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddExFromTrainPlan(AddExercisesFromPlanViewModel model)
+        {
+            if (model != null & model.HeadId != 0)
+            {
+                var trainingPlanSpecs = appContext.TrainingPlanSpecs.Where(x => x.HeadId.Equals(model.PlanHeadId)).ToList();
+                var userId = userManager.GetUserId(HttpContext.User);
+                int headId = model.HeadId;
+                byte SetNum = 1;
+                List<TrainingSpec> lines;
+                if (trainingPlanSpecs.Count != 0)
+                {
+                    lines = appContext.TrainingSpecs.Where(x => x.HeadId.Equals(model.HeadId)).ToList();
+                    if (lines.Count != 0)
+                    {
+                        SetNum = Convert.ToByte(lines.Max(x => x.Set) + 1);
+                    }
+
+                    documentSpecHandler.FillDocument(lines);
+                    int lastOrderNum = documentSpecHandler.GetLastOrder();
+                    int step = documentSpecHandler.GetOrderStep();
+
+                    lines = new List<TrainingSpec>();
+                    foreach (var trainingPlanLine in trainingPlanSpecs)
+                    {
+                        lines.Add(new TrainingSpec
+                        {
+                            HeadId = headId,
+                            Set = SetNum,
+                            ExId = trainingPlanLine.ExId,
+                            Weight = trainingPlanLine.Weight,
+                            Amount = trainingPlanLine.Amount,
+                            Order = lastOrderNum += step
+                        });
+                    }
+                    await appContext.TrainingSpecs.AddRangeAsync(lines).ConfigureAwait(false);
+                    await appContext.SaveChangesAsync().ConfigureAwait(false);
+                    return RedirectToAction("ViewTrainingSpecs", new { headId = headId });
+                }
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult GetPlanSpecJson(DayOfWeek? day = null)
+        {
+            if (day != null)
+            {
+                var userId = userManager.GetUserId(HttpContext.User);
+                var specPlan = appContext.TrainingPlanHeads.Where(x => x.TrainingDays.Equals(dayConverter.DaysToByte(day.Value)) & x.UserId.Equals(userId))
+                    .Join(appContext.TrainingPlanSpecs.Include(x => x.Exercise),
+                    head => head.Id,
+                    spec => spec.HeadId,
+                    (head, spec) => new { spec.Id, Exercise = spec.Exercise.Name, spec.Set, spec.Weight, spec.Amount, spec.Order });
+
+                return Json(specPlan);
+            }
+            else throw new ArgumentNullException(nameof(day));
+        }
+
+        [HttpGet]
+        public IActionResult GetPlanHeadJson(DayOfWeek? day = null)
+        {
+            if (day != null)
+            {
+                var userId = userManager.GetUserId(HttpContext.User);
+                var headPlan = appContext.TrainingPlanHeads.Where(x => x.TrainingDays.Equals(dayConverter.DaysToByte(day.Value)) & x.UserId.Equals(userId)).Select(selector => new
+                {
+                    id = selector.Id,
+                }).FirstOrDefault();
+
+
+                return Json(headPlan);
+            }
+            else throw new ArgumentException(nameof(day));
+        }
+
+        #region private methods
+        private async Task SaveMovedLine(IEnumerable<TrainingSpec> lines)
+        {
+            appContext.TrainingSpecs.UpdateRange(lines);
+            await appContext.SaveChangesAsync();
+        }
+
+        private bool IsHeadHasSpec(int headId)
+        {
+            return appContext.TrainingSpecs.Where(x => x.HeadId.Equals(headId)).Any();
+        }
+        #endregion
     }
-    #endregion
-}
 }

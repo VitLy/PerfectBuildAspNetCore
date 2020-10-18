@@ -121,7 +121,7 @@
     <value>Добавление единицы измерения</value>
   </data>
   <data name="ModifyUnitTittle" xml:space="preserve">
-    <value>Модификация единицы измерения</value>
+    <value>Изменение единицы измерения</value>
   </data>
   <data name="UnitList" xml:space="preserve">
     <value>Список единиц измерения</value>

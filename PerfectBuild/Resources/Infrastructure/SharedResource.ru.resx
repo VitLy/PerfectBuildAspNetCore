@@ -204,11 +204,17 @@
   <data name="Height" xml:space="preserve">
     <value>Рост</value>
   </data>
+  <data name="HomeButton" xml:space="preserve">
+    <value>Домой</value>
+  </data>
   <data name="ModifyButton" xml:space="preserve">
     <value>Изменить</value>
   </data>
   <data name="Monday" xml:space="preserve">
     <value>Понедельник</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Имя</value>
   </data>
   <data name="OkButton" xml:space="preserve">
     <value>Ok</value>
@@ -236,6 +242,9 @@
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Настройки</value>
+  </data>
+  <data name="ShowButton" xml:space="preserve">
+    <value>Показать</value>
   </data>
   <data name="ShowStatisticsButton" xml:space="preserve">
     <value>Показать статистику</value>

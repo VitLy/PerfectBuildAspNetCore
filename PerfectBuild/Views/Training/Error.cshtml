@@ -1,3 +1,6 @@
-﻿<div class="bg-primary text-white"><h1>Errors</h1></div>
+﻿@inject IHtmlLocalizer<SharedErrorMessages> sharedErrorMesageLocalizer
+@inject IHtmlLocalizer<SharedResource> sharedLocalizer
+
+<div class="bg-primary text-white"><h1>@sharedErrorMesageLocalizer["Error"]</h1></div>
 <div class="validation" asp-validation-summary="All"> </div>
-<a asp-action="Index" asp-controller="Home" class="btn btn-danger" >Back to main menu</a>
+<a asp-action="Index" asp-controller="Home" class="btn btn-danger" >@sharedLocalizer["HomeButton"]</a>

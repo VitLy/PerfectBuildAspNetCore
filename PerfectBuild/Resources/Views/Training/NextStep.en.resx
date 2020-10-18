@@ -132,4 +132,7 @@
   <data name="TittleTraining" xml:space="preserve">
     <value>Training is in progress</value>
   </data>
+  <data name="TrainingCancel" xml:space="preserve">
+    <value>Cancel the training -</value>
+  </data>
 </root>

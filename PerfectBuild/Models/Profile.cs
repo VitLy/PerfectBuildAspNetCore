@@ -20,22 +20,24 @@ namespace PerfectBuild.Models
         [ForeignKey("UserId")]
         public User User { get; set; }
 
-        [MaxLength(15), Required]
+        [MaxLength(15,ErrorMessage ="FNameMaxLength"), Required(ErrorMessage ="FNameRequired")]
         public string FName { get; set; }
 
-        [MaxLength(15), Required]
+        [MaxLength(15,ErrorMessage ="LNameMaxLength"), Required(ErrorMessage ="LNameRequired")]
         public string LName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="SexRequired")]
         public Sex Sex { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="DayBirthRequired")]
         public DateTime DayBirth { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="HeightRequired")]
+        [Range(50,300,ErrorMessage ="HeightRange")]
         public byte Height { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="WeightRequired")]
+        [Range(20,600,ErrorMessage ="WeightRange")]
         public float Weight { get; set; }
     }
 }

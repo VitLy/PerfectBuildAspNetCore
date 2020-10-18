@@ -9,7 +9,7 @@ namespace PerfectBuild.Models
         [Key]
         public int Id { get; set; }
 
-        [MaxLength(40), Required]
+        [MaxLength(40,ErrorMessage ="MaxLength"), Required(ErrorMessage ="NameRequired")]
         public String Name { get; set; }
 
         public virtual ICollection<TrainingProgramHead> TrainingProgramHeads { get; set; }

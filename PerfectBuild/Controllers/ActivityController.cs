@@ -52,37 +52,45 @@ namespace PerfectBuild.Controllers
         [HttpPost]
         public async Task<IActionResult> DailyParameters(ParametersViewModel viewModel)
         {
-            var user = HttpContext.User;
-            string userId = userManager.GetUserId(user);
-
-            var userParam = appContext.Params.Where(x => x.UserId.Equals(userId) & x.Date.Date.Equals(viewModel.Date.ToUniversalTime().Date)).FirstOrDefault();
-
-            if (userParam == null)
+            if (ModelState.IsValid)
             {
-                await appContext.Params.AddAsync(
-                    new Param
-                    {
-                        UserId = userId,
-                        Date = viewModel.Date.ToUniversalTime(),
-                        Weight = viewModel.Weight,
-                        Breast = viewModel.Breast,
-                        Waist = viewModel.Waist,
-                        Buttock = viewModel.Pelvis,
-                        Thigh = viewModel.Thigh
-                    });
+
+                var user = HttpContext.User;
+                string userId = userManager.GetUserId(user);
+
+                var userParam = appContext.Params.Where(x => x.UserId.Equals(userId) & x.Date.Date.Equals(viewModel.Date.ToUniversalTime().Date)).FirstOrDefault();
+
+                if (userParam == null)
+                {
+                    await appContext.Params.AddAsync(
+                        new Param
+                        {
+                            UserId = userId,
+                            Date = viewModel.Date.ToUniversalTime(),
+                            Weight = viewModel.Weight,
+                            Breast = viewModel.Breast,
+                            Waist = viewModel.Waist,
+                            Buttock = viewModel.Pelvis,
+                            Thigh = viewModel.Thigh
+                        });
+                }
+                else
+                {
+                    userParam.Date = viewModel.Date.ToUniversalTime();
+                    userParam.Weight = viewModel.Weight;
+                    userParam.Breast = viewModel.Breast;
+                    userParam.Waist = viewModel.Waist;
+                    userParam.Buttock = viewModel.Pelvis;
+                    userParam.Thigh = viewModel.Thigh;
+                    appContext.Params.Update(userParam);
+                }
+                await appContext.SaveChangesAsync();
+                return RedirectToAction("BodyStat", "Statistic");
             }
-            else
+            else 
             {
-                userParam.Date = viewModel.Date.ToUniversalTime();
-                userParam.Weight = viewModel.Weight;
-                userParam.Breast = viewModel.Breast;
-                userParam.Waist = viewModel.Waist;
-                userParam.Buttock = viewModel.Pelvis;
-                userParam.Thigh = viewModel.Thigh;
-                appContext.Params.Update(userParam);
+                return View(viewModel);
             }
-            await appContext.SaveChangesAsync();
-            return View(viewModel);
         }
     }
 }

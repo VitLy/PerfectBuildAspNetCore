@@ -141,11 +141,26 @@
   <data name="ElementPresentinDBShort" xml:space="preserve">
     <value>It is no posible to add element</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
   <data name="IncorrectWeightLong" xml:space="preserve">
     <value>For exercises with ownweight mark the weight value must be one </value>
   </data>
   <data name="IncorrectWeightShort" xml:space="preserve">
     <value>Weight is not equal one</value>
+  </data>
+  <data name="ProgramPlanNotFoundLong" xml:space="preserve">
+    <value>Program plan for today not  found</value>
+  </data>
+  <data name="ProgramPlanNotFoundShort" xml:space="preserve">
+    <value>Program plan not  found</value>
+  </data>
+  <data name="TrainingAlreadyExistsLong" xml:space="preserve">
+    <value>Training already exists. To change it, pass to the training journal</value>
+  </data>
+  <data name="TrainingAlreadyExistsShort" xml:space="preserve">
+    <value>Training for today already exists</value>
   </data>
   <data name="UserHasNotFinishedExercisesLong" xml:space="preserve">
     <value>User has not completed exercises</value>

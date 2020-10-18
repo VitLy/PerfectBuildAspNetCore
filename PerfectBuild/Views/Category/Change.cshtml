@@ -1,11 +1,23 @@
 ﻿@model Category
+@inject IHtmlLocalizer<SharedResource> LocalizerShared
+@inject IViewLocalizer Localizer
 
-<form method="post" class="form-group" asp-action="Change">
+@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenuAndLge.cshtml";
+}
+
+@if (ViewBag.Tittle != null)
+{
+    <div class="bg-primary text-white"><h3>@Localizer[ViewBag.Tittle]</h3></div>
+}
+
+<form method="post" asp-action="Change">
     <div class="form-group">
+        <span asp-validation-for="Name"></span>
         <input asp-for="@Model.Id" hidden="hidden" />
-        <label asp-for="@Model.Name"></label>
-        <input asp-for="@Model.Name" value="@Model.Name" />
+        <label asp-for="@Model.Name">@LocalizerShared["Category"]</label>
+        <input class="form-control"  asp-for="@Model.Name" value="@Model.Name" />
     </div>
-    <button class="btn btn-primary">Ok</button>  @*Привязать к локализации*@
-    <button class="btn btn-secondary">Cancel</button>  @*Привязать к локализации*@
+    <button class="btn btn-primary">@LocalizerShared["OkButton"]</button>
+    <a class="btn btn-danger" asp-action="list" asp-controller="Category">@LocalizerShared["CancelButton"]</a>
 </form>

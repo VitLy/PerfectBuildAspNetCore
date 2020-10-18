@@ -118,6 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddingExerciseToTrainingJournal" xml:space="preserve">
-    <value>Добавить упражнение в журнал</value>
+    <value>Добавление упражнений в журнал</value>
+  </data>
+  <data name="ModifyExerciseInTrainingJournal" xml:space="preserve">
+    <value>Изменение упражнения в журнале</value>
   </data>
 </root>

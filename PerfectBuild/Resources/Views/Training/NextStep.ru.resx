@@ -132,4 +132,7 @@
   <data name="TittleTraining" xml:space="preserve">
     <value>Идет тренировка</value>
   </data>
+  <data name="TrainingCancel" xml:space="preserve">
+    <value>Отменить тренировку</value>
+  </data>
 </root>

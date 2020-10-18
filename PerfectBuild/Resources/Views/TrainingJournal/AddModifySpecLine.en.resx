@@ -120,4 +120,7 @@
   <data name="AddingExerciseToTrainingJournal" xml:space="preserve">
     <value>Adding exercise to training journal</value>
   </data>
+  <data name="ModifyExerciseInTrainingJournal" xml:space="preserve">
+    <value>Modifying exercise in trainig journal</value>
+  </data>
 </root>

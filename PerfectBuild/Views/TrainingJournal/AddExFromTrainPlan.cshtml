@@ -6,6 +6,10 @@
 @inject IHtmlLocalizer<SharedResource> LocalizerShared
 @inject IViewLocalizer Localizer
 
+@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenuAndLge.cshtml";
+}
+
 <!DOCTYPE html>
 
 <html>
@@ -33,7 +37,7 @@
     <form asp-action="AddExFromTrainPlan" method="post">
         <div class="container-fluid  m-1 p-1">
             <input asp-for="HeadId" , value="@Model.HeadId" hidden />
-            <input id="planId" asp-for="PlanHeadId" hidden  />
+            <input id="planId" asp-for="PlanHeadId" hidden />
 
 
             <div class="row">

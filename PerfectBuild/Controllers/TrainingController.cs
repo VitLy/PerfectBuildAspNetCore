@@ -14,6 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using PerfectBuild.Infrastructure;
 
 namespace PerfectBuild.Controllers
 {
@@ -26,13 +27,15 @@ namespace PerfectBuild.Controllers
         private readonly ApplicationContext appContext;
         private readonly UserManager<User> userManager;
         private readonly ITrainigDayConverter dayConverter;
+        private readonly IStringLocalizer<SharedErrorMessages> sharedErrorMessageLocalizer;
 
         public TrainingController(ApplicationContext appContext, UserManager<User> userManager, ITrainigDayConverter dayConverter,
-            IStringLocalizer<TrainingController> localizer, DocumentSpecHandler<TrainingPlanSpec> specHandler)
+            IStringLocalizer<SharedErrorMessages> sharedErrorMessageLocalizer)
         {
             this.appContext = appContext;
             this.userManager = userManager;
             this.dayConverter = dayConverter;
+            this.sharedErrorMessageLocalizer = sharedErrorMessageLocalizer;
         }
 
         [HttpGet]
@@ -47,13 +50,13 @@ namespace PerfectBuild.Controllers
 
             if (trainingPlan == null)
             {
-                ModelState.AddModelError("Program plan not found ", $"Personal program plan for {currentDay} not found");
+                ModelState.AddModelError(sharedErrorMessageLocalizer["ProgramPlanNotFoundShort"], sharedErrorMessageLocalizer["ProgramPlanNotFoundLong"]);
                 return View("Error");
             };
 
             if (appContext.TrainingHeads.Where(x => x.TrainingPlanHeadId.Equals(trainingPlan.Id)).FirstOrDefault() != null)
             {
-                ModelState.AddModelError("Training already exists", "Training already exists. To change it, pass to the training journal");
+                ModelState.AddModelError(sharedErrorMessageLocalizer["TrainingAlreadyExistsShort"], sharedErrorMessageLocalizer["TrainingAlreadyExistsLong"]);
                 return View("Error");
             }
 
@@ -100,7 +103,7 @@ namespace PerfectBuild.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("TrainingPlan not Found", "TrainingPlan not Found");
+                    ModelState.AddModelError(sharedErrorMessageLocalizer["ProgramPlanNotFoundShort"], sharedErrorMessageLocalizer["ProgramPlanNotFoundLong"]);
                 }
             }
             else
@@ -111,7 +114,7 @@ namespace PerfectBuild.Controllers
         }
 
         [HttpGet]
-        public IActionResult NextStep(int currentSpecPlanId = 0, int trainingPlanHeadId = 0, int trainingHeadId = 0,bool isFinishedTraining=false)
+        public IActionResult NextStep(int currentSpecPlanId = 0, int trainingPlanHeadId = 0, int trainingHeadId = 0, bool isFinishedTraining = false)
         {
             if (currentSpecPlanId == 0)
             {
@@ -142,7 +145,7 @@ namespace PerfectBuild.Controllers
                         ExerciseDescription = currentSpecPlanLine.Exercise.Description,
                         Amount = currentSpecPlanLine.Amount,
                         Order = currentSpecPlanLine.Order,
-                        IsFinishedTraining=isFinishedTraining
+                        IsFinishedTraining = isFinishedTraining
                     };
                 }
                 else
@@ -213,7 +216,7 @@ namespace PerfectBuild.Controllers
                 var nextSpecPlanLine = GetNextSpecLine<TrainingPlanSpec>(model.CurrentSpecPlanId);
                 if (nextSpecPlanLine == null)
                 {
-                    return RedirectToAction("NextStep", new { currentSpecPlanId = model.CurrentSpecPlanId, trainingPlanHeadId = model.HeadTrainingPlanId, trainingHeadId = model.HeadTrainingId,isFinishedTraining=true });
+                    return RedirectToAction("NextStep", new { currentSpecPlanId = model.CurrentSpecPlanId, trainingPlanHeadId = model.HeadTrainingPlanId, trainingHeadId = model.HeadTrainingId, isFinishedTraining = true });
                 }
                 else
                 {
@@ -245,11 +248,11 @@ namespace PerfectBuild.Controllers
                     Order = model.Order
                 };
                 appContext.TrainingSpecs.Add(currentSpecLine);
-                UpdateTrainingDuration(model.HeadTrainingId,DateTime.UtcNow);
+                UpdateTrainingDuration(model.HeadTrainingId, DateTime.UtcNow);
                 await appContext.SaveChangesAsync();
             }
 
-            if (nextSpecPlanLine == null) 
+            if (nextSpecPlanLine == null)
             {
                 return RedirectToAction("NextStep", new { currentSpecPlanId = currentSpecPlanLine.Id, trainingPlanHeadId = model.HeadTrainingPlanId, trainingHeadId = model.HeadTrainingId, isFinishedTraining = true });
             }

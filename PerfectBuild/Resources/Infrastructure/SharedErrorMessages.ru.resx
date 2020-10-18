@@ -135,11 +135,26 @@
   <data name="ElementPresentinDBShort" xml:space="preserve">
     <value>Невозможно добавить элемент</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
   <data name="IncorrectWeightLong" xml:space="preserve">
     <value>Для упражнений с собственным весом, вес должен быть равен единице</value>
   </data>
   <data name="IncorrectWeightShort" xml:space="preserve">
     <value>Значение веса не равно единице</value>
+  </data>
+  <data name="ProgramPlanNotFoundLong" xml:space="preserve">
+    <value>Индивидуальный тренировочный план на сегодня отсутствует</value>
+  </data>
+  <data name="ProgramPlanNotFoundShort" xml:space="preserve">
+    <value>Тренировочный план отсутствует</value>
+  </data>
+  <data name="TrainingAlreadyExistsLong" xml:space="preserve">
+    <value>На сегодня все упражнения выполнены. Для внесения изменений перейдите в журнал тренировок</value>
+  </data>
+  <data name="TrainingAlreadyExistsShort" xml:space="preserve">
+    <value>На сегодня все упражнения выполнены</value>
   </data>
   <data name="UnitIdNotFoundShort" xml:space="preserve">
     <value>Id единицы измерения не найдено</value>

@@ -1,11 +1,14 @@
 ﻿@model ListItemViewModel<Category>
+@inject IHtmlLocalizer<SharedResource> LocalizerShared
 @inject IViewLocalizer Localizer
+
+<div class="bg-primary text-white"><h3>@Localizer["Tittle"]</h3></div>
 <div asp-validation-summary="All"></div>
 <div class="container m-0 p-3">
     <div class="row p-1">
-        <div class="col-8"><a asp-action="List" asp-route-sortBy="name"><strong>Name</strong> </a></div>
+        <div class="col-8"><a asp-action="List" asp-route-sortBy="name"><strong>@LocalizerShared["Name"]</strong> </a></div>
         <div class="col-2">
-            <a class="btn btn-primary" style="width:inherit" asp-action="Add">@Localizer["Add"]</a>
+            <a class="btn btn-primary" style="width:inherit" asp-action="Add">@LocalizerShared["AddButton"]</a>
         </div>
         <div class="col-2"></div>
 
@@ -14,9 +17,9 @@
     {
         <div class="row p-1">
             <div class="col-9">@item.Name</div>
-            <div class="col-1"><a class="btn btn-primary" asp-route-id="@item.Id" asp-action="Modify">@Localizer["Modify"]</a></div>
+            <div class="col-1"><a class="btn btn-primary" asp-route-id="@item.Id" asp-action="Modify">@LocalizerShared["ModifyButton"]</a></div>
             <div class="col-1"></div>
-            <div class="col-1"><a class="btn btn-warning" asp-route-id="@item.Id" asp-action="Delete">@Localizer["Delete"]</a></div>
+            <div class="col-1"><a class="btn btn-warning" asp-route-id="@item.Id" asp-action="Delete">@LocalizerShared["DeleteButton"]</a></div>
         </div>
     }
 

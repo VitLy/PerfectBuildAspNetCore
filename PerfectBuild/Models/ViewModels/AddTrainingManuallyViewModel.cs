@@ -8,13 +8,13 @@ namespace PerfectBuild.Models.ViewModels
     public class AddTrainingManuallyViewModel
     {
         public IEnumerable<Exercise> Exercises { get; set; }
-        [Required]
+        [Required(ErrorMessage ="TrainingNameRequired")]
         public string TrainingName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "NumDocumentRequired")]
         public int NumDocument { get; set; }
-        [Required]
+        [Required(ErrorMessage = "DateRequired")]
         public DateTime Date { get; set; }
-        [Required]
+
         public double Duration { get; set; }  //minutes
         public int Calories { get; set; }
         public int HeadId { get; set; }

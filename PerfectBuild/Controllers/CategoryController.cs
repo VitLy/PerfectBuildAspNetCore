@@ -57,12 +57,14 @@ namespace PerfectBuild.Controllers
         [HttpGet]
         public IActionResult Add()
         {
+            ViewBag.Tittle = "AddCategory";
             return View("Change", new Category());
         }
 
         [HttpGet]
         public IActionResult Modify(int id)
         {
+            ViewBag.Tittle = "ModifyCategory";
             Category category = appContext.Categories.Find(id);
             return View("Change", category);
         }
@@ -151,17 +153,6 @@ namespace PerfectBuild.Controllers
         }
 
         #region PrivateMethods
-        //private bool IsMissingInDB(Category category)
-        //{
-        //    var isCategoryPresentinDB = appContext.Categories
-        //                  .Where(x => x.Name.Trim().ToUpperInvariant().Equals(category.Name.Trim().ToUpperInvariant(), StringComparison.InvariantCulture))
-        //                  .Any();
-        //    if (isCategoryPresentinDB)
-        //    {
-        //        return false;
-        //    }
-        //    return true;
-        //}
 
         private void CreateTempData(string shortMessage, string longMessage)
         {

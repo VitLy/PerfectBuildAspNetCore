@@ -207,6 +207,9 @@
   <data name="Height" xml:space="preserve">
     <value>Height</value>
   </data>
+  <data name="HomeButton" xml:space="preserve">
+    <value>Home</value>
+  </data>
   <data name="IncorrectWeightLong" xml:space="preserve">
     <value>For exercises with ownweight mark the weight value must be one </value>
   </data>
@@ -218,6 +221,9 @@
   </data>
   <data name="Monday" xml:space="preserve">
     <value>Monday</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="OkButton" xml:space="preserve">
     <value>Ok</value>
@@ -245,6 +251,9 @@
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="ShowButton" xml:space="preserve">
+    <value>Show</value>
   </data>
   <data name="ShowStatisticsButton" xml:space="preserve">
     <value>Show Statistic</value>

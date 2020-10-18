@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PerfectBuild.Models.ViewModels
 {
-    public class TrainigProgramHeadViewModel
+    public class TrainingProgramHeadViewModel
     {
         public List<Exercise> Exercises { get; set; }
         [Required]
@@ -16,10 +16,10 @@ namespace PerfectBuild.Models.ViewModels
         public int CategoryId { get; set; }
         [Required]
         public DateTime Date { get; set; }
-        [Required]
-        [MaxLength(40,ErrorMessage = "text must be less than 40 characters")]
+        [Required(ErrorMessage = "NameRequired")]
+        [MaxLength(40,ErrorMessage = "NameMaxLength")]
         public string Name { get; set; }
-        [MaxLength(250, ErrorMessage = "text must be less than 250 characters")]
+        [MaxLength(250, ErrorMessage = "DescriptionMaxLength")]
         public string Description { get; set; }
     }
 }
