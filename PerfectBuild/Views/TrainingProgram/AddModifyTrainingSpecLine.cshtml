@@ -5,12 +5,12 @@
 @{
     Layout = "~/Views/Shared/_LayoutWithoutMenuAndLge.cshtml";
 }
-
+<div class="bg-primary text-white"><h3>&ensp;@ViewBag.Tittle</h3></div>
+<div class="p-2">
 <form method="post" asp-action="AddModifyTrainingSpecLine">
     <div class="form-group">
-        <label>@LocalizerShared["Exercise"]</label>
         <div asp-validation-for="@Model.ExerciseId"></div>
-        <select name="ExerciseId" required="required" size="1">
+        <select class="custom-select" name="ExerciseId" required="required" size="1">
             @if (Model.Id == 0)
             {
                 <option selected disabled>@Localizer["ChooseExercise"]</option>
@@ -45,6 +45,7 @@
     </div>
 
     <button class="btn btn-primary">@LocalizerShared["OkButton"]</button>
-    <a asp-action="List" class="btn btn-warning">@LocalizerShared["CancelButton"]</a>
+    <a asp-action="List" class="btn btn-danger">@LocalizerShared["CancelButton"]</a>
 
 </form>
+</div>

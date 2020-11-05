@@ -19,8 +19,8 @@
     <link rel="stylesheet" href="~/css/basestyle.css" />
 </head>
 <body>
-    <div class="bg-primary text-white"><h3>@Localizer["TittleAddTrainingManually"]</h3></div>
-    <div class="m-1 p-1">
+    <div class="bg-primary text-white"><h3>&ensp;@Localizer["TittleAddTrainingManually"]</h3></div>
+    <div class="p-2">
         <form asp-action="AddTrainingManually" method="post">
             <div class="validation" asp-validation-summary="All"> </div>
             <div class="form-group">
@@ -34,7 +34,7 @@
                 <div asp-validation-for="@Model.Date"></div>
                 <label asp-for="Date">
                     @Localizer["Date"]
-                    <input asp-for="Date" type="datetime-local">
+                    <input asp-for="Date" type="datetime-local" class="form-control">
                 </label>
             </div>
 
@@ -42,25 +42,25 @@
                 <div asp-validation-for="@Model.NumDocument"></div>
                 <label asp-for="NumDocument">
                     @Localizer["NumDocument"]
-                    <input asp-for=NumDocument type="number">
+                    <input asp-for=NumDocument type="number" class="form-control">
                 </label>
             </div>
             <div class="form-group">
                 <div asp-validation-for="@Model.Duration"></div>
                 <label asp-for="Duration">
                     @Localizer["Duration"]
-                    <input asp-for="Duration" type="number">
+                    <input asp-for="Duration" class="form-control" type="number">
                 </label>
             </div>
             <div class="form-group">
                 <div asp-validation-for="@Model.Calories"></div>
                 <label asp-for="Calories">
                     @Localizer["Calories"]
-                    <input asp-for="Calories" type="number">
+                    <input asp-for="Calories" class="form-control" type="number">
                 </label>
             </div>
             <input type="submit" class="btn btn-primary" value=@LocalizerShared["AddExerciseButton"] />
-            <a asp-controller="Home" asp-action="Index" class="btn btn-warning">@LocalizerShared["CancelButton"]</a>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-danger">@LocalizerShared["CancelButton"]</a>
         </form>
     </div>
 </body>

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using PerfectBuild.Data;
 using PerfectBuild.Models;
 using PerfectBuild.Models.ViewModels;
@@ -20,14 +21,16 @@ namespace PerfectBuild.Controllers
         readonly ApplicationContext appContext;
         readonly UserManager<User> userManager;
         private readonly SpecLineValidator specValidator;
+        private readonly IStringLocalizer<TrainingProgramController> localizer;
         string userId;
 
-        public TrainingProgramController(ApplicationContext appContext, UserManager<User> userManager, SpecLineValidator specValidator)
+        public TrainingProgramController(ApplicationContext appContext, UserManager<User> userManager, SpecLineValidator specValidator, IStringLocalizer<TrainingProgramController> localizer)
         {
             this.appContext = appContext;
             this.userManager = userManager;
             this.specValidator = specValidator;
-        }
+            this.localizer = localizer; ;
+    }
 
         [HttpGet]
         public IActionResult List()
@@ -154,12 +157,17 @@ namespace PerfectBuild.Controllers
                 };
                 if (specId != 0)   //ветка модификации существующей позиции
                 {
+                    ViewBag.Tittle = localizer["TittleModify"];
                     var spec = appContext.TrainingProgramSpecs.Include(x => x.Exercise).Where(x => x.Id == specId).ToList().FirstOrDefault();
                     line.Id = spec.Id;
                     line.Name = spec.Exercise.Name;
                     line.Set = spec.Set;
                     line.Weight = spec.Weight;
                     line.Amount = spec.Amount;
+                }
+                else 
+                {
+                    ViewBag.Tittle = localizer["TittleAdd"];
                 }
                 return View(line);
             }
@@ -184,6 +192,7 @@ namespace PerfectBuild.Controllers
             {
                 if (viewModel.Id == 0)
                 {
+                    ViewBag.Tittle = localizer["TittleModify"];
                     TrainingProgramSpec programSpec = new TrainingProgramSpec
                     {
                         HeadId = viewModel.HeadId,

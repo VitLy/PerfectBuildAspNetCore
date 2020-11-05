@@ -13,7 +13,7 @@
         .ToList();
 }
 
-<form asp-controller="Home" asp-action="SetCulture" style="margin-top:20px;"
+<form asp-controller="Home" asp-action="SetCulture" style="margin-top:5px;"
       asp-route-returnUrl="@Context.Request.Path"
       method="post" class="form-horizontal">
     <select name="culture" onchange="this.form.submit();"

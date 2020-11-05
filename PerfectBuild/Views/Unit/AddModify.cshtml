@@ -6,28 +6,30 @@
 @inject IHtmlLocalizer<SharedResource> LocalizerShared
 @inject IViewLocalizer Localizer
 
-@{ 
+@{
     Layout = "~/Views/Shared/_LayoutWithoutMenuAndLge.cshtml";
 }
 
 <body>
-    <div class="bg-primary text-white"><h3>@ViewBag.Tittle</h3></div>
-    <div class="validation" asp-validation-summary="All"> </div>
-    <form asp-action="AddModify">
-        <div class="form-group">
-            <span asp-validation-for="ShortName"></span>
-            <label for="ShortName">@Localizer["UnitShortName"]</label>
-            <input name="Id" value="@Model.Id" hidden />
-            <input asp-for="@Model.ShortName" value="@Model.ShortName" class="form-control" />
-        </div>
+    <div class="bg-primary text-white"><h3>&ensp;@ViewBag.Tittle</h3></div>
+    <div class="p-2">
+        <div class="validation" asp-validation-summary="All"> </div>
+        <form asp-action="AddModify">
+            <div class="form-group">
+                <span asp-validation-for="ShortName"></span>
+                <label for="ShortName">@Localizer["UnitShortName"]</label>
+                <input name="Id" value="@Model.Id" hidden />
+                <input asp-for="@Model.ShortName" value="@Model.ShortName" class="form-control" />
+            </div>
 
-        <div class="form-group">
-            <span asp-validation-for="Name"></span>
-            <label for="Name">@Localizer["UnitLongName"]</label>
-            <input asp-for="@Model.Name" value="@Model.Name" class="form-control" />
-        </div>
+            <div class="form-group">
+                <span asp-validation-for="Name"></span>
+                <label for="Name">@Localizer["UnitLongName"]</label>
+                <input asp-for="@Model.Name" value="@Model.Name" class="form-control" />
+            </div>
 
-        <button type="submit" class="btn btn-primary">@LocalizerShared["Ok"]</button>
-        <a class="btn btn-danger" asp-action="List">@LocalizerShared["Cancel"]</a>
-    </form>
+            <button type="submit" class="btn btn-primary">@LocalizerShared["OkButton"]</button>
+            <a class="btn btn-danger" asp-action="List">@LocalizerShared["CancelButton"]</a>
+        </form>
+    </div>
 </body>

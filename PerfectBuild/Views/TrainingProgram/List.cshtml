@@ -11,7 +11,6 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"
           asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
           asp-fallback-test-class="hidden" asp-fallback-test-property="visibility" asp-fallback-test-value="hidden" />
@@ -30,7 +29,7 @@
             </div>
         </div>
     </header>
-    <div class="bg-primary text-white"><h3>@Localizer["TittleTrainigProgram"]</h3></div>
+    <div class="bg-primary text-white"><h3>&ensp;@Localizer["TittleTrainigProgram"]</h3></div>
     <div class="validation" asp-validation-summary="All"> </div>
     <div class="container-fluid  m-1 p-1">
         <div class="row justify-content-sm-between">
@@ -43,7 +42,7 @@
                                     <th>@Localizer["TrainigProgramName"]</th>
                                     <th>@Localizer["Category"]</th>
                                     <th></th>
-                                    <th><a class="btn btn-primary" asp-action="AddModifyTrainingProgram">@LocalizerShared["AddButton"]</a></th>
+                                    <th><a class="btn btn-warning" asp-action="AddModifyTrainingProgram">@LocalizerShared["AddButton"]</a></th>
                                 </tr>
                                 @foreach (var trPr in Model)
                                 {

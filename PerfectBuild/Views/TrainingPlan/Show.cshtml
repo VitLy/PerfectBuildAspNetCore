@@ -5,6 +5,10 @@
 @inject IHtmlLocalizer<SharedResource> LocalizerShared
 @inject IViewLocalizer Localizer
 
+@{
+    Layout = null;
+}
+
 <!DOCTYPE html>
 
 <html>
@@ -18,6 +22,17 @@
     <link rel="stylesheet" href="~/css/basestyle.css" />
 </head>
 <body>
+    <header>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-10 p-0">
+                    @await Html.PartialAsync("_MenuPanelPartial")
+                </div>
+                <div class="col-1 bg-primary p-0 text-light">@await Component.InvokeAsync("LoginPanel")</div>
+                <div class="col-1 bg-primary p-0 text-light">@await Html.PartialAsync("_SelectLanguagePartial")</div>
+            </div>
+        </div>
+    </header>
     <div class="bg-primary text-white"><h3>@Localizer["TittleTrainigPlanProgram"]</h3></div>
     <div class="container-fluid">
         <div class="row">
@@ -98,6 +113,22 @@
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"
+            asp-fallback-src="~/lib/jquery/jquery.min.js"
+            asp-fallback-test="window.jQuery"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"
+            asp-fallback-src="~/lib/jquery-validate/jquery.validate.js"
+            asp-fallback-test="window.jQuery && window.jQuery.validator">
+    </script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"
+            asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"
+            asp-fallback-test="window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive">
+    </script>
+
 </body>
 </html>
 

@@ -1,7 +1,7 @@
 ﻿@inject IHtmlLocalizer<SharedResource> Localizer
 
 <nav class="navbar navbar-expand-lg navbar-light bg-primary">
-    <a style="color:#ffffffff" class="navbar-brand" asp-controller="Home" asp-action="Index"><h2> PerfectBuild</h2></a>
+    <a style="color:#ffffffff" class="navbar-brand" asp-controller="Home" asp-action="Index"><h3> PerfectBuild</h3></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -24,9 +24,9 @@
                     @Localizer["Settings"]
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuSettings">
-                    <a class="dropdown-item" asp-controller="Category" asp-action="List">@Localizer["Categories"]</a>
                     <a class="dropdown-item" asp-controller="Unit" asp-action="List">@Localizer["Units"]</a>
                     <a class="dropdown-item" asp-controller="Exercise" asp-action="List">@Localizer["Exercises"]</a>
+                    <a class="dropdown-item" asp-controller="Category" asp-action="List">@Localizer["Categories"]</a>
                     <a class="dropdown-item" asp-controller="TrainingProgram" asp-action="List">@Localizer["TrainingProgram"]</a>
                 </div>
             </li>

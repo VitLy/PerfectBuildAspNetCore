@@ -1,16 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
-using Newtonsoft.Json;
 using PerfectBuild.Data;
 using PerfectBuild.Infrastructure;
 using PerfectBuild.Models;
 using PerfectBuild.Models.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,10 +19,8 @@ namespace PerfectBuild.Controllers
     {
         ApplicationContext appContext;
         private readonly IStringLocalizer<SharedErrorMessages> localizerErrorMessage;
-        readonly int itemOnPages = 6;
 
-        bool nameAscend = true;
-        bool descriptionAscend = true;
+        readonly int itemOnPages = 6;
 
         public CategoryController(ApplicationContext appContext, IStringLocalizer<SharedErrorMessages> localizerErrorMessage)
         {
@@ -35,23 +29,52 @@ namespace PerfectBuild.Controllers
         }
 
         [HttpGet]
-        public IActionResult List(int currentPage = 1)
+        public async Task<IActionResult> List(FieldSort currentSort, int currentPage = 1, string sortBy = "" )
         {
-            if (TempData["ElementErrorShort"] != null || TempData["ElementErrorLong"] != null)
+            if (TempData["ElementErrorShort"] != null)
             {
-                ModelState.AddModelError((string)TempData["ElementErrorShort"], (string)TempData["ElementErrorLong"] ?? (string)TempData["ElementErrorShort"]);
+                ModelState.AddModelError((string)TempData["ElementErrorShort"], (string)TempData["ElementErrorLong"]);
             }
-            int totalItems = appContext.Categories.Count();
-            var categories = appContext.Categories.ToList();
-            var selectedCategories = categories.Skip(currentPage - 1).Take(itemOnPages).ToList();
-            ListItemViewModel<Category> categoryViewModel = new ListItemViewModel<Category>
+
+            var categories = await appContext.Categories.ToListAsync();
+            int totalItems = categories.Count;
+
+            var model = new CategoryViewModel
             {
-                Items = selectedCategories,
                 CurrentPage = currentPage,
+                CurrentSort = currentSort,
                 ItemOnPages = itemOnPages,
-                TotalItems = totalItems
+                TotalItems = totalItems,
+                SortBy = sortBy
             };
-            return View(categoryViewModel);
+
+            if (String.IsNullOrEmpty(sortBy))
+            {
+                if (currentSort == FieldSort.nameDescend)
+                {
+                    model.Items = categories.OrderByDescending(x => x.Name).Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
+                }
+                else
+                {
+                    model.Items = categories.OrderBy(x => x.Name).Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
+                }
+            }
+
+            if (sortBy == "name")
+            {
+                model.CurrentPage = 1;
+                if (currentSort == FieldSort.nameAscend)
+                {
+                    model.CurrentSort = FieldSort.nameDescend;
+                    model.Items = categories.OrderByDescending(x => x.Name).Take(itemOnPages).ToList();
+                }
+                else
+                {
+                    model.CurrentSort = FieldSort.nameAscend;
+                    model.Items = categories.OrderBy(x => x.Name).Take(itemOnPages).ToList();
+                }
+            }
+            return View(model);
         }
 
         [HttpGet]
@@ -133,7 +156,7 @@ namespace PerfectBuild.Controllers
                             appContext.Categories.Update(category);
                             await appContext.SaveChangesAsync();
                         }
-                        else 
+                        else
                         {
                             CreateTempData("ElementCannotBeChangedShort", "ElementCannotBeChangedLong");
                         }
@@ -153,7 +176,6 @@ namespace PerfectBuild.Controllers
         }
 
         #region PrivateMethods
-
         private void CreateTempData(string shortMessage, string longMessage)
         {
             string shortM = localizerErrorMessage[shortMessage];

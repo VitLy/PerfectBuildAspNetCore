@@ -5,6 +5,7 @@ using Microsoft.Extensions.Localization;
 using PerfectBuild.Data;
 using PerfectBuild.Infrastructure;
 using PerfectBuild.Models;
+using PerfectBuild.Models.ViewModels;
 using System;
 using System.Data.SqlClient;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace PerfectBuild.Controllers
         private IStringLocalizer<SharedErrorMessages> localizerErrorMessage;
         private IStringLocalizer<UnitController> localizer;
 
+        readonly int itemOnPages = 6;
+
         public UnitController(ApplicationContext appContext, IStringLocalizer<SharedErrorMessages> localizerErrorMessage, IStringLocalizer<UnitController> localizer)
         {
             this.appContext = appContext;
@@ -28,16 +31,86 @@ namespace PerfectBuild.Controllers
         }
 
         [HttpGet]
-        public IActionResult List()
+        public async Task<IActionResult> List(FieldSort currentSort, int currentPage = 1, string sortBy = "")
         {
             if (TempData["ElementErrorShort"] != null || TempData["ElementErrorLong"] != null)
             {
                 ModelState.AddModelError((string)TempData["ElementErrorShort"], (string)TempData["ElementErrorLong"] ?? (string)TempData["ElementErrorShort"]);
             }
 
-            var units = appContext.Units.OrderBy(x => x.Name).ToList();
-            ViewBag.Tittle = localizer["UnitList"];
-            return View(units);
+            var units = await appContext.Units.ToListAsync();
+            var totalItems = units.Count;
+
+            var model = new UnitViewModel
+            {
+                CurrentPage = currentPage,
+                CurrentSort = currentSort,
+                ItemOnPages = itemOnPages,
+                TotalItems = totalItems,
+                SortBy = sortBy
+            };
+
+            #region Pagination
+            if (String.IsNullOrEmpty(sortBy))
+            {
+                switch (currentSort)
+                {
+                    case FieldSort.shortNameAscend:
+                        model.Items = units.OrderBy(x => x.ShortName).Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
+                        break;
+                    case FieldSort.shortNameDescend:
+                        model.Items = units.OrderByDescending(x => x.ShortName).Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
+                        break;
+                    case FieldSort.fullNameAscend:
+                        model.Items = units.OrderBy(x => x.Name).Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
+                        break;
+                    case FieldSort.descriptionDescend:
+                        model.Items = units.OrderByDescending(x => x.Name).Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
+                        break;
+                    default:
+                        model.Items = units.OrderBy(x => x.ShortName).Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
+                        break;
+                }
+                return View(model);
+            }
+            #endregion
+
+            #region Sorting
+            if (sortBy == "shortName")
+            {
+                if (currentSort == FieldSort.shortNameAscend)
+                {
+                    model.CurrentSort = FieldSort.shortNameDescend;
+                    model.Items = units.OrderByDescending(x => x.ShortName).Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
+                }
+                else
+                {
+                    model.CurrentSort = FieldSort.shortNameAscend;
+                    model.Items = units.OrderBy(x => x.ShortName).Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
+                }
+            }
+            else if (sortBy == "fullName")
+            {
+                if (currentSort == FieldSort.fullNameAscend)
+                {
+                    model.CurrentSort = FieldSort.fullNameDescend;
+                    model.Items = units.OrderByDescending(x => x.Name).Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
+                }
+                else
+                {
+                    model.CurrentSort = FieldSort.fullNameAscend;
+                    model.Items = units.OrderBy(x => x.Name).Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
+                }
+            }
+            else
+            {
+                model.CurrentSort = FieldSort.shortNameAscend;
+                model.Items = units.OrderBy(x => x.ShortName).Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
+            }
+            #endregion
+
+            return View(model);
+
         }
 
         [HttpGet]
@@ -136,8 +209,9 @@ namespace PerfectBuild.Controllers
 
                     if (number == 547)
                     {
-                        ModelState.AddModelError(localizerErrorMessage["ElementCantBeDeletedShort"], localizerErrorMessage["ElementCantBeDeletedLong"]);
-                        return View("List", appContext.Units.OrderBy(x => x.Name).ToList());
+                        CreateTempData("ElementCantBeDeletedShort", "ElementCantBeDeletedLong");
+
+                        return RedirectToAction("List");
                     }
                 }
             }

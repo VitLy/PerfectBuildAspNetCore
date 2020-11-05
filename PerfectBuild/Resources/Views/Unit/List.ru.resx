@@ -117,10 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Tittle" xml:space="preserve">
+    <value>Единицы измерения</value>
+  </data>
   <data name="UnitLongName" xml:space="preserve">
-    <value>Наименование единицы измерения</value>
+    <value>Полное наименование</value>
   </data>
   <data name="UnitShortName" xml:space="preserve">
-    <value>Сокращение</value>
+    <value>Краткое наименование</value>
   </data>
 </root>

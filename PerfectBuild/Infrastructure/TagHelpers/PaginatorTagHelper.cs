@@ -19,6 +19,7 @@ namespace PerfectBuild.Infrastructure.TagHelpers
         public int CurrentPage { get; set; }
         public int TotalPage { get; set; }
         public string PageAction { get; set; }
+        public FieldSort CurrentSort { get; set; }
 
         public PaginatorTagHelper(IUrlHelperFactory urlHelperFactory)
         {
@@ -46,7 +47,7 @@ namespace PerfectBuild.Infrastructure.TagHelpers
 
                 TagBuilder a = new TagBuilder("a");
                 a.Attributes.Add("class", "page-link");
-                string href = urlHelper.Action(PageAction, new { currentPage = i });
+                string href = urlHelper.Action(PageAction, new { currentPage = i,currentSort=CurrentSort.ToString() });
                 a.InnerHtml.SetContent(i.ToString());
                 a.Attributes.Add("href", href);
                 li.InnerHtml.AppendHtml(a);

@@ -5,39 +5,43 @@
 @{
     Layout = "~/Views/Shared/_LayoutWithoutMenuAndLge.cshtml";
 }
+<div class="bg-primary text-white"><h3>&ensp;@Localizer[ViewBag.Tittle]</h3></div>
+<div class="p-2">
+    <form method="post" class="form-group" asp-action="Change">
+        <div class="form-group">
+            <input asp-for="@Model.Id" hidden="hidden" />
+            <span asp-validation-for="Name"></span>
+            <label asp-for="@Model.Name">@LocalizerShared["Name"]</label>
+            <input asp-for="@Model.Name" value="@Model.Name" class="form-control" />
+        </div>
+        <div class="form-group">
+            <select class="custom-select custom-select"  required="required" name="UnitId" size="1">
+                @if (Model.UnitId == 0)
+                {
+                    <option selected disabled>@Localizer["ChooseExerciseUnit"]</option>
+                }
+                else
+                {
+                    <option value="@Model.UnitId" selected>@Model.Units.Where(x => x.Id.Equals(Model.UnitId)).FirstOrDefault().Name</option>
+                }
+                @foreach (Unit item in @Model.Units)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+        </div>
 
+        <div class="form-group">
+            <label asp-for="@Model.Description">@LocalizerShared["Description"]</label>
+            <span asp-validation-for="Description"></span>
+            <input asp-for="@Model.Description" value="@Model.Description" class="form-control" />
+        </div>
 
-<div class="bg-primary text-white"><h3>@Localizer[ViewBag.Tittle]</h3></div>
-
-<form method="post" class="form-group" asp-action="Change">
-    <div class="form-group">
-        <input asp-for="@Model.Id" hidden="hidden" />
-        <span asp-validation-for="Name"></span>
-        <label asp-for="@Model.Name">@LocalizerShared["Name"]</label>
-        <input asp-for="@Model.Name" value="@Model.Name" class="form-control" />
-
-        <select required="required" name="UnitId" size="1">
-            @if (Model.UnitId == 0)
-            {
-                <option selected disabled>@Localizer["ChooseExerciseUnit"]</option>
-            }
-            else
-            {
-                <option value="@Model.UnitId" selected>@Model.Units.Where(x => x.Id.Equals(Model.UnitId)).FirstOrDefault().Name</option>
-            }
-            @foreach (Unit item in @Model.Units)
-            {
-                <option value="@item.Id">@item.Name</option>
-            }
-        </select>
-
-        <label asp-for="@Model.Description">@LocalizerShared["Description"]</label>
-        <span asp-validation-for="Description"></span>
-        <input asp-for="@Model.Description" value="@Model.Description" class="form-control" />
-        <label asp-for="@Model.OwnWeight" class="form-check-input">@Localizer["OwnWeight"]</label>
-
-        <input type="checkbox" asp-for="@Model.OwnWeight" checked=@Model.OwnWeight />
-        <button class="btn btn-primary">@LocalizerShared["Ok"]</button>
-        <a class="btn btn-danger" asp-action="List">@LocalizerShared["Cancel"]</a>
-    </div>
-</form>
+        <div class="custom-control">
+            <input type="checkbox" asp-for="@Model.OwnWeight" checked=@Model.OwnWeight class="custom-control-input"/>
+            <label class="custom-control-label" asp-for="@Model.OwnWeight">@Localizer["OwnWeight"]</label>
+        </div>
+            <button class="btn btn-primary">@LocalizerShared["OkButton"]</button>
+            <a class="btn btn-danger" asp-action="List">@LocalizerShared["CancelButton"]</a>
+    </form>
+</div>

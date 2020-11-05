@@ -21,8 +21,6 @@ namespace PerfectBuild.Controllers
         readonly private IStringLocalizer<SharedErrorMessages> localizerErrorMessage;
 
         readonly int itemOnPages = 6;
-        bool nameAscend = true;
-        bool descriptionAscend = true;
 
         public ExerciseController(ApplicationContext appContext, IStringLocalizer<SharedErrorMessages> localizerErrorMessage, IStringLocalizer<SharedResource> localizer)
         {
@@ -31,61 +29,97 @@ namespace PerfectBuild.Controllers
         }
 
         [HttpGet]
-        public IActionResult List(int currentPage = 1, string sortBy = "")
+        public async Task<IActionResult> List(FieldSort currentSort, int currentPage = 1, string sortBy = "")
         {
             if (TempData["ElementErrorShort"] != null || TempData["ElementErrorLong"] != null)
             {
                 ModelState.AddModelError((string)TempData["ElementErrorShort"], (string)TempData["ElementErrorLong"] ?? (string)TempData["ElementErrorShort"]);
             }
 
-            int totalItems = appContext.Exercises.Count();
-            var exercises = appContext.Exercises.Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
-            var sortedExercises = exercises.OrderBy(x => x.Name).ToList();
+            var exercises = await appContext.Exercises.ToListAsync();
+            int totalItems = exercises.Count;
+
+            var model = new ExerciseViewModel
+            {
+                CurrentPage = currentPage,
+                CurrentSort = currentSort,
+                ItemOnPages = itemOnPages,
+                TotalItems = totalItems,
+                SortBy = sortBy
+            };
+            #region Pagination
+            if (String.IsNullOrEmpty(sortBy))
+            {
+                switch (currentSort)
+                {
+                    case FieldSort.nameAscend:
+                        model.Items = exercises.OrderBy(x => x.Name).Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
+                        break;
+                    case FieldSort.nameDescend:
+                        model.Items = exercises.OrderByDescending(x => x.Name).Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
+                        break;
+                    case FieldSort.descriptionAscend:
+                        model.Items = exercises.OrderBy(x => x.Description).Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
+                        break;
+                    case FieldSort.descriptionDescend:
+                        model.Items = exercises.OrderByDescending(x => x.Description).Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
+                        break;
+                    default:
+                        model.Items = exercises.OrderBy(x => x.Name).Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
+                        break;
+                }
+                return View(model);
+            }
+            #endregion
+
+            #region Sorting
             if (sortBy == "name")
             {
-                nameAscend = false ? nameAscend = true : nameAscend = false;
-                if (nameAscend == true)
+                if (currentSort == FieldSort.nameAscend)
                 {
-                    sortedExercises = exercises.OrderBy(x => x.Name).ToList();
+                    model.CurrentSort = FieldSort.nameDescend;
+                    model.Items = exercises.OrderByDescending(x => x.Name).Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
                 }
                 else
                 {
-                    sortedExercises = exercises.OrderBy(x => x.Name).OrderByDescending(x => x.Name).ToList();
+                    model.CurrentSort = FieldSort.nameAscend;
+                    model.Items = exercises.OrderBy(x => x.Name).Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
                 }
             }
             else if (sortBy == "description")
             {
-                descriptionAscend = false ? nameAscend = true : descriptionAscend = false;
-                if (descriptionAscend == true)
+                if (currentSort == FieldSort.descriptionAscend)
                 {
-                    sortedExercises = exercises.OrderBy(x => x.Description).ToList();
+                    model.CurrentSort = FieldSort.descriptionDescend;
+                    model.Items = exercises.OrderByDescending(x => x.Description).Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
                 }
                 else
                 {
-                    sortedExercises = exercises.OrderByDescending(x => x.Name).ToList();
+                    model.CurrentSort = FieldSort.descriptionAscend;
+                    model.Items = exercises.OrderBy(x => x.Description).Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
                 }
             }
-            return View(new ListItemViewModel<Exercise>
+            else
             {
-                Items = sortedExercises,
-                CurrentPage = currentPage,
-                ItemOnPages = itemOnPages,
-                TotalItems = totalItems
-            });
-        }
+                model.CurrentSort = FieldSort.nameAscend;
+                model.Items = exercises.OrderBy(x => x.Name).Skip((currentPage - 1) * itemOnPages).Take(itemOnPages).ToList();
+            }
+            #endregion
 
+            return View(model);
+        }
         [HttpGet]
         public IActionResult Add()
         {
             var units = appContext.Units.ToList();
-            ViewBag.Tittle = "AddExercise";
+            ViewBag.Tittle = "AddExercise"; // TODO: localization
             return View("Change", new ChangeExerciseViewModel { Units = units });
         }
 
         [HttpGet]
         public IActionResult Modify(int id)
         {
-            ViewBag.Tittle = "ModifyExercise";
+            ViewBag.Tittle = "ModifyExercise"; // TODO: localization
             Exercise exercise = appContext.Exercises.Include(x => x.Unit).Where(x => x.Id.Equals(id)).FirstOrDefault();
             var units = appContext.Units.ToList();
             var viewModel = new ChangeExerciseViewModel
@@ -215,7 +249,7 @@ namespace PerfectBuild.Controllers
             var isFoundTrainingPlan = await appContext.TrainingPlanSpecs.Where(x => x.ExId.Equals(exercise.Id)).AnyAsync();
             var isFoundTrainingProgram = await appContext.TrainingProgramSpecs.Where(x => x.ExId.Equals(exercise.Id)).AnyAsync();
             var isFoundTraining = await appContext.TrainingSpecs.Where(x => x.ExId.Equals(exercise.Id)).AnyAsync();
-            var result=isFoundTrainingPlan|isFoundTrainingProgram|isFoundTraining;
+            var result = isFoundTrainingPlan | isFoundTrainingProgram | isFoundTraining;
             return !result;
         }
 

@@ -1,31 +1,133 @@
-﻿@model ListItemViewModel<Exercise>
+﻿@using PerfectBuild.Infrastructure
+
+@model ExerciseViewModel
 @inject IViewLocalizer Localizer
 @inject IHtmlLocalizer<SharedResource> LocalizerShared
-    <div class="bg-primary text-white"><h3>@Localizer["Tittle"]</h3></div>
-<div class="container m-0 p-3">
-    <div class="validation" asp-validation-summary="All"> </div>
-    <div class="row p-1">
-        <div class="col-4"><a asp-action="List" asp-route-sortBy="name"><strong>@LocalizerShared["Name"]</strong> </a></div>
-        <div class="col-4"><a asp-action="List" asp-route-sortBy="description"><strong>@LocalizerShared["Description"]</strong> </a></div>
-        <div class="col-2">
-            <a class="btn btn-primary" style="width:inherit" asp-action="Add">@LocalizerShared["AddButton"]</a>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"
+          asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
+          asp-fallback-test-class="hidden" asp-fallback-test-property="visibility" asp-fallback-test-value="hidden" />
+    <script src="https://kit.fontawesome.com/c0bb6a9e00.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="~/css/basestyle.css" />
+</head>
+<body>
+    <header>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-10 p-0">
+                    @await Html.PartialAsync("_MenuPanelPartial")
+                </div>
+                <div class="col-1 bg-primary p-0 text-light">@await Component.InvokeAsync("LoginPanel")</div>
+                <div class="col-1 bg-primary p-0 text-light">@await Html.PartialAsync("_SelectLanguagePartial")</div>
+            </div>
         </div>
-        <div class="col-2"></div>
+    </header>
+
+    <div class="bg-primary text-white"><h3>&ensp;@Localizer["Tittle"]</h3></div>
+    <div class="container m-0 p-2">
+        <div class="validation" asp-validation-summary="All"> </div>
+        <div class="row">
+            <div class="col-4 m-1">
+                <a asp-action="List" asp-route-sortBy="name" asp-route-currentSort=@Model.CurrentSort>
+                    @if (Model.CurrentSort.Equals(FieldSort.nameAscend))
+                    {
+                        <strong>
+                            <u>
+                                @LocalizerShared["Name"]
+                            </u>
+                            <i class="fas fa-angle-down"></i>
+                        </strong>
+                    }
+                    else if (Model.CurrentSort.Equals(FieldSort.nameDescend))
+                    {
+                        <strong>
+                            <u>
+                                @LocalizerShared["Name"]
+                            </u>
+                        </strong>
+                        <i class="fas fa-angle-up"></i>
+                    }
+                    else
+                    {
+                        <strong>
+                            @LocalizerShared["Name"]
+                        </strong>
+                    }
+                </a>
+            </div>
+            <div class="col-5 m-1">
+                <a asp-action="List" asp-route-sortBy="description" asp-route-currentSort=@Model.CurrentSort>
+                    @if (Model.CurrentSort.Equals(FieldSort.descriptionAscend))
+                    {
+                        <strong>
+                            <u>
+                                <strong>@LocalizerShared["Description"]</strong>
+                            </u>
+                        </strong>
+                        <i class="fas fa-angle-down"></i>
+                    }
+                    else if (Model.CurrentSort.Equals(FieldSort.descriptionDescend))
+                    {
+                        <strong>
+                            <u>
+                                @LocalizerShared["Description"]
+                            </u>
+                        </strong>
+                        <i class="fas fa-angle-up"></i>
+                    }
+                    else
+                    {
+                        <strong>
+                            @LocalizerShared["Description"]
+                        </strong>
+                    }
+                </a>
+            </div>
+            <div class="col-2 m-1">
+                <a class="btn btn-warning" style="width:inherit" asp-action="Add">@LocalizerShared["AddButton"]</a>
+            </div>
+        </div>
+        @foreach (var item in Model.Items)
+        {
+            <div class="row">
+                <div class="col-4 m-1">@item.Name</div>
+                <div class="col-5 m-1">@item.Description</div>
+                <div class="col-1 m-1"><a class="btn btn-primary" asp-route-id="@item.Id" asp-action="Modify">@LocalizerShared["ModifyButton"]</a></div>
+                <div class="col-1 m-1"><a class="btn btn-danger" asp-route-id="@item.Id" asp-action="Delete">@LocalizerShared["DeleteButton"]</a></div>
+            </div>
+        }
+
+        <paginator page-action="List" total-page="@Model.TotalPage" current-page="@Model.CurrentPage" current-sort=@Model.CurrentSort></paginator>
 
     </div>
-    @foreach (var item in Model.Items)
-    {
-        <div class="row p-1">
-            <div class="col-4">@item.Name</div>
-            <div class="col-4">@item.Description</div>
-            <div class="col-1"><a class="btn btn-primary" asp-route-id="@item.Id" asp-action="Modify">@LocalizerShared["ModifyButton"]</a></div>
-            <div class="col-1"></div>
-            <div class="col-1"><a class="btn btn-warning" asp-route-id="@item.Id" asp-action="Delete">@LocalizerShared["DeleteButton"]</a></div>
-        </div>
-    }
 
-    <paginator page-action="List" total-page="@Model.TotalPage" current-page="@Model.CurrentPage"></paginator>
 
-</div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"
+            asp-fallback-src="~/lib/jquery/jquery.min.js"
+            asp-fallback-test="window.jQuery"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"
+            asp-fallback-src="~/lib/jquery-validate/jquery.validate.js"
+            asp-fallback-test="window.jQuery && window.jQuery.validator">
+    </script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"
+            asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"
+            asp-fallback-test="window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive">
+    </script>
+</body>
+</html>
+
+
 
 
