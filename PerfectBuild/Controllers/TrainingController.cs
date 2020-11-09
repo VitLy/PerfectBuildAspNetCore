@@ -28,14 +28,16 @@ namespace PerfectBuild.Controllers
         private readonly UserManager<User> userManager;
         private readonly ITrainigDayConverter dayConverter;
         private readonly IStringLocalizer<SharedErrorMessages> sharedErrorMessageLocalizer;
+        private readonly IStringLocalizer<TrainingController> localizer;
 
         public TrainingController(ApplicationContext appContext, UserManager<User> userManager, ITrainigDayConverter dayConverter,
-            IStringLocalizer<SharedErrorMessages> sharedErrorMessageLocalizer)
+            IStringLocalizer<SharedErrorMessages> sharedErrorMessageLocalizer,IStringLocalizer<TrainingController> localizer)
         {
             this.appContext = appContext;
             this.userManager = userManager;
             this.dayConverter = dayConverter;
             this.sharedErrorMessageLocalizer = sharedErrorMessageLocalizer;
+            this.localizer = localizer;
         }
 
         [HttpGet]
@@ -276,16 +278,26 @@ namespace PerfectBuild.Controllers
         [HttpPost]
         public async Task<IActionResult> Finish(int headTrainingPlanId)
         {
-            var trainingHead = appContext.TrainingHeads.Where(x => x.TrainingPlanHeadId.Equals(headTrainingPlanId)).FirstOrDefault();
+            string message = "";
+            var trainingHead = appContext.TrainingHeads.Include(x => x.TrainingSpec).Where(x => x.TrainingPlanHeadId.Equals(headTrainingPlanId)).FirstOrDefault();
             if (trainingHead != null)
             {
-                trainingHead.DateEnd = DateTime.UtcNow;
-                appContext.TrainingHeads.Update(trainingHead);
-                await appContext.SaveChangesAsync();
+                if (!trainingHead.TrainingSpec.Any())
+                {
+                    message = localizer["WorkoutContainsNoExercises"];
+                    appContext.TrainingHeads.Remove(trainingHead);
+                    await appContext.SaveChangesAsync();
+                }
+                else
+                {
+                    message = localizer["Workout completed"];
+                    trainingHead.DateEnd = DateTime.UtcNow;
+                    appContext.TrainingHeads.Update(trainingHead);
+                    await appContext.SaveChangesAsync();
+                }
             }
-            return View();
+            return View("Finish",message);
         }
-
         #region private methods
         private T GetNextSpecLine<T>(int currentSpecId) where T : class, ISpec, IOrdered
         {
