@@ -71,7 +71,7 @@ namespace PerfectBuild.Infrastructure.TagHelpers
 
                 TagBuilder label = new TagBuilder("label");
                 label.AddCssClass("form-check-label");
-                label.InnerHtml.Append(localizer[name]);
+                label.InnerHtml.Append(localizer[name]+":");
                 label.MergeAttribute("for", "[" + i + "].BodyParameter");
 
                 divCheck.InnerHtml.AppendHtml(label);

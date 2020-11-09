@@ -20,8 +20,7 @@
 </head>
 <body>
     <div class="bg-primary text-white"><h3>&ensp;@Localizer["TittleAddTrainingManually"]</h3></div>
-    <div class="p-2">
-        <form asp-action="AddTrainingManually" method="post">
+        <form asp-action="AddTrainingManually" method="post" class="px-2">
             <div class="validation" asp-validation-summary="All"> </div>
             <div class="form-group">
                 <div asp-validation-for="@Model.TrainingName"></div>
@@ -62,6 +61,5 @@
             <input type="submit" class="btn btn-primary" value=@LocalizerShared["AddExerciseButton"] />
             <a asp-controller="Home" asp-action="Index" class="btn btn-danger">@LocalizerShared["CancelButton"]</a>
         </form>
-    </div>
 </body>
 </html>

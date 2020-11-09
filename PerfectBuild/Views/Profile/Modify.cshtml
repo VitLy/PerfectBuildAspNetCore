@@ -3,9 +3,12 @@
 @inject IViewLocalizer Localizer
 @inject IHtmlLocalizer<SharedResource> LocalizerShared
 
-<div class="bg-primary text-white"><h3>@Localizer["UserProfile"]</h3></div>
+@{
+    Layout = "~/Views/Shared/_LayoutWithoutMenuAndLge.cshtml";
+}
+<div class="bg-primary text-white"><h3>&ensp;@Localizer["UserProfile"]</h3></div>
 
-<form method="post" asp-action="Modify">
+<form method="post" asp-action="Modify" class="px-2">
     <div class="form-group">
         <span asp-validation-for="@Model.Profile.FName"></span>
         <label asp-for="Profile.FName">@Localizer["FName"]</label>
@@ -24,15 +27,14 @@
         <input class="form-control" type="email" asp-for="EMail" />
     </div>
     <div class="form-group">
-        <label>@Localizer["Sex"]</label>
-        <select name="Profile.Sex" size="1">
+        <select class="custom-select" name="Profile.Sex" size="1">
             @if (Model.Profile.Sex != Sex.Man & Model.Profile.Sex != Sex.Woman)
             {
                 <option disabled="disabled" selected>@Localizer["ChooseSex"]</option>
             }
             else
             {
-        <option value="@Model.Profile.Sex" selected>@Localizer[Model.Profile.Sex.ToString()]</option>
+                <option value="@Model.Profile.Sex" selected>@Localizer[Model.Profile.Sex.ToString()]</option>
             }
             <option value="@Sex.Man">@Localizer["Man"]</option>
             <option value="@Sex.Woman">@Localizer["Woman"]</option>
@@ -41,20 +43,20 @@
     <div class="form-group">
         <div asp-validation-for="@Model.Profile.DayBirth"></div>
         <label asp-for="Profile.DayBirth">@LocalizerShared["BirthdayDay"]</label>
-        <input type="date" asp-for="Profile.DayBirth" />
+        <input type="date" asp-for="Profile.DayBirth" class="form-control" />
     </div>
     <div class="form-group">
         <span asp-validation-for="Profile.Height"></span>
         <label asp-for="Profile.Height">@LocalizerShared["Height"]</label>
         <div asp-validation-for="@Model.Profile.Height"></div>
-        <input asp-for="Profile.Height" />
+        <input asp-for="Profile.Height" class="form-control" />
     </div>
     <div class="form-group">
         <span asp-validation-for="Profile.Weight"></span>
         <label asp-for="Profile.Weight">@LocalizerShared["Weight"]</label>
-        <input asp-for="@Model.Profile.Weight" />
+        <input asp-for="@Model.Profile.Weight" class="form-control" />
     </div>
-   
+
     <button class="btn btn-primary">@LocalizerShared["SaveButton"]</button>
     <a class="btn btn-danger" formmethod="get" asp-controller="Home" asp-action="Index">@LocalizerShared["ExitButton"]</a>
 </form>

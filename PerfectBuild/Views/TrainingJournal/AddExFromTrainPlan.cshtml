@@ -1,15 +1,9 @@
-﻿@{
-    Layout = null;
-}
-
-@model AddExercisesFromPlanViewModel
+﻿@model AddExercisesFromPlanViewModel
 @inject IHtmlLocalizer<SharedResource> LocalizerShared
 @inject IViewLocalizer Localizer
-
 @{
-    Layout = "~/Views/Shared/_LayoutWithoutMenuAndLge.cshtml";
+    Layout = null;
 }
-
 <!DOCTYPE html>
 
 <html>
@@ -39,11 +33,10 @@
             <input asp-for="HeadId" , value="@Model.HeadId" hidden />
             <input id="planId" asp-for="PlanHeadId" hidden />
 
-
             <div class="row">
                 <div class="col-3">
                     <select id="selPl" name="selectedDay" size="1" required class="browser-default custom-select">
-                        <option disabled selected>CHOOSE TRAINING PLAN DAY</option>
+                        <option disabled selected>localizer["ChooseTrainingPlanDay"]</option>
                         @foreach (var day in @Model.TrainingDays)
                         {
                             <option value="@day">@day</option>
@@ -68,7 +61,7 @@
             </div>
         </div>
         <button class="btn btn-primary">@LocalizerShared["ChooseButton"]</button>
-        <a asp-action="ViewTrainingSpecs" asp-route-dayTraining=@Model.HeadId class="btn btn-warning">@LocalizerShared["CancelButton"]</a>
+        <a asp-action="ViewTrainingSpecs" asp-route-dayTraining=@Model.HeadId class="btn btn-danger">@LocalizerShared["CancelButton"]</a>
     </form>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">

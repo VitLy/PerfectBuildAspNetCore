@@ -177,6 +177,8 @@ namespace PerfectBuild.Controllers
         [HttpPost]
         public async Task<IActionResult> AddModifyTrainingSpecLine(TrainigSpecLineChangeViewModel viewModel)
         {
+            ViewBag.Tittle = viewModel.Id==0?localizer["TittleAdd"]:localizer["TittleModify"];
+
             if (viewModel == null)
             {
                 ModelState.AddModelError("Incorrect TrainigSpecLineChangeViewModel", "Incorrect TrainigSpecLineChangeViewModel");
@@ -192,7 +194,6 @@ namespace PerfectBuild.Controllers
             {
                 if (viewModel.Id == 0)
                 {
-                    ViewBag.Tittle = localizer["TittleModify"];
                     TrainingProgramSpec programSpec = new TrainingProgramSpec
                     {
                         HeadId = viewModel.HeadId,

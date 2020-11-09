@@ -120,4 +120,7 @@
   <data name="AddExFromTrainPlan" xml:space="preserve">
     <value>Добавление упражнений из тренировочной программы</value>
   </data>
+  <data name="ChooseTrainingPlanDay" xml:space="preserve">
+    <value>Выберите тренировочный день</value>
+  </data>
 </root>

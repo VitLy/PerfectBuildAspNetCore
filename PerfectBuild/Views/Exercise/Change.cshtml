@@ -6,8 +6,7 @@
     Layout = "~/Views/Shared/_LayoutWithoutMenuAndLge.cshtml";
 }
 <div class="bg-primary text-white"><h3>&ensp;@Localizer[ViewBag.Tittle]</h3></div>
-<div class="p-2">
-    <form method="post" class="form-group" asp-action="Change">
+    <form method="post" class="form-group px-2" asp-action="Change">
         <div class="form-group">
             <input asp-for="@Model.Id" hidden="hidden" />
             <span asp-validation-for="Name"></span>
@@ -44,4 +43,3 @@
             <button class="btn btn-primary">@LocalizerShared["OkButton"]</button>
             <a class="btn btn-danger" asp-action="List">@LocalizerShared["CancelButton"]</a>
     </form>
-</div>

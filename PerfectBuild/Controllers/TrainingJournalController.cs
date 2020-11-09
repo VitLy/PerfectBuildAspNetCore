@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using PerfectBuild.Data;
 using PerfectBuild.Models;
 using PerfectBuild.Models.ViewModels;
@@ -23,10 +24,11 @@ namespace PerfectBuild.Controllers
         private readonly DocumentSpecHandler<TrainingSpec> documentSpecHandler;
         private readonly ITrainigDayConverter dayConverter;
         private readonly SpecLineValidator specLineValidator;
+        private readonly IStringLocalizer<TrainingJournalController> localizer;
 
         public TrainingJournalController(UserManager<User> userManager, ApplicationContext appContext,
             DocumentHeadHandler<TrainingHead> headHandler, DocumentSpecHandler<TrainingSpec> documentSpecHandler,
-            ITrainigDayConverter dayConverter, SpecLineValidator specLineValidator)
+            ITrainigDayConverter dayConverter, SpecLineValidator specLineValidator, IStringLocalizer<TrainingJournalController> localizer)
         {
             this.userManager = userManager;
             this.appContext = appContext;
@@ -34,6 +36,7 @@ namespace PerfectBuild.Controllers
             this.documentSpecHandler = documentSpecHandler;
             this.dayConverter = dayConverter;
             this.specLineValidator = specLineValidator;
+            this.localizer = localizer;
         }
 
         [HttpGet]
@@ -161,7 +164,7 @@ namespace PerfectBuild.Controllers
 
                 if (id != 0) //existed Line
                 {
-                    ViewBag.Tittle = "Modify";
+                    ViewBag.Tittle = localizer["TittleModify"];
                     var spec = appContext.TrainingSpecs.Include(x => x.Exercise).Where(x => x.Id == id).ToList().FirstOrDefault();
                     model.Id = id;
                     model.Name = spec.Exercise.Name;
@@ -172,7 +175,7 @@ namespace PerfectBuild.Controllers
                 }
                 else //new Line
                 {
-                    ViewBag.Tittle = "Add";
+                    ViewBag.Tittle = localizer["TittleAdd"];
                     return View(model);
                 }
             }
@@ -182,6 +185,7 @@ namespace PerfectBuild.Controllers
         [HttpPost]
         public async Task<IActionResult> AddModifySpecLine(TrainigSpecLineChangeViewModel viewModel)
         {
+            ViewBag.Tittle = viewModel.Id != 0 ? localizer["TittleModify"] : localizer["TittleAdd"];
             string userId = userManager.GetUserId(HttpContext.User);
             if (viewModel == null)
             {

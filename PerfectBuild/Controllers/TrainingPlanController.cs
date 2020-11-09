@@ -30,7 +30,7 @@ namespace PerfectBuild.Controllers
         //TODO: При выходе(при удалении строки спецификации?) из документа - проверка на наличие спецификации, если нет - удалить заголовок
 
         public TrainingPlanController(UserManager<User> userManager, ApplicationContext appContext,
-            DocumentSpecHandler<TrainingPlanSpec> documentSpecHandler, ITrainigDayConverter trainigDayConverter,SpecLineValidator specLineValidator,
+            DocumentSpecHandler<TrainingPlanSpec> documentSpecHandler, ITrainigDayConverter trainigDayConverter, SpecLineValidator specLineValidator,
             IStringLocalizer<SharedResource> sharedLocalizer, IStringLocalizer<TrainingPlanController> localizer)
         {
             this.appContext = appContext;
@@ -76,7 +76,7 @@ namespace PerfectBuild.Controllers
         [HttpGet]
         public IActionResult AddModifyTrainingPlanLine(DayOfWeek dayTraining, int headId)
         {
-            var exercises = appContext.Exercises.OrderBy(x=>x.Name).ToList();
+            var exercises = appContext.Exercises.OrderBy(x => x.Name).ToList();
             int specId = 0;
             var model = new TrainigSpecLineChangeViewModel
             {
@@ -89,6 +89,7 @@ namespace PerfectBuild.Controllers
                 specId = (int)TempData["specId"];
                 headId = (int)TempData["headId"];
                 dayTraining = (DayOfWeek)TempData["dayTraining"];
+                ViewData["Tittle"] = (string)localizer["ModifyPlanExercise"];
 
                 var line = appContext.TrainingPlanSpecs.Find(specId);
                 model.Id = specId;
@@ -97,6 +98,10 @@ namespace PerfectBuild.Controllers
                 model.Weight = line.Weight;
                 model.Name = line.Exercise.Name;
                 model.Amount = line.Amount;
+            }
+            else
+            {
+                ViewData["Tittle"] = (string)localizer["AddingExerciseToPlan"];
             }
             ViewBag.TrainingDay = dayTraining;
             return View(model);
@@ -108,7 +113,7 @@ namespace PerfectBuild.Controllers
             if (viewModel != null)
             {
                 var exercises = appContext.Exercises.ToList();
-                if (!specLineValidator.IsSpecLineHasCorrectWeight(viewModel.ExerciseId,viewModel.Weight,exercises, out string shortMessage, out string longMessage)) 
+                if (!specLineValidator.IsSpecLineHasCorrectWeight(viewModel.ExerciseId, viewModel.Weight, exercises, out string shortMessage, out string longMessage))
                 {
                     ModelState.AddModelError(shortMessage, longMessage);
                 }
@@ -118,7 +123,7 @@ namespace PerfectBuild.Controllers
                     int headId = viewModel.HeadId;
                     if (viewModel.HeadId == 0)
                     {
-                        headId = await CreateTrainigPlanHead(viewModel.DayTraining,CreateTrainingPlanName(viewModel.DayTraining));
+                        headId = await CreateTrainigPlanHead(viewModel.DayTraining, CreateTrainingPlanName(viewModel.DayTraining));
                     }
                     documentSpecHandler.FillDocument(appContext.TrainingPlanSpecs.Where(x => x.HeadId.Equals(headId)).ToList());
                     var planSpecLine = new TrainingPlanSpec
@@ -155,6 +160,7 @@ namespace PerfectBuild.Controllers
                 {
                     viewModel.Exercises = exercises.OrderBy(x => x.Name).ToList();
                     ViewBag.TrainingDay = viewModel.DayTraining;
+                    ViewData["Tittle"] = viewModel.Id == 0 ? (string)localizer["AddingExerciseToPlan"] : (string)localizer["ModifyPlanExercise"];
                     return View(viewModel);
                 }
             }
@@ -355,7 +361,7 @@ namespace PerfectBuild.Controllers
             return headId;
         }
 
-        private async Task<int> CreateTrainigPlanHead(DayOfWeek dayTraining,string trainingName)
+        private async Task<int> CreateTrainigPlanHead(DayOfWeek dayTraining, string trainingName)
         {
             string userId = userManager.GetUserId(HttpContext.User);
             byte trainingDay = trainigDayConverter.DaysToByte(dayTraining);
@@ -373,7 +379,7 @@ namespace PerfectBuild.Controllers
 
         private string CreateTrainingPlanName(DayOfWeek dayTraining)
         {
-            return $"{localizer["Tittle"]}-{sharedLocalizer[dayTraining.ToString()]}"; 
+            return $"{localizer["Tittle"]}-{sharedLocalizer[dayTraining.ToString()]}";
         }
 
         #endregion

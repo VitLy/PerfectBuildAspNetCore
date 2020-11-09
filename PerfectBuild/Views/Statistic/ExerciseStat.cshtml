@@ -5,47 +5,51 @@
 @{
     Layout = "_LayoutCanvasStatistics";
 }
-<div class="bg-primary text-white"><h3>@Localizer["Tittle"]</h3></div>
-<div class="container m-0 p-3">
-    <div class="row p-1">
+<div class="bg-primary text-white"><h3>&ensp;@Localizer["Tittle"]</h3></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="validation" asp-validation-summary="All"> </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-12">
             <form method="post" asp-action="ExerciseStat">
-                <div class="validation" asp-validation-summary="All"> </div>
-                <div class="form-row">
-                    <div class="form-group col-3">
-                        <input asp-for="@Model.UserId" hidden="hidden" value="@Model.UserId" />
+                <div class="form-row align-items-end">
+                    <div class="col">
+                        <input class="form-control" asp-for="@Model.UserId" hidden="hidden" value="@Model.UserId" />
                         <label for="@Model.DayFrom"></label>
-                        <input asp-for="@Model.DayFrom" type="datetime-local" class="form-control">
+                        <input class="form-control" asp-for="@Model.DayFrom" type="datetime-local">
                     </div>
-                    <div class="form-group col-3">
+                    <div class="col">
                         <label for="@Model.DayTo"></label>
-                        <input asp-for="@Model.DayTo" type="datetime-local" class="form-control">
+                        <input class="form-control" asp-for="@Model.DayTo" type="datetime-local">
                     </div>
-                    <div class="form-group col-3">
+                    <div class="col">
                         @if (Model.Exercises != null)
                         {
-                            <select asp-for="Exercise" asp-items="@Model.Exercises">
+                            <select class="custom-select" asp-for="Exercise" asp-items="@Model.Exercises">
                             </select>
                         }
                         else
                         {
                             <label for="exercise">Exercises:</label>
-                            <select name="not found" id="exercise">
+                            <select class="custom-select" name="not found" id="exercise">
                             </select>
                         }
                     </div>
                 </div>
-                <div class="form-row">
-                    <button class="btn btn-primary" asp-action="ExerciseStat">@LocalizerShared["ShowButton"]</button>
+                <div class="row py-2">
+                    <div class="col-12">
+                        <button class="btn btn-primary" asp-action="ExerciseStat">@LocalizerShared["ShowButton"]</button>
+                    </div>
                 </div>
-
             </form>
         </div>
     </div>
-    <div class="row p-1">
+    <div class="row">
         <div class="col-12">
-            <div id="chartContainer" style="height: 300px; width: 100%;">
-            </div>
+            <div id="chartContainer" style="height: 300px; width: 100%;"></div>
         </div>
     </div>
 </div>

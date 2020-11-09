@@ -8,8 +8,7 @@
 }
 
 <div class="bg-primary text-white"><h3>&ensp;@Localizer["DailyParameters"]</h3></div>
-<form method="post" asp-action="DailyParameters">
-    <div class="p-2">
+<form method="post" asp-action="DailyParameters" class="px-2">
         <div class="validation" asp-validation-summary="All"> </div>
         <div class="form-group">
             <label asp-for="Date">@LocalizerShared["Date"]</label>
@@ -44,5 +43,4 @@
 
         <button class="btn btn-primary">@LocalizerShared["SaveButton"]</button>
         <a class="btn btn-danger" formmethod="get" asp-controller="Home" asp-action="Index">@LocalizerShared["ExitButton"]</a>
-    </div>
 </form>

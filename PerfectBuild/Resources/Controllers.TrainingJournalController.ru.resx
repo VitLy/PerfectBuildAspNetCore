@@ -117,7 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddingExerciseToPlan" xml:space="preserve">
-    <value>Добавление упражнения в план тренировок</value>
+  <data name="TittleAdd" xml:space="preserve">
+    <value>Добавление упражнения в журнале тренировок</value>
+  </data>
+  <data name="TittleModify" xml:space="preserve">
+    <value>Изменение упражнения в журнале тренировок</value>
   </data>
 </root>

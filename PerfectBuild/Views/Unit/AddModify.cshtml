@@ -12,9 +12,8 @@
 
 <body>
     <div class="bg-primary text-white"><h3>&ensp;@ViewBag.Tittle</h3></div>
-    <div class="p-2">
         <div class="validation" asp-validation-summary="All"> </div>
-        <form asp-action="AddModify">
+        <form asp-action="AddModify" class="px-2">
             <div class="form-group">
                 <span asp-validation-for="ShortName"></span>
                 <label for="ShortName">@Localizer["UnitShortName"]</label>
@@ -31,5 +30,4 @@
             <button type="submit" class="btn btn-primary">@LocalizerShared["OkButton"]</button>
             <a class="btn btn-danger" asp-action="List">@LocalizerShared["CancelButton"]</a>
         </form>
-    </div>
 </body>

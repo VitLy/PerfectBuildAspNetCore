@@ -1,11 +1,11 @@
 ﻿@model PerfectBuild.Models.ViewModels.LoginViewModel
 @inject IViewLocalizer Localizer
-<div class="bg-primary text-white"><h3>@Localizer["TittleAuthorizationWindow"]</h3></div>
+<div class="bg-primary text-white"><h3>&ensp;@Localizer["TittleAuthorizationWindow"]</h3></div>
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0&appId=643233883076793&autoLogAppEvents=1"></script>
 
-<form method="post" asp-controller="Account" asp-action="Login">
-    <div class="validation" asp-validation-summary="All"> </div>
+<div class="validation" asp-validation-summary="All"> </div>
+<form method="post" asp-controller="Account" asp-action="Login" class="px-2">
 
     <div class="form-group">
         <span asp-validation-for="Login"></span>

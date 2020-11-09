@@ -124,16 +124,16 @@
     <value>Электронная почта</value>
   </data>
   <data name="FName" xml:space="preserve">
-    <value>Имя:</value>
+    <value>Имя</value>
   </data>
   <data name="LName" xml:space="preserve">
-    <value>Фамилия:</value>
+    <value>Фамилия</value>
   </data>
   <data name="Man" xml:space="preserve">
     <value>Мужчина</value>
   </data>
   <data name="Sex" xml:space="preserve">
-    <value>Пол:</value>
+    <value>Пол</value>
   </data>
   <data name="UserProfile" xml:space="preserve">
     <value>Профиль пользователя</value>

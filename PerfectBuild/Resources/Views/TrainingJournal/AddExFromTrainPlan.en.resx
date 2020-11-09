@@ -120,4 +120,7 @@
   <data name="AddExFromTrainPlan" xml:space="preserve">
     <value>Add Exercise from Personal Training Plan</value>
   </data>
+  <data name="ChooseTrainingPlanDay" xml:space="preserve">
+    <value>CHOOSE TRAINIG PLAN DAY</value>
+  </data>
 </root>

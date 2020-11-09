@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Tittle" xml:space="preserve">
-    <value>Статистика упржнений</value>
+    <value>Статистика упражнений</value>
   </data>
 </root>

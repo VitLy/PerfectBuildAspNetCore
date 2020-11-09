@@ -8,15 +8,7 @@
 
 <div class="bg-primary text-white">
     <h3>
-        &ensp;
-        @if (ViewBag.Tittle == "Add")
-        {
-            @Localizer["AddingExerciseToTrainingJournal"]
-        }
-        else if (ViewBag.Tittle == "Modify")
-        {
-            @Localizer["ModifyExerciseInTrainingJournal"]
-        }
+        &ensp;@ViewBag.Tittle
     </h3>
 </div>
 <div class="p-2">
