@@ -1,12 +1,15 @@
-﻿@model PerfectBuild.Models.ViewModels.LoginViewModel
+﻿@using Microsoft.AspNetCore.Identity
+@model PerfectBuild.Models.ViewModels.LoginViewModel
 @inject IViewLocalizer Localizer
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
 <div class="bg-primary text-white"><h3>&ensp;@Localizer["TittleAuthorizationWindow"]</h3></div>
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0&appId=643233883076793&autoLogAppEvents=1"></script>
 
 <div class="validation" asp-validation-summary="All"> </div>
 <form method="post" asp-controller="Account" asp-action="Login" class="px-2">
-
     <div class="form-group">
         <span asp-validation-for="Login"></span>
         <label for="Login">@Localizer["FormLoginName"]</label>
@@ -21,8 +24,8 @@
     <div>
         <a asp-action="Create">@Localizer["CreateAccount"]</a>
     </div>
-
-    <div class="fb-login-button" data-width="" data-size="medium" data-button-type="login_with" data-layout="rounded" data-auto-logout-link="false" data-use-continue-as="false"></div>
 </form>
+
+<a class="btn btn-info" asp-action="LoginFacebook" asp-route-returnUrl=@ViewBag.returnUrl>FaceBookLogin</a>
 
 

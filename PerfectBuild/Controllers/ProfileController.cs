@@ -32,6 +32,11 @@ namespace PerfectBuild.Controllers
             if (profile == null)
             {
                 userProfileModel = new UserProfileModel { Profile = new Profile { UserId = userId } };
+                var isExternalAuthenticationUser = User.HasClaim(x => x.Value == "Facebook");
+                if (isExternalAuthenticationUser) 
+                {
+                    userProfileModel.EMail = await userManager.GetEmailAsync(user);
+                }
             }
             else
             {
@@ -70,7 +75,7 @@ namespace PerfectBuild.Controllers
                         profile.Height = model.Profile.Height;
                         appContext.Update(profile);
                         await appContext.SaveChangesAsync();
-                        user.NormalizedEmail = model.EMail;
+                        user.Email = model.EMail;
                         await userManager.UpdateAsync(user);
                         model.Profile = profile;
                     }

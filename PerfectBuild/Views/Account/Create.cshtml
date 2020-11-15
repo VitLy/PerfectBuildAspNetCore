@@ -1,6 +1,7 @@
 ﻿@model PerfectBuild.Models.ViewModels.CreateAccountModel
 @inject IViewLocalizer Localizer
-<div class="bg-primary text-white"><h1>@Localizer["TittleAuthorizationWindow"]</h1></div>
+@inject IHtmlLocalizer<SharedResource> LocalizerShared
+    <div class="bg-primary text-white"><h3>&ensp;@Localizer["TittleAuthorizationWindow"]</h3></div>
 <form asp-action="Create" method="post">
     <div class="validation" asp-validation-summary="All"> </div>
 
@@ -28,5 +29,6 @@
         <span asp-validation-for="Email"></span>
     </div>
 
-    <button type="submit" class="btn btn-primary">@Localizer["Ok"]</button>
+    <button type="submit" class="btn btn-primary">@LocalizerShared["OkButton"]</button>
+    <a class="btn btn-danger" asp-action="Login">@LocalizerShared["CancelButton"]</a>
 </form>

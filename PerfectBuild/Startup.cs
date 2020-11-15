@@ -29,23 +29,19 @@ namespace PerfectBuild
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
-            services.AddTransient<ITrainigDayConverter,TrainingDayConverter>();
+            services.AddTransient<ITrainigDayConverter, TrainingDayConverter>();
             services.AddTransient<DocumentSpecHandler<TrainingPlanSpec>>();
             services.AddTransient<DocumentHeadHandler<TrainingHead>>();
             services.AddTransient<DocumentSpecHandler<TrainingSpec>>();
-            services.AddTransient<ChartProvider,CanvasJSProvider>();
+            services.AddTransient<ChartProvider, CanvasJSProvider>();
             services.AddSingleton<SpecLineValidator>();
 
-            services.AddAuthentication().AddFacebook(option =>
-            {
-                option.AppId = Configuration["Authentication:Facebook:AppId"];
-                option.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
-            });
 
             services.AddIdentity<User, IdentityRole>(opt =>
             {
                 opt.Password.RequireNonAlphanumeric = false;
                 opt.Password.RequireUppercase = false;
+                opt.User.RequireUniqueEmail = true;
             })
                 .AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
             services.AddLocalization(option => option.ResourcesPath = "Resources");
@@ -56,6 +52,12 @@ namespace PerfectBuild
             .AddViewLocalization()
             .AddDataAnnotationsLocalization();
 
+            services.AddAuthentication().AddFacebook(option =>
+            {
+                option.AppId = Configuration["Authentication:Facebook:AppId"];
+                option.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+
+            });
             services.Configure<RequestLocalizationOptions>(options =>
             {
                 var supportedCultures = new[]
