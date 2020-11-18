@@ -1,26 +1,71 @@
-﻿@{
-    ViewData["Title"] = "Index";
+﻿@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = "StartPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            Это Строка №1 Колонка Номер№1
+<div id="container" class="container p-2">
+    <div class="row mb-3">
+        <div class="col-lg-5 pt-4">
+            <img class="img-responsive center-block" src="~/img/crop-woman-with-laptop-and-dumbbell-on-sports-mat-350350.jpg " />
+        </div>
+        <div class="col-lg-6 ml-lg-auto">
+            <div >
+                <div class="menu-item">
+                    <a asp-controller="Activity" asp-action="DailyParameters"><h3>@Localizer["ReferToDailyParam"]</h3></a>
+                </div>
+                <br />
+                <div class="menu-item" style="background:#007BFF">
+                    <a asp-controller="TrainingProgram" asp-action="List"><h3>@Localizer["ReferToTrainProgram"]</h3></a>
+                </div>
+                <br />
+                <div class="menu-item" style="background:#007BFF">
+                    <a asp-controller="TrainingPlan" asp-action="Show"><h3>@Localizer["ReferToTrainPlan"]</h3></a>
+                </div>
+                <br />
+                <div class="menu-item" style="background:#007BFF">
+                    <a asp-controller="Training" asp-action="Start"><h3>@Localizer["ReferToTraining"]</h3></a>
+                </div>
+                <br />
+                <div class="menu-item" style="background:#007BFF">
+                    <a asp-controller="Statistic" asp-action="BodyStat"><h3>@Localizer["ReferToStatisticBody"]</h3></a>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-4">
-            Это Строка №2 Колонка Номер№1-4
-        </div>
-        <div class="col-4">
-            Это Строка №2 Колонка Номер№5-8
-        </div>
-        <div class="col-4">
-            Это Строка №2 Колонка Номер№9-12
-        </div>
-    </div>
-  
 </div>
 
-        
+<div id="footer">
+    <div class="container">
+        <div class="row m-2">
+            <div class="col-6">
+                <span>
+                    <img src="~/img/facebook_icon-icons.com_53612.svg" height="40" width="40" />
+                    <a href="https://www.facebook.com/vitaly.borischak/">https://www.facebook.com/vitaly.borischak/</a>
+                </span>
+            </div>
+            <div class="col-6">
+                <span>
+                    <img src="~/img/linkedin_icon-icons.com_53609.svg" height="40" width="40" />
+                    <a href="https://www.linkedin.com/in/boryshchak-vitalii-65998544">https://www.linkedin.com/in/boryshchak-vitalii-65998544</a>
+                </span>
+            </div>
+        </div>
+
+        <div class="row m-2">
+            <div class="col-6">
+                <span>
+                    <img src="~/img/logo_gmail_envelope_letter_email_icon_143171.svg" height="40" width="40" />
+                    <a href="https://borischak.vd@gmail.com">https://borischak.vd@gmail.com</a>
+                </span>
+            </div>
+            <div class="col-6">
+                <span>
+                    <img src="~/img/github-sign_icon-icons.com_73545.svg" height="40" width="40" />
+                    <a href="https://github.com/VitLy/PerfectBuild">https://github.com/VitLy/PerfectBuild</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
 

@@ -1,36 +1,91 @@
-﻿body {
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
     margin: 0;
     line-height: 1.6;
     color: #023662
 }
+
+html,
+body {
+    height: 100%;
+}
+
+#wrap {
+    min-height: 100%;
+}
+
+main {
+    padding-bottom: 80px;
+}
+
+.menu-item {
+    background: #007BFF;
+    border-radius: 30px;
+    padding: 5px;
+    margin: 4px;
+}
+
+    #container a {
+        color: #FFFFFF;
+    }
+
+        #container a:hover {
+            text-decoration: underline;
+            color:#FFFFFF;
+        }
+
+#footer {
+    height: auto;
+    background: #007BFF;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    overflow:auto;
+}
+
+    #footer a {
+        color: #FFFFFF
+    }
+
+
 .table {
     width: 100%;
     margin-bottom: 1rem;
     color: #023662;
 }
+
 .a {
     color: #023662;
 }
-.modal-content{
-    background-color:#fefefe;
-    margin:15%,auto;
-    padding:20px;
-    border:1px solid #888;
-    width:80%
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15%,auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%
 }
-.close{
+
+.close {
     color: #aaa;
-    float:right;
-    font-size:28px;
-    font-weight:bold;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
 }
+
 .block {
     display: inline-block;
 }
+
 input,
 label {
     display: block;
 }
+
 .field-validation-error {
     color: red;
 }
@@ -54,6 +109,3 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
-
-
-
