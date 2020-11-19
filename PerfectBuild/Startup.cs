@@ -27,7 +27,7 @@ namespace PerfectBuild
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
-            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            string connectionString = Configuration.GetConnectionString("AzureConnection");
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
             services.AddTransient<ITrainigDayConverter, TrainingDayConverter>();
             services.AddTransient<DocumentSpecHandler<TrainingPlanSpec>>();

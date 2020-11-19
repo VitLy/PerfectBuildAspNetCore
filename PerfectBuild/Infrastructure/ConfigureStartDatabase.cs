@@ -11,7 +11,7 @@ namespace PerfectBuild.Infrastructure
 {
     /// <summary>
     /// Заполнение базы данных первоначальными данными
-    /// Предполагается, что фукнционал используется из рабочего кабинета администратора
+    /// Предполагается, что функционал используется из рабочего кабинета администратора
     /// Перед заполнением, все базы, кроме Identity очищаются
     /// </summary>
     internal class ConfigureStartDatabase
@@ -29,6 +29,7 @@ namespace PerfectBuild.Infrastructure
         {
             UserManager<User> userManager = httpContext.RequestServices.GetRequiredService<UserManager<User>>();
             var currentUserId = userManager.GetUserId(httpContext.User);
+            RoleManager<IdentityRole> roleManager = httpContext.RequestServices.GetRequiredService<RoleManager<IdentityRole>>();
 
             if (!string.IsNullOrWhiteSpace(currentUserId))
             {

@@ -20,6 +20,7 @@ namespace PerfectBuild.Infrastructure
 
             string adminName = configuration.GetValue<string>("Data:AdminUser:Name");
             string adminRole = configuration.GetValue<string>("Data:AdminUser:Role");
+            string userRole = "User";
             string adminEmail = configuration.GetValue<string>("Data:AdminUser:Email");
             string adminPassword = configuration.GetValue<string>("Data:AdminUser:Password");
 
@@ -31,6 +32,11 @@ namespace PerfectBuild.Infrastructure
             {
                 if (!userManager.Users.Any()) 
                 {
+                    bool roleUserIsExists = await roleManager.RoleExistsAsync(userRole);
+                    if (!roleUserIsExists) 
+                    {
+                        await roleManager.CreateAsync(new IdentityRole(userRole));
+                    }
                     bool roleIsExists = await roleManager.RoleExistsAsync(adminRole); 
                     if (!roleIsExists)
                     {

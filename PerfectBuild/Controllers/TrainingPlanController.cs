@@ -379,7 +379,7 @@ namespace PerfectBuild.Controllers
 
         private string CreateTrainingPlanName(DayOfWeek dayTraining)
         {
-            return $"{localizer["Tittle"]}-{sharedLocalizer[dayTraining.ToString()]}";
+            return $"PTP-{sharedLocalizer[dayTraining.ToString()]}";
         }
 
         #endregion

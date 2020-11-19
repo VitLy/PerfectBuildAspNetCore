@@ -51,8 +51,8 @@ namespace PerfectBuild.Controllers
             }
             else
             {
-                string userName = info.Principal.FindFirst(ClaimTypes.GivenName).Value +
-                    info.Principal.FindFirst(ClaimTypes.Surname).Value;
+                string userName = (info.Principal.FindFirst(ClaimTypes.GivenName).Value +
+                    info.Principal.FindFirst(ClaimTypes.Surname).Value).Substring(0,10).Trim();
                 User user = new User
                 {
                     Email = info.Principal.FindFirst(ClaimTypes.Email).Value,
