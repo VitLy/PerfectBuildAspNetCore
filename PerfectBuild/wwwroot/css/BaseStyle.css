@@ -29,13 +29,22 @@ main {
     margin: 4px;
 }
 
+    #container a {
+        color: #FFFFFF;
+    }
+
+        #container a:hover {
+            text-decoration: underline;
+            color:#FFFFFF;
+        }
+
 #footer {
     height: auto;
     background: #007BFF;
     position: relative;
     bottom: 0;
     width: 100%;
-    overflow: auto;
+    overflow:auto;
 }
 
     #footer a {

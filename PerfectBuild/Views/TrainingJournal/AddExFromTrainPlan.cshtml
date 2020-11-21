@@ -36,7 +36,7 @@
             <div class="row">
                 <div class="col-3">
                     <select id="selPl" name="selectedDay" size="1" required class="browser-default custom-select">
-                        <option disabled selected>localizer["ChooseTrainingPlanDay"]</option>
+                        <option disabled selected>@Localizer["ChooseTrainingPlanDay"]</option>
                         @foreach (var day in @Model.TrainingDays)
                         {
                             <option value="@day">@day</option>
