@@ -13,9 +13,8 @@
 </div>
 <div class="p-2">
     <form method="post" asp-action="AddModifySpecLine">
-        <div class="validation" asp-validation-summary="All"> </div>
+        <div class="validation" asp-validation-summary="ModelOnly"> </div>
         <div class="form-group">
-            <div asp-validation-for="@Model.ExerciseId"></div>
             <select class="browser-default custom-select" name="ExerciseId" required="required" size="1">
                 @if (Model.Id == 0)
                 {
@@ -32,28 +31,30 @@
             </select>
         </div>
         <div class="form-group">
+            <span asp-validation-for="Name"></span>
             <input asp-for="HeadId" value="@Model.HeadId" hidden="hidden" />
             <input asp-for="Id" value="@Model.Id" hidden="hidden" />
             <input asp-for="Name" value="@Model.Name" hidden="hidden" />
             <input name="day" value="@ViewBag.TrainingDay" hidden="hidden" />
 
             <div asp-validation-for="@Model.Set"></div>
+            <span asp-validation-for="Set"></span>
             <label asp-for="Set">@LocalizerShared["Set"]</label>
             <input asp-for="Set" value=@Model.Set class="form-control">
         </div>
         <div>
+            <span asp-validation-for="@Model.Weight"></span>
             <label asp-for="Weight">@LocalizerShared["Weight"]</label>
-            <div asp-validation-for="@Model.Weight"></div>
             <input asp-for="Weight" value=@Model.Weight type="number" step="0.1" class="form-control">
         </div>
         <div class="form-group">
+            <span asp-validation-for="@Model.Amount"></span>
             <label asp-for="Amount">@LocalizerShared["Amount"]</label>
-            <div asp-validation-for="@Model.Amount"></div>
             <input asp-for="Amount" value=@Model.Amount class="form-control">
         </div>
 
         <button class="btn btn-primary">@LocalizerShared["OkButton"]</button>
-        <a asp-action="ViewTrainingSpecs" class="btn btn-danger">@LocalizerShared["CancelButton"]</a>
+        <a asp-action="ViewTrainingSpecs" class="btn btn-danger" asp-route-headId="@Model.HeadId">@LocalizerShared["CancelButton"]</a>
 
     </form>
 </div>

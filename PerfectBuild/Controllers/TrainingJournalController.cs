@@ -355,14 +355,14 @@ namespace PerfectBuild.Controllers
                 var trainingPlanSpecs = appContext.TrainingPlanSpecs.Where(x => x.HeadId.Equals(model.PlanHeadId)).ToList();
                 var userId = userManager.GetUserId(HttpContext.User);
                 int headId = model.HeadId;
-                byte SetNum = 1;
+                byte currentDocumentSetCount = 0;
                 List<TrainingSpec> lines;
                 if (trainingPlanSpecs.Count != 0)
                 {
                     lines = appContext.TrainingSpecs.Where(x => x.HeadId.Equals(model.HeadId)).ToList();
                     if (lines.Count != 0)
                     {
-                        SetNum = Convert.ToByte(lines.Max(x => x.Set) + 1);
+                        currentDocumentSetCount = Convert.ToByte(lines.Max(x => x.Set));
                     }
 
                     documentSpecHandler.FillDocument(lines);
@@ -375,7 +375,7 @@ namespace PerfectBuild.Controllers
                         lines.Add(new TrainingSpec
                         {
                             HeadId = headId,
-                            Set = SetNum,
+                            Set = (byte)(trainingPlanLine.Set + currentDocumentSetCount),
                             ExId = trainingPlanLine.ExId,
                             Weight = trainingPlanLine.Weight,
                             Amount = trainingPlanLine.Amount,

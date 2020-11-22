@@ -124,6 +124,6 @@
     <value>Допустимая длина имени упражнения -  {1} символов</value>
   </data>
   <data name="NameRequired" xml:space="preserve">
-    <value>Внести имя упражнения</value>
+    <value>Введите имя упражнения</value>
   </data>
 </root>

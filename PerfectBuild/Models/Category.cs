@@ -15,7 +15,3 @@ namespace PerfectBuild.Models
         public virtual ICollection<TrainingProgramHead> TrainingProgramHeads { get; set; }
     }
 }
-
-
-
-
